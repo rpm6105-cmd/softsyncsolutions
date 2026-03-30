@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HRMS & Payroll Automation | Rohith Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .project-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-light));
+            text-align: center;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--glass);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .meta-item h4 { color: var(--accent); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .meta-item p { font-weight: 600; }
+        
+        .case-section { padding: 5rem 0; }
+        .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        
+        .feature-list { margin-top: 2rem; }
+        .feature-list li { margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .feature-list li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+        
+        .impact-card {
+            background: var(--gradient);
+            padding: 4rem;
+            border-radius: 32px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .stat-val { font-size: 3rem; font-weight: 800; display: block; }
+        .stat-label { font-size: 0.9rem; opacity: 0.8; }
+        
+        .back-nav { margin-bottom: 2rem; display: inline-block; color: var(--text-dim); }
+        .back-nav:hover { color: var(--white); }
+    </style>
+</head>
+<body class="dark-theme">
+    <nav class="navbar scrolled">
+        <div class="container navbar-container">
+            <a href="../index.html" class="logo">Rohith.<span>ai</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#projects" class="active">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="project-hero">
+        <div class="container overflow-hidden">
+            <a href="../index.html#projects" class="back-nav">← Back to Projects</a>
+            <span class="section-label">Case Study</span>
+            <h1 class="fade-in">HRMS & Payroll Automation</h1>
+            <p class="fade-in delay-1" style="max-width: 800px; margin: 1.5rem auto;">A comprehensive SaaS platform designed to centralize employee data and automate complex payroll cycles.</p>
+            
+            <div class="project-meta fade-in delay-2">
+                <div class="meta-item">
+                    <h4>Industry</h4>
+                    <p>HR & FinTech</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>Full Stack Developer</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Tech Stack</h4>
+                    <p>Next.js, Supabase, SQL</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <h2>The <span class="accent">Challenge</span></h2>
+                    <p>Traditional HR management often relies on fragmented spreadsheets and manual entry, leading to high error rates in payroll and attendance tracking. The client needed a unified system that could handle large employee bases while ensuring 100% accuracy in financial disbursements.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Fragmented Records</div>
+                            <div class="split-desc">Employee data scattered across multiple legacy files.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Payroll Errors</div>
+                            <div class="split-desc">Manual calculation of bonuses, deductions, and taxes.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Attendance Gaps</div>
+                            <div class="split-desc">Inconsistent attendance tracking due to reliance on manual or semi-digital inputs.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <img src="../assets/images/hrms-mockup.jpg" alt="HRMS Interface" style="border-radius: 20px; box-shadow: var(--shadow);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-alt">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <div class="mockup-header" style="background: var(--bg-dark);">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 2rem; border-radius: 0 0 12px 12px; border: 1px solid var(--border);">
+                        <h4 style="color: var(--accent); margin-bottom: 1rem;">Core Architecture</h4>
+                        <div style="height: 10px; background: var(--surface); margin-bottom: 10px; border-radius: 5px;"></div>
+                        <div style="height: 10px; background: var(--surface); margin-bottom: 10px; border-radius: 5px; width: 80%;"></div>
+                        <div style="height: 10px; background: var(--surface); margin-bottom: 20px; border-radius: 5px; width: 60%;"></div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <div style="height: 60px; background: var(--surface); border-radius: 8px;"></div>
+                            <div style="height: 60px; background: var(--surface); border-radius: 8px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2>The <span class="accent">Solution</span></h2>
+                    <p>I developed a custom HRMS engine that integrates attendance, payroll, and employee lifecycle management into a single dashboard.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Automated Payroll</div>
+                            <div class="split-desc">One-click salary generation considering all variables.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Attendance Engine</div>
+                            <div class="split-desc">Centralized attendance tracking with manual and system-based input support.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Document Vault</div>
+                            <div class="split-desc">Secure storage for employee contracts and KYC.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Self-Service Portal</div>
+                            <div class="split-desc">Employees can access salary slips, submit attendance requests, and manage leave records.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="impact-card reveal">
+                <h2>Business <span class="white">Impact</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-val">90%</span>
+                        <p class="stat-label">Reduction in Manual Payroll Processing Time</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">100%</span>
+                        <p class="stat-label">Accuracy in Tax & Slab Calculations</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">200+</span>
+                        <p class="stat-label">Employees Managed Seamlessly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <h2>Ready to automate your HR?</h2>
+                <a href="../index.html#contact" class="btn btn-primary" style="margin-top: 2rem;">Get in Touch</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

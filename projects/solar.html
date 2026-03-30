@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Automation System | Rohith Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .project-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-light));
+            text-align: center;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--glass);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .meta-item h4 { color: var(--accent); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .meta-item p { font-weight: 600; }
+        
+        .case-section { padding: 5rem 0; }
+        .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        
+        .feature-list { margin-top: 2rem; }
+        .feature-list li { margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .feature-list li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+        
+        .impact-card {
+            background: var(--gradient);
+            padding: 4rem;
+            border-radius: 32px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .stat-val { font-size: 3rem; font-weight: 800; display: block; }
+        .stat-label { font-size: 0.9rem; opacity: 0.8; }
+        
+        .back-nav { margin-bottom: 2rem; display: inline-block; color: var(--text-dim); }
+        .back-nav:hover { color: var(--white); }
+    </style>
+</head>
+<body class="dark-theme">
+    <nav class="navbar scrolled">
+        <div class="container navbar-container">
+            <a href="../index.html" class="logo">Rohith.<span>ai</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#projects" class="active">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="project-hero">
+        <div class="container overflow-hidden">
+            <a href="../index.html#projects" class="back-nav">← Back to Projects</a>
+            <span class="section-label">Case Study</span>
+            <h1 class="fade-in">Solar Automation System</h1>
+            <p class="fade-in delay-1" style="max-width: 800px; margin: 1.5rem auto;">Optimizing solar field operations through real-time data tracking and workflow automation.</p>
+            
+            <div class="project-meta fade-in delay-2">
+                <div class="meta-item">
+                    <h4>Industry</h4>
+                    <p>Clean Energy</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>Automation Architect</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Tech Stack</h4>
+                    <p>IoT Core, Next.js, API</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <h2>The <span class="accent">Challenge</span></h2>
+                    <p>Managing large-scale solar installations involves complex maintenance schedules and manual data tracking. The client wanted a system to provide high operational visibility and automate process optimization tasks.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Fragmented Maintenance</div>
+                            <div class="split-desc">Relying on manual logs for panel cleaning and repairs.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Low Visibility</div>
+                            <div class="split-desc">Difficulty in identifying low-performing strings in real-time.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Operational Overheads</div>
+                            <div class="split-desc">High costs associated with manual site reports.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <img src="../assets/images/solar-mockup.jpg" alt="Solar Automation Interface" style="border-radius: 20px; box-shadow: var(--shadow);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-alt">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <div class="mockup-header" style="background: var(--bg-dark);">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 3rem; border-radius: 0 0 12px 12px; border: 1px solid var(--border); min-height: 250px;">
+                        <h4 style="color: var(--accent); margin-bottom: 2rem;">Operational Map Preview</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #eab308; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #ef4444; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                            <div style="height: 40px; background: #22c55e; border-radius: 4px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2>The <span class="accent">Solution</span></h2>
+                    <p>I developed an end-to-end automation platform that handles maintenance scheduling and real-time performance tracking.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Workflow Automation</div>
+                            <div class="split-desc">Triggered maintenance tasks based on performance drops.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Real-time Dashboards</div>
+                            <div class="split-desc">Instant visibility into energy production trends.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Smart Reporting</div>
+                            <div class="split-desc">Automated daily and monthly operational summaries.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="impact-card reveal">
+                <h2>Business <span class="white">Impact</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-val">4,500+</span>
+                        <p class="stat-label">Panels Monitored in Real-Time</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">30%</span>
+                        <p class="stat-label">Increase in Operational Efficiency</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">Live</span>
+                        <p class="stat-label">Production Visibility 24/7</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <h2>Ready to optimize your operations?</h2>
+                <a href="../index.html#contact" class="btn btn-primary" style="margin-top: 2rem;">Get in Touch</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

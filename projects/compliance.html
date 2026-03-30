@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance Management System | Rohith Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        .project-hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(to bottom, var(--bg-dark), var(--bg-light));
+            text-align: center;
+        }
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--glass);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .meta-item h4 { color: var(--accent); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .meta-item p { font-weight: 600; }
+        
+        .case-section { padding: 5rem 0; }
+        .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        
+        .feature-list { margin-top: 2rem; }
+        .feature-list li { margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+        .feature-list li::before { content: "✓"; color: var(--accent); font-weight: bold; }
+        
+        .impact-card {
+            background: var(--gradient);
+            padding: 4rem;
+            border-radius: 32px;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+        .stat-val { font-size: 3rem; font-weight: 800; display: block; }
+        .stat-label { font-size: 0.9rem; opacity: 0.8; }
+        
+        .back-nav { margin-bottom: 2rem; display: inline-block; color: var(--text-dim); }
+        .back-nav:hover { color: var(--white); }
+    </style>
+</head>
+<body class="dark-theme">
+    <nav class="navbar scrolled">
+        <div class="container navbar-container">
+            <a href="../index.html" class="logo">Rohith.<span>ai</span></a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#projects" class="active">Projects</a></li>
+                <li><a href="../index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="project-hero">
+        <div class="container overflow-hidden">
+            <a href="../index.html#projects" class="back-nav">← Back to Projects</a>
+            <span class="section-label">Case Study</span>
+            <h1 class="fade-in">Compliance Management System</h1>
+            <p class="fade-in delay-1" style="max-width: 800px; margin: 1.5rem auto;">Automating PF, ESI, and KYC documentation for high-volume compliance monitoring.</p>
+            
+            <div class="project-meta fade-in delay-2">
+                <div class="meta-item">
+                    <h4>Industry</h4>
+                    <p>Legal & Compliance</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>Systems Architect</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Tech Stack</h4>
+                    <p>Supabase, Next.js, API</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <h2>The <span class="accent">Challenge</span></h2>
+                    <p>Managing document compliance for over 200+ clients using manual email follow-ups was inefficient and prone to deadline misses. The goal was to build a system that replaces manual collection with automated tracking.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Deadline Misses</div>
+                            <div class="split-desc">PF/ESI filings delayed due to missing documents.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Follow-up Burnout</div>
+                            <div class="split-desc">Manually chasing clients for documents via email.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Visibility Gaps</div>
+                            <div class="split-desc">No real-time dashboard for overall compliance status.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <img src="../assets/images/compliance-mockup.jpg" alt="Compliance Interface" style="border-radius: 20px; box-shadow: var(--shadow);">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section bg-alt">
+        <div class="container">
+            <div class="case-grid">
+                <div class="reveal">
+                    <div class="mockup-header" style="background: var(--bg-dark);">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div style="background: var(--bg-dark); padding: 2.5rem; border-radius: 0 0 12px 12px; border: 1px solid var(--border); min-height: 250px;">
+                        <h4 style="color: var(--accent); margin-bottom: 2rem;">Document Tracking Logic</h4>
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background: #22c55e;"></div>
+                            <div style="flex-grow: 1; height: 8px; background: var(--surface); border-radius: 4px;"></div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background: #eab308;"></div>
+                            <div style="flex-grow: 1; height: 8px; background: var(--surface); border-radius: 4px; width: 60%;"></div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <div style="width: 20px; height: 20px; border-radius: 50%; background: #ef4444;"></div>
+                            <div style="flex-grow: 1; height: 8px; background: var(--surface); border-radius: 4px; width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h2>The <span class="accent">Solution</span></h2>
+                    <p>I built a workflow engine that monitors document submission statuses and automatically alerts stakeholders of missing or overdue files.</p>
+                    <div class="split-list">
+                        <div class="split-item">
+                            <div class="split-title">Status Monitoring</div>
+                            <div class="split-desc">Real-time tracking (Pending, Submitted, Filed).</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Automated Alerts</div>
+                            <div class="split-desc">Smart reminders for overdue filings via Webhooks.</div>
+                        </div>
+                        <div class="split-item">
+                            <div class="split-title">Client Hub</div>
+                            <div class="split-desc">Centralized file management for multiple entities.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="case-section">
+        <div class="container">
+            <div class="impact-card reveal">
+                <h2>Business <span class="white">Impact</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-val">200+</span>
+                        <p class="stat-label">Active Clients Managed Simultaneously</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">0</span>
+                        <p class="stat-label">Missed PF/ESI Deadlines Post-Launch</p>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">100+</span>
+                        <p class="stat-label">Automation Hours Saved Monthly</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="text-center">
+                <h2>Need compliance automation?</h2>
+                <a href="../index.html#contact" class="btn btn-primary" style="margin-top: 2rem;">Get in Touch</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
