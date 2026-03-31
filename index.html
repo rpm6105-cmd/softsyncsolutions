@@ -54,13 +54,7 @@
                         <span class="dot green"></span>
                     </div>
                     <div class="mockup-body">
-                        <div class="mockup-sidebar"></div>
-                        <div class="mockup-main">
-                            <div class="mockup-card"></div>
-                            <div class="mockup-card"></div>
-                            <div class="mockup-line"></div>
-                            <div class="mockup-line"></div>
-                        </div>
+                        <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?auto=format&fit=crop&q=80&w=1200" alt="Dashboard Preview" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -261,45 +255,85 @@
     <section id="contact" class="contact section">
         <div class="container">
             <div class="contact-box reveal">
+
+                <!-- LEFT: Info Panel -->
                 <div class="contact-info">
-                    <h2>Looking to build <span class="accent">automation</span> solutions?</h2>
-                    <p>Let’s connect and discuss how I can help streamline your business workflows.</p>
+                    <div class="contact-info-top">
+                        <div class="contact-eyebrow">
+                            <span></span> Available for Projects
+                        </div>
+                        <h2>Let's build something <span class="accent">remarkable</span> together</h2>
+                        <p>I specialize in automation-driven SaaS solutions. Whether it's HRMS, compliance workflows, or custom systems — let's talk.</p>
+                    </div>
+
                     <div class="contact-details">
                         <div class="detail-item">
-                            <span class="icon">📧</span>
+                            <div class="detail-icon-box">📧</div>
                             <div>
                                 <p class="label">Email Me</p>
                                 <p class="val">rpm6105@gmail.com</p>
                             </div>
                         </div>
                         <div class="detail-item">
-                            <span class="icon">📍</span>
+                            <div class="detail-icon-box">🌏</div>
                             <div>
                                 <p class="label">Location</p>
                                 <p class="val">Available Globally (Remote)</p>
                             </div>
                         </div>
+                        <div class="detail-item">
+                            <div class="detail-icon-box">⚡</div>
+                            <div>
+                                <p class="label">Response Time</p>
+                                <p class="val">Within 24 Hours</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-avail">
+                        <div class="avail-dot"></div>
+                        Currently open to new projects
                     </div>
                 </div>
+
+                <!-- RIGHT: Form Panel -->
                 <form class="contact-form" onsubmit="return false">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" placeholder="Your Name" required>
+                    <div class="form-header">
+                        <h3>Send a Message</h3>
+                        <p>Fill in the form and I'll get back to you within 24 hours.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="email@example.com" required>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="email@example.com" required>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="e.g. HRMS Project Inquiry">
+                    </div>
+
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        <textarea id="message" placeholder="Tell me about your project..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                    <p class="form-note">I'll get back to you within 24 hours.</p>
+
+                    <button type="submit" class="btn-send">
+                        <span>Send Message &rarr;</span>
+                    </button>
+                    <p class="form-note">No spam, ever. I only use your info to respond to your inquiry.</p>
                 </form>
+
             </div>
         </div>
     </section>
+
 
     <!-- Footer -->
     <footer class="footer">
