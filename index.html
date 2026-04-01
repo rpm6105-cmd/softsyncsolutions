@@ -11,6 +11,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+      .dash-wrap { width:100%; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); box-shadow:0 25px 60px rgba(0,0,0,0.5); background:#0f172a; font-family:Inter,sans-serif; font-size:11px; }
+      .dash-titlebar { background:#1e293b; padding:8px 12px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.06); }
+      .dash-titlebar .dot { width:9px; height:9px; border-radius:50%; }
+      .dot-r{background:#ff5f56;} .dot-y{background:#ffbd2e;} .dot-g{background:#27c93f;}
+      .dash-body { display:flex; height:340px; }
+      .dash-sidebar { width:52px; background:#1e293b; border-right:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; align-items:center; padding:12px 0; gap:14px; }
+      .dash-nav-icon { width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.05); }
+      .dash-nav-icon.active { background:rgba(37,99,235,0.4); }
+      .dash-main { flex:1; padding:14px; overflow:hidden; display:flex; flex-direction:column; gap:10px; }
+      .dash-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+      .dash-stat { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:9px 10px; }
+      .dash-stat-label { color:rgba(255,255,255,0.35); font-size:9px; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; }
+      .dash-stat-val { color:#fff; font-weight:700; font-size:15px; }
+      .dash-stat-val span { font-size:9px; color:#22c55e; font-weight:500; }
+      .dash-charts { display:grid; grid-template-columns:2fr 1fr; gap:8px; flex:1; }
+      .dash-chart-box { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px; }
+      .dash-chart-title { color:rgba(255,255,255,0.55); font-size:9px; text-transform:uppercase; letter-spacing:0.5px; }
+      .bar-chart { display:flex; align-items:flex-end; gap:5px; height:80px; margin-top:auto; }
+      .bar { flex:1; border-radius:3px 3px 0 0; background:linear-gradient(to top,#2563eb,#60a5fa); opacity:0.85; min-width:0; }
+      .bar.accent { background:linear-gradient(to top,#7c3aed,#a78bfa); }
+      .donut-wrap { display:flex; align-items:center; justify-content:center; flex:1; gap:10px; }
+      .donut { width:65px; height:65px; border-radius:50%; background:conic-gradient(#2563eb 0% 45%,#7c3aed 45% 70%,#22c55e 70% 88%,#374151 88% 100%); flex-shrink:0; position:relative; }
+      .donut::after { content:''; position:absolute; inset:15px; background:#0f172a; border-radius:50%; }
+      .donut-legend { display:flex; flex-direction:column; gap:5px; }
+      .legend-item { display:flex; align-items:center; gap:5px; color:rgba(255,255,255,0.5); font-size:9px; }
+      .legend-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+      .dash-table { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:10px; }
+      .dash-table-row { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:6px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.04); align-items:center; }
+      .dash-table-row:last-child { border-bottom:none; }
+      .cell-bar { height:6px; border-radius:3px; background:linear-gradient(to right,#2563eb,#60a5fa); }
+      .badge { padding:2px 6px; border-radius:4px; font-size:8px; font-weight:600; text-transform:uppercase; }
+      .badge-green { background:rgba(34,197,94,0.15); color:#22c55e; }
+      .badge-yellow { background:rgba(234,179,8,0.15); color:#eab308; }
+      .cell-text { color:rgba(255,255,255,0.4); font-size:9px; }
+      .cell-name { color:rgba(255,255,255,0.7); font-size:9px; font-weight:500; }
+    </style>
 </head>
 <body class="dark-theme">
     <!-- Navigation -->
@@ -46,16 +83,77 @@
             </div>
             <div class="hero-image fade-in delay-2">
                 <div class="blob"></div>
-                <!-- Image placeholder or generated image will go here -->
-                <div class="hero-mockup">
-                    <div class="mockup-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
+                <!-- Rich CSS SaaS Dashboard Mockup -->
+                <div class="dash-wrap">
+                  <div class="dash-titlebar">
+                    <span class="dot dot-r"></span>
+                    <span class="dot dot-y"></span>
+                    <span class="dot dot-g"></span>
+                  </div>
+                  <div class="dash-body">
+                    <div class="dash-sidebar">
+                      <div class="dash-nav-icon active"></div>
+                      <div class="dash-nav-icon"></div>
+                      <div class="dash-nav-icon"></div>
+                      <div class="dash-nav-icon"></div>
+                      <div class="dash-nav-icon"></div>
                     </div>
-                    <div class="mockup-body">
-                        <img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?auto=format&fit=crop&q=80&w=1200" alt="Dashboard Preview" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="dash-main">
+                      <div class="dash-stats">
+                        <div class="dash-stat"><div class="dash-stat-label">Employees</div><div class="dash-stat-val">214 <span>&#9650; 4%</span></div></div>
+                        <div class="dash-stat"><div class="dash-stat-label">Payroll</div><div class="dash-stat-val">&#8377;2.4M <span>&#9650; 12%</span></div></div>
+                        <div class="dash-stat"><div class="dash-stat-label">Compliance</div><div class="dash-stat-val">98% <span>&#9650; 2%</span></div></div>
+                        <div class="dash-stat"><div class="dash-stat-label">Tasks Done</div><div class="dash-stat-val">847 <span>&#9850; live</span></div></div>
+                      </div>
+                      <div class="dash-charts">
+                        <div class="dash-chart-box">
+                          <div class="dash-chart-title">Monthly Payroll Overview</div>
+                          <div class="bar-chart">
+                            <div class="bar" style="height:40%"></div>
+                            <div class="bar" style="height:55%"></div>
+                            <div class="bar accent" style="height:70%"></div>
+                            <div class="bar" style="height:60%"></div>
+                            <div class="bar" style="height:80%"></div>
+                            <div class="bar accent" style="height:75%"></div>
+                            <div class="bar" style="height:90%"></div>
+                            <div class="bar" style="height:85%"></div>
+                          </div>
+                        </div>
+                        <div class="dash-chart-box">
+                          <div class="dash-chart-title">Status Split</div>
+                          <div class="donut-wrap">
+                            <div class="donut"></div>
+                            <div class="donut-legend">
+                              <div class="legend-item"><div class="legend-dot" style="background:#2563eb"></div>HRMS</div>
+                              <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>Comply</div>
+                              <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Solar</div>
+                              <div class="legend-item"><div class="legend-dot" style="background:#374151"></div>Other</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="dash-table">
+                        <div class="dash-table-row">
+                          <div class="cell-name">HRMS Payroll Run</div>
+                          <div class="cell-bar" style="width:90%"></div>
+                          <div class="cell-text">Apr 2026</div>
+                          <div><span class="badge badge-green">Done</span></div>
+                        </div>
+                        <div class="dash-table-row">
+                          <div class="cell-name">PF Filing &mdash; Q1</div>
+                          <div class="cell-bar" style="width:60%; background:linear-gradient(to right,#eab308,#fde047);"></div>
+                          <div class="cell-text">May 2026</div>
+                          <div><span class="badge badge-yellow">Pending</span></div>
+                        </div>
+                        <div class="dash-table-row">
+                          <div class="cell-name">Solar Site Report</div>
+                          <div class="cell-bar" style="width:100%"></div>
+                          <div class="cell-text">Mar 2026</div>
+                          <div><span class="badge badge-green">Done</span></div>
+                        </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
             </div>
         </div>
