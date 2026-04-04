@@ -972,16 +972,6 @@ textarea:focus-visible {
     color: var(--primary);
 }
 
-.social-links {
-    display: flex;
-    gap: 3rem;
-    margin: 3rem 0;
-}
-
-.social-links a:hover {
-    color: var(--accent);
-}
-
 .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -1076,8 +1066,7 @@ textarea:focus-visible {
 
     .project-actions,
     .hero-btns,
-    .cta-banner .cta-btns,
-    .social-links {
+    .cta-banner .cta-btns {
         flex-direction: column;
     }
 
