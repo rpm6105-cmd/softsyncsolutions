@@ -63,8 +63,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach((link) => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
             const targetId = link.getAttribute('href');
+            if (!targetId || !targetId.startsWith('#')) {
+                navLinksContainer?.classList.remove('open');
+                navToggle?.setAttribute('aria-expanded', 'false');
+                return;
+            }
+
+            e.preventDefault();
             const targetSection = document.querySelector(targetId);
             if (!targetSection) return;
 
