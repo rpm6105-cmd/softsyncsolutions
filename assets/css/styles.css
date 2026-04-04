@@ -974,11 +974,11 @@ textarea:focus-visible {
 
 .footer-bottom {
     display: flex;
-    justify-content: space-between;
-    padding-top: 4rem;
-    border-top: 1px solid var(--border);
+    justify-content: center;
+    padding-top: 0;
     color: var(--text-dim);
     font-size: 0.9rem;
+    text-align: center;
 }
 
 /* Scroll Top */
