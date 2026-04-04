@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Softsync Solutions | Business Automation & SaaS Development</title>
-    <meta name="description" content="Softsync Solutions builds automation-driven SaaS platforms for HRMS, compliance, and operational workflows. Helping businesses eliminate manual work and scale efficiently.">
+    <title>Softsync Solutions | Enterprise Business Automation & Custom SaaS</title>
+    <meta name="description" content="Softsync Solutions builds high-impact automation platforms for HR, payroll, and compliance. We help businesses eliminate manual work and scale through custom software engineering.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       .dash-wrap { width:100%; border-radius:12px; overflow:hidden; border:1px solid rgba(255,255,255,0.08); box-shadow:0 25px 60px rgba(0,0,0,0.5); background:#0f172a; font-family:Inter,sans-serif; font-size:11px; }
       .dash-titlebar { background:#1e293b; padding:8px 12px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.06); }
       .dash-titlebar .dot { width:9px; height:9px; border-radius:50%; }
-      .dot-r{background:#ff5f56;} .dot-y{background:#ffbd2e;} .dot-g{background:#27c93f;}
+      .dot-r{background:#ff5f56;} .dot-y{background:rgba(255,255,255,0.15);} .dot-g{background:var(--primary);}
       .dash-body { display:flex; height:340px; }
       .dash-sidebar { width:52px; background:#1e293b; border-right:1px solid rgba(255,255,255,0.06); display:flex; flex-direction:column; align-items:center; padding:12px 0; gap:14px; }
       .dash-nav-icon { width:28px; height:28px; border-radius:8px; background:rgba(255,255,255,0.05); }
@@ -25,15 +25,15 @@
       .dash-stat { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:9px 10px; }
       .dash-stat-label { color:rgba(255,255,255,0.35); font-size:9px; margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; }
       .dash-stat-val { color:#fff; font-weight:700; font-size:15px; }
-      .dash-stat-val span { font-size:9px; color:#22c55e; font-weight:500; }
+      .dash-stat-val span { font-size:9px; color:var(--primary); font-weight:500; }
       .dash-charts { display:grid; grid-template-columns:2fr 1fr; gap:8px; flex:1; }
       .dash-chart-box { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:8px; padding:10px; display:flex; flex-direction:column; gap:6px; }
       .dash-chart-title { color:rgba(255,255,255,0.55); font-size:9px; text-transform:uppercase; letter-spacing:0.5px; }
       .bar-chart { display:flex; align-items:flex-end; gap:5px; height:80px; margin-top:auto; }
       .bar { flex:1; border-radius:3px 3px 0 0; background:linear-gradient(to top,#2563eb,#60a5fa); opacity:0.85; min-width:0; }
-      .bar.accent { background:linear-gradient(to top,#7c3aed,#a78bfa); }
+      .bar.accent { background:rgba(37,99,235,0.4); }
       .donut-wrap { display:flex; align-items:center; justify-content:center; flex:1; gap:10px; }
-      .donut { width:65px; height:65px; border-radius:50%; background:conic-gradient(#2563eb 0% 45%,#7c3aed 45% 70%,#22c55e 70% 88%,#374151 88% 100%); flex-shrink:0; position:relative; }
+      .donut { width:65px; height:65px; border-radius:50%; background:conic-gradient(var(--primary) 0% 65%,rgba(37,99,235,0.3) 65% 85%,#374151 85% 100%); flex-shrink:0; position:relative; }
       .donut::after { content:''; position:absolute; inset:15px; background:#0f172a; border-radius:50%; }
       .donut-legend { display:flex; flex-direction:column; gap:5px; }
       .legend-item { display:flex; align-items:center; gap:5px; color:rgba(255,255,255,0.5); font-size:9px; }
@@ -51,7 +51,7 @@
       /* Services Section */
       .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:3rem; }
       .service-card { background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:20px; padding:2rem; transition:0.3s ease; position:relative; overflow:hidden; }
-      .service-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(37,99,235,0.04),rgba(124,58,237,0.04)); opacity:0; transition:0.3s; }
+      .service-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(37,99,235,0.08),transparent); opacity:0; transition:0.3s; }
       .service-card:hover::before { opacity:1; }
       .service-card:hover { border-color:rgba(37,99,235,0.3); transform:translateY(-4px); }
       .service-icon { width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1.25rem; }
@@ -59,12 +59,12 @@
       .service-card p { font-size:0.875rem; color:rgba(255,255,255,0.45); line-height:1.7; }
       .service-features { margin-top:1.25rem; display:flex; flex-direction:column; gap:0.5rem; }
       .service-feature { font-size:0.78rem; color:rgba(255,255,255,0.5); display:flex; align-items:center; gap:0.5rem; }
-      .service-feature::before { content:'✓'; color:#22c55e; font-weight:700; font-size:0.7rem; }
+      .service-feature::before { content:'✓'; color:var(--primary); font-weight:700; font-size:0.7rem; }
 
       /* Stats Bar */
       .stats-bar { display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; padding:3rem; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:24px; margin-top:4rem; }
       .stat-item { text-align:center; }
-      .stat-number { font-size:2.2rem; font-weight:800; background:linear-gradient(90deg,#60a5fa,#a78bfa); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+      .stat-number { font-size:2.2rem; font-weight:800; background:linear-gradient(90deg,var(--primary),var(--primary-light)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
       .stat-label { font-size:0.8rem; color:rgba(255,255,255,0.4); margin-top:0.25rem; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
 
       /* Testimonials */
@@ -78,9 +78,9 @@
       .author-role { font-size:0.72rem; color:rgba(255,255,255,0.35); }
 
       /* CTA Banner */
-      .cta-banner { background:linear-gradient(135deg,#0d1b3e,#1a1035); border:1px solid rgba(37,99,235,0.2); border-radius:28px; padding:4rem; text-align:center; position:relative; overflow:hidden; margin-top:5rem; }
-      .cta-banner::before { content:''; position:absolute; top:-100px; left:-100px; width:350px; height:350px; background:radial-gradient(circle,rgba(37,99,235,0.2),transparent 70%); border-radius:50%; }
-      .cta-banner::after { content:''; position:absolute; bottom:-80px; right:-80px; width:280px; height:280px; background:radial-gradient(circle,rgba(124,58,237,0.2),transparent 70%); border-radius:50%; }
+      .cta-banner { background:linear-gradient(135deg,#0d1b3e,#0f172a); border:1px solid rgba(37,99,235,0.2); border-radius:28px; padding:4rem; text-align:center; position:relative; overflow:hidden; margin-top:5rem; }
+      .cta-banner::before { content:''; position:absolute; top:-100px; left:-100px; width:350px; height:350px; background:radial-gradient(circle,rgba(37,99,235,0.15),transparent 70%); border-radius:50%; }
+      .cta-banner::after { content:''; position:absolute; bottom:-80px; right:-80px; width:280px; height:280px; background:radial-gradient(circle,rgba(37,99,235,0.1),transparent 70%); border-radius:50%; }
       .cta-banner h2 { font-size:2rem; font-weight:800; margin-bottom:1rem; position:relative; z-index:1; }
       .cta-banner p { color:rgba(255,255,255,0.5); max-width:520px; margin:0 auto 2rem; font-size:0.95rem; line-height:1.7; position:relative; z-index:1; }
       .cta-banner .cta-btns { display:flex; gap:1rem; justify-content:center; position:relative; z-index:1; }
@@ -130,11 +130,11 @@
                 <div class="contact-eyebrow fade-in" style="margin-bottom:1.5rem;">
                     <span></span> Trusted by Growing Businesses
                 </div>
-                <h1 class="fade-in delay-1">We Automate Your<br><span class="gradient-text">Business Operations</span></h1>
-                <p class="fade-in delay-2">Softsync Solutions builds custom SaaS systems for HR, compliance, and operational workflows — helping your team eliminate manual work and scale with confidence.</p>
+                <h1 class="fade-in delay-1">Automate HR, Payroll, and<br><span class="gradient-text">Business Operations</span></h1>
+                <p class="fade-in delay-2">Softsync Solutions builds custom platforms that automate attendance, streamline payroll processing, and simplify compliance management—helping your team scale efficiently.</p>
                 <div class="hero-btns fade-in delay-3">
                     <a href="#contact" class="btn btn-primary">Book a Free Demo</a>
-                    <a href="#services" class="btn btn-outline">Explore Services</a>
+                    <a href="#services" class="btn btn-outline">Get Custom Solution</a>
                 </div>
                 <!-- Trust badges -->
                 <div class="fade-in delay-3" style="display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;">
@@ -244,36 +244,36 @@
                 <div class="service-card">
                     <div class="service-icon" style="background:linear-gradient(135deg,rgba(37,99,235,0.2),rgba(37,99,235,0.05));border:1px solid rgba(37,99,235,0.2);">👥</div>
                     <h3>HRMS & Payroll Automation</h3>
-                    <p>A complete human resource platform — from employee onboarding and attendance tracking to automated payroll processing and statutory compliance.</p>
+                    <p>Eliminate manual attendance tracking and achieve 100% payroll accuracy with our automated biometric-integrated HR platforms.</p>
                     <div class="service-features">
-                        <div class="service-feature">Biometric & manual attendance support</div>
-                        <div class="service-feature">Automated salary calculation & slips</div>
-                        <div class="service-feature">Leave & self-service portal</div>
-                        <div class="service-feature">PF, ESI & TDS integration</div>
+                        <div class="service-feature">Automated biometric attendance integration</div>
+                        <div class="service-feature">Error-free salary & statutory calculations</div>
+                        <div class="service-feature">Employee self-service & leave portals</div>
+                        <div class="service-feature">Integrated PF, ESI, and TDS processing</div>
                     </div>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(124,58,237,0.2),rgba(124,58,237,0.05));border:1px solid rgba(124,58,237,0.2);">📋</div>
+                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(37,99,235,0.2),rgba(37,99,235,0.05));border:1px solid rgba(37,99,235,0.2);">📋</div>
                     <h3>Compliance Management</h3>
-                    <p>Automate regulatory filing workflows for multiple clients — track PF, ESI, KYC, and statutory deadlines with real-time alerts and dashboards.</p>
+                    <p>Reduce regulatory risks with automated tracking of PF, ESI, and KYC deadlines. Get real-time alerts before any statutory deadline hits.</p>
                     <div class="service-features">
-                        <div class="service-feature">Multi-client compliance dashboard</div>
-                        <div class="service-feature">Automated deadline alerts</div>
-                        <div class="service-feature">Document upload & tracking</div>
-                        <div class="service-feature">Audit trail & reporting</div>
+                        <div class="service-feature">Multi-client automated dashboard</div>
+                        <div class="service-feature">Real-time statutory deadline alerts</div>
+                        <div class="service-feature">Secure document tracking & storage</div>
+                        <div class="service-feature">Automated audit trails & reports</div>
                     </div>
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(16,185,129,0.05));border:1px solid rgba(16,185,129,0.2);">⚙️</div>
+                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(37,99,235,0.2),rgba(37,99,235,0.05));border:1px solid rgba(37,99,235,0.2);">⚙️</div>
                     <h3>Custom SaaS Development</h3>
-                    <p>Have a unique operational challenge? We build tailored SaaS products from scratch — scalable, cloud-ready, and designed around your workflows.</p>
+                    <p>Scale faster with cloud-ready platforms built specifically for your unique business workflows. We turn your operational challenges into software.</p>
                     <div class="service-features">
-                        <div class="service-feature">Custom workflow design</div>
-                        <div class="service-feature">API & third-party integrations</div>
-                        <div class="service-feature">Role-based access & permissions</div>
-                        <div class="service-feature">Analytics & reporting dashboards</div>
+                        <div class="service-feature">Process-specific workflow automation</div>
+                        <div class="service-feature">Seamless third-party API integrations</div>
+                        <div class="service-feature">Role-based security & permissions</div>
+                        <div class="service-feature">Real-time operational dashboards</div>
                     </div>
                 </div>
 
@@ -283,19 +283,19 @@
             <div class="stats-bar reveal">
                 <div class="stat-item">
                     <div class="stat-number">10+</div>
-                    <div class="stat-label">Projects Delivered</div>
+                    <div class="stat-label">Platforms Delivered</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">200+</div>
-                    <div class="stat-label">Clients Managed</div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Automated Workflows</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">98%</div>
-                    <div class="stat-label">Payroll Accuracy</div>
+                    <div class="stat-number">High</div>
+                    <div class="stat-label">Data Accuracy</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">3+</div>
-                    <div class="stat-label">Years of Expertise</div>
+                    <div class="stat-label">Years Expertise</div>
                 </div>
             </div>
         </div>
@@ -326,37 +326,37 @@
             </div>
             <div class="about-content reveal">
                 <span class="section-label">About Softsync Solutions</span>
-                <h2>Built to Solve <span class="accent">Real Business</span> Problems</h2>
-                <p>We are a software services company specializing in automation-driven SaaS solutions that address real operational bottlenecks. Our mission is simple: replace time-consuming manual processes with systems that just work.</p>
-                <p>From HRMS and payroll to regulatory compliance and beyond, we deliver platforms that are scalable, intuitive, and purpose-built for the way your business operates.</p>
+                <h2>Built to Solve <span class="accent">Complex Business</span> Challenges</h2>
+                <p>We are a dedicated software partner for businesses looking to eliminate operational friction. We don't just build software; we build automated ecosystems that work silently in the background, allowing your team to focus on growth.</p>
+                <p>Our solutions are engineered for high-stakes environments where accuracy, reliability, and scalability are non-negotiable.</p>
 
                 <div class="company-pillars">
                     <div class="pillar">
                         <div class="pillar-icon">🚀</div>
                         <div>
-                            <h4>SaaS-First Approach</h4>
-                            <p>Every solution is cloud-native, scalable, and built for long-term growth.</p>
+                            <h4>Outcome-Driven SaaS</h4>
+                            <p>We focus on the business result, not just the features. Every line of code serves a purpose.</p>
                         </div>
                     </div>
                     <div class="pillar">
                         <div class="pillar-icon">⚙️</div>
                         <div>
-                            <h4>Automation at Core</h4>
-                            <p>We eliminate manual overhead so your team focuses on what matters.</p>
+                            <h4>Frictionless Automation</h4>
+                            <p>Our systems eliminate manual data entry and repetitive tasks across your organization.</p>
                         </div>
                     </div>
                     <div class="pillar">
                         <div class="pillar-icon">🔐</div>
                         <div>
-                            <h4>Compliance Ready</h4>
-                            <p>Built-in statutory compliance features — PF, ESI, TDS and more.</p>
+                            <h4>Enterprise Reliability</h4>
+                            <p>Hardened against errors and built with integrated statutory compliance at its core.</p>
                         </div>
                     </div>
                     <div class="pillar">
                         <div class="pillar-icon">📊</div>
                         <div>
-                            <h4>Data-Driven</h4>
-                            <p>Real-time dashboards and reports so you always have the full picture.</p>
+                            <h4>Insight-Ready</h4>
+                            <p>Consolidated dashboards provide real-time visibility into every corner of your operations.</p>
                         </div>
                     </div>
                 </div>
@@ -435,14 +435,15 @@
                     <div class="project-info">
                         <h3>HRMS &amp; Payroll Automation</h3>
                         <p>A complete HR management system with attendance tracking, automated payroll, and employee self-service portals.</p>
+                        <div style="font-size:0.75rem; color:#22c55e; font-weight:600; margin-bottom:1rem;">Impact: Reduced payroll processing time by 80%</div>
                         <div class="project-tags">
                             <span>SaaS</span>
                             <span>Automation</span>
                             <span>Payroll</span>
                         </div>
                         <div class="project-actions">
-                            <a href="projects/hrms.html" class="btn btn-sm btn-outline">View Case Study</a>
-                            <a href="#contact" class="btn btn-sm btn-primary">Get This Built</a>
+                            <a href="projects/hrms.html" class="btn btn-sm btn-outline">View Details</a>
+                            <a href="#contact" class="btn btn-sm btn-primary">Request Similar Solution</a>
                         </div>
                     </div>
                 </div>
@@ -458,15 +459,16 @@
                     </div>
                     <div class="project-info">
                         <h3>Compliance Management System</h3>
-                        <p>Automated PF, ESI, and KYC documentation tracking for 200+ clients with alerts and real-time monitoring.</p>
+                        <p>Automated PF, ESI, and KYC documentation tracking for large-scale operations with real-time monitoring alerts.</p>
+                        <div style="font-size:0.75rem; color:#22c55e; font-weight:600; margin-bottom:1rem;">Impact: Zero missed deadlines across 12 months</div>
                         <div class="project-tags">
                             <span>Workflow</span>
                             <span>Alerts</span>
                             <span>Document Mgmt</span>
                         </div>
                         <div class="project-actions">
-                            <a href="projects/compliance.html" class="btn btn-sm btn-outline">View Case Study</a>
-                            <a href="#contact" class="btn btn-sm btn-primary">Get This Built</a>
+                            <a href="projects/compliance.html" class="btn btn-sm btn-outline">View Details</a>
+                            <a href="#contact" class="btn btn-sm btn-primary">Request Similar Solution</a>
                         </div>
                     </div>
                 </div>
@@ -483,14 +485,15 @@
                     <div class="project-info">
                         <h3>Solar Automation System</h3>
                         <p>Streamlined solar operations with workflow automation, proposal generation, and real-time operational dashboards.</p>
+                        <div style="font-size:0.75rem; color:#22c55e; font-weight:600; margin-bottom:1rem;">Impact: 30% increase in operational throughput</div>
                         <div class="project-tags">
                             <span>Solar</span>
                             <span>Automation</span>
                             <span>Reporting</span>
                         </div>
                         <div class="project-actions">
-                            <a href="projects/solar.html" class="btn btn-sm btn-outline">View Case Study</a>
-                            <a href="#contact" class="btn btn-sm btn-primary">Get This Built</a>
+                            <a href="projects/solar.html" class="btn btn-sm btn-outline">View Details</a>
+                            <a href="#contact" class="btn btn-sm btn-primary">Request Similar Solution</a>
                         </div>
                     </div>
                 </div>
@@ -502,8 +505,8 @@
     <section class="preview section bg-alt reveal">
         <div class="container text-center">
             <span class="section-label">Platform Preview</span>
-            <h2 style="font-size:1.75rem; margin-bottom:0.75rem;">Production-Ready <span class="accent">Dashboards</span></h2>
-            <p style="color:rgba(255,255,255,0.4); font-size:0.9rem; margin-bottom:3rem;">A glimpse into the systems we build and deploy for our clients.</p>
+            <h2 style="font-size:1.75rem; margin-bottom:0.75rem;">Enterprise-Grade <span class="accent">Dashboards</span></h2>
+            <p style="color:rgba(255,255,255,0.4); font-size:0.9rem; margin-bottom:3rem;">A glimpse into the robust systems we engineer and deploy for our partners.</p>
             <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; max-width:960px; margin:0 auto;">
 
                 <div style="background:#0f172a; border:1px solid rgba(255,255,255,0.07); border-radius:16px; padding:1.5rem; text-align:left;">
@@ -552,8 +555,8 @@
                         </div>
                     </div>
                     <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;">
-                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.35);">Clients managed</span>
-                        <span style="font-size:0.75rem;font-weight:700;color:#a78bfa;">200+</span>
+                        <span style="font-size:0.7rem;color:rgba(255,255,255,0.35);">Compliance status</span>
+                        <span style="font-size:0.75rem;font-weight:700;color:#a78bfa;">99.9%</span>
                     </div>
                 </div>
 
@@ -594,7 +597,7 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">"Softsync transformed our entire HR process. What used to take our team 3 days at month-end now runs automatically overnight. The payroll accuracy has been 100% since go-live."</p>
+                    <p class="testimonial-text">"Softsync transformed our entire HR process. What used to take our team 3 days at month-end now runs automatically overnight. The payroll processing has been flawless since go-live."</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">A</div>
                         <div>
@@ -634,10 +637,10 @@
         <div class="container">
             <div class="cta-banner">
                 <h2>Ready to Automate Your <span class="accent">Business?</span></h2>
-                <p>Let's talk about your workflow challenges. We'll design a system tailored to your business — from requirements to deployment in weeks, not months.</p>
+                <p>Let's talk about your specific workflow challenges. Our team will design a system tailored to your operations—from initial requirements to full deployment.</p>
                 <div class="cta-btns">
                     <a href="#contact" class="btn btn-primary">Book a Free Demo</a>
-                    <a href="mailto:rpm6105@gmail.com" class="btn btn-outline">Email Us Directly</a>
+                    <a href="mailto:rpm6105@gmail.com" class="btn btn-outline">Contact Our Team</a>
                 </div>
             </div>
         </div>
@@ -654,15 +657,15 @@
                         <div class="contact-eyebrow">
                             <span></span> Now Accepting New Clients
                         </div>
-                        <h2>Start a <span class="accent">conversation</span> with us</h2>
-                        <p>Tell us about your business challenge. We'll respond with a tailored solution approach within 24 hours.</p>
+                        <h2>Tell us your workflow problem—<br><span class="accent">we’ll automate it</span></h2>
+                        <p>Share your operational bottlenecks with us. Our engineering team will analyze your requirements and propose a tailored automation strategy within 24 hours.</p>
                     </div>
 
                     <div class="contact-details">
                         <div class="detail-item">
                             <div class="detail-icon-box">📧</div>
                             <div>
-                                <p class="label">Email Us</p>
+                                <p class="label">Email Our Team</p>
                                 <p class="val">rpm6105@gmail.com</p>
                             </div>
                         </div>
@@ -691,8 +694,8 @@
                 <!-- RIGHT: Form Panel -->
                 <form class="contact-form" onsubmit="return false">
                     <div class="form-header">
-                        <h3>Get in Touch</h3>
-                        <p>Describe your project and we'll get back to you with a plan.</p>
+                        <h3>SaaS Solution Inquiry</h3>
+                        <p>Describe the process you want to automate, and we'll reach out with a technical proposal.</p>
                     </div>
 
                     <div class="form-row">
@@ -717,7 +720,7 @@
                     </div>
 
                     <button type="submit" class="btn-send">
-                        <span>Send Inquiry &rarr;</span>
+                        <span>Start Your Automation Project &rarr;</span>
                     </button>
                     <p class="form-note">We treat all inquiries confidentially. No spam, ever.</p>
                 </form>
