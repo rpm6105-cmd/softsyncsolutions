@@ -97,6 +97,21 @@ img {
     text-align: center;
 }
 
+
+button,
+input,
+textarea {
+    font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(96, 165, 250, 0.85);
+    outline-offset: 3px;
+}
+
 /* Animations */
 .fade-in {
     opacity: 0;
@@ -175,6 +190,23 @@ img {
 .nav-toggle {
     display: none;
     cursor: pointer;
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+}
+
+.nav-toggle span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--white);
 }
 
 /* Hero Section */
@@ -534,6 +566,81 @@ img {
     gap: 1rem;
 }
 
+.project-points {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.project-points strong {
+    color: var(--white);
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.process-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(37,99,235,0.25);
+}
+
+.process-step {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-bottom: 1.2rem;
+    border-radius: 999px;
+    background: rgba(37,99,235,0.14);
+    color: var(--accent);
+    font-weight: 800;
+    letter-spacing: 0.06em;
+}
+
+.process-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+}
+
+.process-card p {
+    color: rgba(255,255,255,0.48);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.fit-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: rgba(255,255,255,0.92);
+}
+
+.fit-card .testimonial-text {
+    margin-bottom: 0;
+    font-style: normal;
+}
+
 /* Preview Section */
 .dashboard-mock {
     width: 100%;
@@ -833,6 +940,27 @@ img {
     font-size: 0.8rem;
 }
 
+.form-status {
+    min-height: 1.4rem;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.68);
+}
+
+.form-status.is-success {
+    color: #34d399;
+}
+
+.form-status.is-error {
+    color: #fda4af;
+}
+
+.hidden-field {
+    position: absolute;
+    left: -9999px;
+}
+
 /* Footer Section */
 .footer {
     padding: 8rem 0 4rem;
@@ -899,6 +1027,11 @@ img {
         grid-template-columns: 1fr;
         gap: 4rem;
     }
+
+    .process-grid,
+    .preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
     
     .hero {
         text-align: center;
@@ -917,16 +1050,53 @@ img {
 @media (max-width: 768px) {
     .nav-links {
         display: none;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 1rem;
+        right: 1rem;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.25rem;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: rgba(15, 23, 42, 0.96);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-links.open {
+        display: flex;
     }
     
     .nav-toggle {
-        display: block;
+        display: inline-flex;
     }
     
     .hero h1 { font-size: 3rem; }
+
+    .hero p {
+        font-size: 1.05rem;
+    }
     
-    .skills-grid {
+    .skills-grid,
+    .process-grid,
+    .preview-grid,
+    .project-grid,
+    .form-row,
+    .footer-bottom {
         grid-template-columns: 1fr;
+    }
+
+    .project-actions,
+    .hero-btns,
+    .cta-banner .cta-btns,
+    .social-links {
+        flex-direction: column;
+    }
+
+    .project-actions .btn,
+    .hero-btns .btn,
+    .cta-banner .btn {
+        width: 100%;
     }
 }
 
@@ -972,3 +1142,27 @@ img {
     }
 }
 
+
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        scroll-behavior: auto;
+    }
+
+    .fade-in,
+    .reveal,
+    .btn,
+    .service-card,
+    .project-card,
+    .process-card,
+    .detail-item,
+    .btn-send {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+
+    .reveal {
+        opacity: 1;
+    }
+}
