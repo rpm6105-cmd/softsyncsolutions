@@ -146,7 +146,7 @@ textarea:focus-visible {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 1.5rem 0;
+    padding: 0.95rem 0;
     z-index: 1000;
     transition: 0.4s ease;
 }
@@ -154,7 +154,7 @@ textarea:focus-visible {
 .navbar.scrolled {
     background: var(--glass);
     backdrop-filter: blur(10px);
-    padding: 1rem 0;
+    padding: 0.72rem 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -162,11 +162,13 @@ textarea:focus-visible {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 48px;
 }
 
 .logo {
-    font-size: 1.75rem;
+    font-size: 1.45rem;
     font-weight: 800;
+    line-height: 1;
 }
 
 .logo span {
@@ -175,12 +177,14 @@ textarea:focus-visible {
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 1.9rem;
+    align-items: center;
 }
 
 .nav-links a {
     font-weight: 500;
     color: var(--text-dim);
+    font-size: 0.96rem;
 }
 
 .nav-links a:hover, .nav-links a.active {
@@ -215,7 +219,7 @@ textarea:focus-visible {
     display: flex;
     align-items: center;
     position: relative;
-    padding-top: 120px;
+    padding-top: 98px;
 }
 
 .hero-container {
@@ -1019,7 +1023,7 @@ textarea:focus-visible {
     
     .hero {
         text-align: center;
-        padding-top: 160px;
+        padding-top: 132px;
     }
     
     .hero h1 { font-size: 3.5rem; }
