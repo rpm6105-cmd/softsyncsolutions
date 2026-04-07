@@ -28,13 +28,16 @@ body {
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text);
-    line-height: 1.6;
+    line-height: 1.7; /* Increased for better readability */
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, .logo {
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
+    letter-spacing: -0.02em; /* Subtle premium feel */
 }
 
 a {
@@ -59,17 +62,17 @@ img {
 }
 
 .section {
-    padding: 8rem 0;
+    padding: 9rem 0; /* Increased spacing for better document flow */
 }
 
 .section-label {
     display: block;
     color: var(--primary);
     text-transform: uppercase;
-    font-weight: 700;
-    font-size: 0.875rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 1rem;
+    font-weight: 800; /* Bolder for hierarchy */
+    font-size: 0.82rem;
+    letter-spacing: 0.15em; /* Increased spacing */
+    margin-bottom: 1.25rem;
 }
 
 .bg-alt {
@@ -85,6 +88,7 @@ img {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 15px rgba(37, 99, 235, 0.1)); /* Subtle glow */
 }
 
 .flex-between {
