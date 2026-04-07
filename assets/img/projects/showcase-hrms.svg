@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HRMS and payroll dashboard mockup</title>
+  <desc id="desc">An anonymized product dashboard showing attendance, payroll, approvals, and employee records.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#102b55"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#020617" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1320" cy="140" r="260" fill="#2563eb" opacity=".18"/>
+  <circle cx="160" cy="780" r="280" fill="#38bdf8" opacity=".12"/>
+  <rect x="110" y="82" width="1380" height="736" rx="38" fill="#0f172a" filter="url(#shadow)"/>
+  <rect x="110" y="82" width="1380" height="86" rx="38" fill="#172033"/>
+  <circle cx="156" cy="126" r="11" fill="#ef4444"/>
+  <circle cx="191" cy="126" r="11" fill="#f59e0b"/>
+  <circle cx="226" cy="126" r="11" fill="#22c55e"/>
+  <text x="286" y="136" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">Softsync HRMS</text>
+  <text x="1260" y="136" fill="#93c5fd" font-family="Inter, Arial, sans-serif" font-size="18">Apr payroll cycle</text>
+  <rect x="110" y="168" width="240" height="650" fill="#111827"/>
+  <text x="154" y="236" fill="#64748b" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="700">WORKSPACE</text>
+  <rect x="144" y="270" width="168" height="48" rx="14" fill="url(#accent)"/>
+  <text x="176" y="301" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Payroll</text>
+  <text x="176" y="369" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="18">Attendance</text>
+  <text x="176" y="424" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="18">Leave requests</text>
+  <text x="176" y="479" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="18">Employee files</text>
+  <text x="176" y="534" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="18">Compliance</text>
+  <text x="392" y="246" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">Payroll Command Center</text>
+  <text x="392" y="284" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="20">Attendance, salary runs, and approvals in one operating view.</text>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="392" y="332" width="240" height="130" rx="24" fill="#172033"/>
+    <text x="424" y="377" fill="#94a3b8" font-size="18">Employees</text>
+    <text x="424" y="426" fill="#fff" font-size="42" font-weight="800">214</text>
+    <text x="520" y="426" fill="#22c55e" font-size="17">+4%</text>
+    <rect x="660" y="332" width="240" height="130" rx="24" fill="#172033"/>
+    <text x="692" y="377" fill="#94a3b8" font-size="18">Payroll ready</text>
+    <text x="692" y="426" fill="#fff" font-size="42" font-weight="800">96%</text>
+    <text x="795" y="426" fill="#38bdf8" font-size="17">verified</text>
+    <rect x="928" y="332" width="240" height="130" rx="24" fill="#172033"/>
+    <text x="960" y="377" fill="#94a3b8" font-size="18">Pending approvals</text>
+    <text x="960" y="426" fill="#fff" font-size="42" font-weight="800">18</text>
+    <text x="1025" y="426" fill="#f59e0b" font-size="17">needs review</text>
+    <rect x="1196" y="332" width="240" height="130" rx="24" fill="#172033"/>
+    <text x="1228" y="377" fill="#94a3b8" font-size="18">Processing time</text>
+    <text x="1228" y="426" fill="#fff" font-size="42" font-weight="800">-80%</text>
+    <text x="1352" y="426" fill="#22c55e" font-size="17">faster</text>
+  </g>
+  <rect x="392" y="506" width="650" height="236" rx="28" fill="#172033"/>
+  <text x="430" y="557" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="800">Attendance trend</text>
+  <g fill="#2563eb">
+    <rect x="442" y="670" width="48" height="38" rx="10"/>
+    <rect x="512" y="628" width="48" height="80" rx="10"/>
+    <rect x="582" y="602" width="48" height="106" rx="10"/>
+    <rect x="652" y="574" width="48" height="134" rx="10"/>
+    <rect x="722" y="614" width="48" height="94" rx="10"/>
+    <rect x="792" y="548" width="48" height="160" rx="10"/>
+    <rect x="862" y="526" width="48" height="182" rx="10"/>
+    <rect x="932" y="586" width="48" height="122" rx="10"/>
+  </g>
+  <rect x="1078" y="506" width="358" height="236" rx="28" fill="#172033"/>
+  <text x="1116" y="557" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="800">Approval queue</text>
+  <g font-family="Inter, Arial, sans-serif" font-size="17">
+    <rect x="1116" y="592" width="282" height="42" rx="13" fill="#0f172a"/>
+    <text x="1134" y="619" fill="#cbd5e1">Overtime verification</text>
+    <circle cx="1368" cy="613" r="8" fill="#f59e0b"/>
+    <rect x="1116" y="650" width="282" height="42" rx="13" fill="#0f172a"/>
+    <text x="1134" y="677" fill="#cbd5e1">Salary exception check</text>
+    <circle cx="1368" cy="671" r="8" fill="#38bdf8"/>
+    <rect x="1116" y="708" width="282" height="42" rx="13" fill="#0f172a"/>
+    <text x="1134" y="735" fill="#cbd5e1">PF contribution export</text>
+    <circle cx="1368" cy="729" r="8" fill="#22c55e"/>
+  </g>
+</svg>

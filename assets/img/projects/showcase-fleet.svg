@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Fleet operations dashboard mockup</title>
+  <desc id="desc">An anonymized fleet dashboard showing vehicles, fuel usage, route status, and alerts.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071a18"/>
+      <stop offset="1" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#020617" flood-opacity=".45"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1290" cy="210" r="260" fill="#14b8a6" opacity=".18"/>
+  <rect x="110" y="82" width="1380" height="736" rx="38" fill="#0f172a" filter="url(#shadow)"/>
+  <rect x="110" y="82" width="1380" height="86" rx="38" fill="#102522"/>
+  <circle cx="156" cy="126" r="11" fill="#ef4444"/>
+  <circle cx="191" cy="126" r="11" fill="#f59e0b"/>
+  <circle cx="226" cy="126" r="11" fill="#22c55e"/>
+  <text x="286" y="136" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700">FleetOps Monitor</text>
+  <text x="1200" y="136" fill="#5eead4" font-family="Inter, Arial, sans-serif" font-size="18">Live route visibility</text>
+  <text x="164" y="244" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="800">Fleet &amp; Fuel Control</text>
+  <text x="164" y="282" fill="#94a3b8" font-family="Inter, Arial, sans-serif" font-size="20">Vehicle status, route movement, and fuel exceptions in one operator view.</text>
+  <rect x="164" y="330" width="860" height="430" rx="32" fill="#172033"/>
+  <text x="210" y="384" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Route board</text>
+  <g font-family="Inter, Arial, sans-serif" font-size="18">
+    <text x="210" y="438" fill="#64748b">Vehicle</text>
+    <text x="420" y="438" fill="#64748b">Route</text>
+    <text x="660" y="438" fill="#64748b">Fuel</text>
+    <text x="820" y="438" fill="#64748b">Status</text>
+    <line x1="210" x2="964" y1="460" y2="460" stroke="#263244"/>
+    <text x="210" y="512" fill="#f8fafc">BUS-104</text>
+    <text x="420" y="512" fill="#cbd5e1">North depot</text>
+    <text x="660" y="512" fill="#cbd5e1">72%</text>
+    <rect x="820" y="486" width="110" height="36" rx="18" fill="#22c55e" opacity=".18"/>
+    <text x="844" y="510" fill="#86efac">On route</text>
+    <text x="210" y="584" fill="#f8fafc">BUS-208</text>
+    <text x="420" y="584" fill="#cbd5e1">Airport line</text>
+    <text x="660" y="584" fill="#cbd5e1">31%</text>
+    <rect x="820" y="558" width="126" height="36" rx="18" fill="#f59e0b" opacity=".18"/>
+    <text x="844" y="582" fill="#fbbf24">Refuel soon</text>
+    <text x="210" y="656" fill="#f8fafc">BUS-311</text>
+    <text x="420" y="656" fill="#cbd5e1">Depot return</text>
+    <text x="660" y="656" fill="#cbd5e1">18%</text>
+    <rect x="820" y="630" width="110" height="36" rx="18" fill="#ef4444" opacity=".18"/>
+    <text x="844" y="654" fill="#fca5a5">Alert</text>
+  </g>
+  <rect x="1064" y="330" width="376" height="430" rx="32" fill="#172033"/>
+  <text x="1108" y="384" fill="#e2e8f0" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800">Fuel trend</text>
+  <polyline points="1110,640 1160,604 1210,620 1260,545 1310,570 1360,472 1400,500" fill="none" stroke="#14b8a6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1360" cy="472" r="16" fill="#14b8a6"/>
+  <g font-family="Inter, Arial, sans-serif">
+    <rect x="1108" y="430" width="280" height="92" rx="22" fill="#0f172a"/>
+    <text x="1140" y="468" fill="#94a3b8" font-size="17">Monthly savings</text>
+    <text x="1140" y="504" fill="#fff" font-size="34" font-weight="800">15%</text>
+    <rect x="1108" y="660" width="280" height="56" rx="18" fill="#0f172a"/>
+    <text x="1140" y="696" fill="#cbd5e1" font-size="18">3 vehicles need attention</text>
+  </g>
+</svg>
