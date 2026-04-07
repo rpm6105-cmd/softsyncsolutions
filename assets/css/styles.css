@@ -1,20 +1,23 @@
 /* Variables */
 :root {
-    --primary: #2563eb;
-    --primary-light: #60a5fa;
-    --accent: #38bdf8;
-    --bg-dark: #0f172a;
-    --bg-light: #1e293b;
-    --surface: #1e293b;
-    --surface-light: #334155;
+    --primary: #4f46e5;
+    --primary-light: #7dd3fc;
+    --accent: #22d3ee;
+    --accent-warm: #f8d36f;
+    --bg-dark: #050816;
+    --bg-light: #0a1022;
+    --surface: rgba(15, 23, 42, 0.78);
+    --surface-light: rgba(30, 41, 59, 0.82);
     --text: #f8fafc;
-    --text-dim: #94a3b8;
+    --text-dim: #a6b4c8;
     --white: #ffffff;
-    --gradient: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
-    --gradient-vibrant: linear-gradient(135deg, #2563eb, #7c3aed, #3b82f6); /* Premium Blue-Purple gradient */
-    --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
-    --glass: rgba(15, 23, 42, 0.8);
-    --border: rgba(255, 255, 255, 0.08);
+    --gradient: linear-gradient(135deg, #22d3ee 0%, #4f46e5 52%, #f8d36f 120%);
+    --gradient-vibrant: linear-gradient(135deg, #22d3ee 0%, #4f46e5 46%, #c084fc 76%, #f8d36f 115%);
+    --shadow: 0 28px 90px -34px rgba(0, 0, 0, 0.85);
+    --glass: rgba(5, 8, 22, 0.72);
+    --border: rgba(255, 255, 255, 0.12);
+    --halo-cyan: rgba(34, 211, 238, 0.26);
+    --halo-indigo: rgba(79, 70, 229, 0.34);
 }
 
 /* Base Styles */
@@ -27,12 +30,29 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
+    background:
+        radial-gradient(circle at 16% 8%, rgba(34, 211, 238, 0.16), transparent 28rem),
+        radial-gradient(circle at 84% 2%, rgba(124, 58, 237, 0.2), transparent 32rem),
+        linear-gradient(180deg, #040714 0%, #070b1c 40%, #050816 100%);
     color: var(--text);
     line-height: 1.7; /* Increased for better readability */
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, black, transparent 68%);
+    mask-image: radial-gradient(circle at 50% 0%, black, transparent 68%);
 }
 
 h1, h2, h3, h4, .logo {
@@ -67,17 +87,24 @@ img {
 }
 
 .section-label {
-    display: block;
-    color: var(--primary);
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent);
     text-transform: uppercase;
     font-weight: 800; /* Bolder for hierarchy */
     font-size: 0.82rem;
     letter-spacing: 0.15em; /* Increased spacing */
     margin-bottom: 1.25rem;
+    padding: 0.42rem 0.78rem;
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    border-radius: 999px;
+    background: rgba(34, 211, 238, 0.07);
 }
 
 .bg-alt {
-    background-color: var(--bg-light);
+    background:
+        radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.12), transparent 26rem),
+        linear-gradient(180deg, rgba(10, 16, 34, 0.92), rgba(5, 8, 22, 0.95));
 }
 
 .accent {
@@ -89,7 +116,7 @@ img {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 15px rgba(37, 99, 235, 0.1)); /* Subtle glow */
+    filter: drop-shadow(0 0 18px rgba(34, 211, 238, 0.18));
 }
 
 .flex-between {
@@ -151,16 +178,17 @@ textarea:focus-visible {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 0.6rem 0; /* Slimmer header */
+    padding: 0.9rem 0;
     z-index: 1000;
     transition: 0.4s ease;
 }
 
 .navbar.scrolled {
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    padding: 0.45rem 0; /* Proportionally slimmer when scrolled */
-    border-bottom: 1px solid var(--border);
+    background: rgba(5, 8, 22, 0.78);
+    backdrop-filter: blur(18px) saturate(160%);
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
 }
 
 .navbar-container {
@@ -168,6 +196,12 @@ textarea:focus-visible {
     justify-content: space-between;
     align-items: center;
     min-height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    padding: 0.48rem 0.72rem 0.48rem 0.92rem;
+    background: rgba(5, 8, 22, 0.62);
+    backdrop-filter: blur(18px) saturate(150%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 22px 60px rgba(0, 0, 0, 0.22);
 }
 
 .logo {
@@ -194,6 +228,11 @@ textarea:focus-visible {
 
 .nav-links a:hover, .nav-links a.active {
     color: var(--white);
+}
+
+.nav-links a:not(.btn):hover,
+.nav-links a:not(.btn).active {
+    text-shadow: 0 0 24px rgba(34, 211, 238, 0.5);
 }
 
 .nav-toggle {
@@ -225,6 +264,33 @@ textarea:focus-visible {
     align-items: center;
     position: relative;
     padding-top: 85px; /* Adjusted for slimmer navbar */
+    overflow: hidden;
+}
+
+.hero::before,
+.hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 999px;
+    filter: blur(20px);
+}
+
+.hero::before {
+    width: 760px;
+    height: 760px;
+    right: -250px;
+    top: 30px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.36), transparent 63%);
+}
+
+.hero::after {
+    width: 580px;
+    height: 580px;
+    left: -220px;
+    bottom: 10%;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.2), transparent 62%);
 }
 
 .hero-container {
@@ -241,16 +307,18 @@ textarea:focus-visible {
 }
 
 .hero h1 {
-    font-size: 3.25rem; /* Reduced from 4.5rem for better wrapping and readability */
-    line-height: 1.2;
+    font-size: clamp(3rem, 5vw, 5.65rem);
+    line-height: 0.98;
     margin-bottom: 1.5rem;
+    letter-spacing: -0.07em;
+    max-width: 760px;
 }
 
 .hero p {
-    font-size: 1.25rem;
+    font-size: 1.08rem;
     color: var(--text-dim);
-    margin-bottom: 3rem;
-    max-width: 600px;
+    margin-bottom: 2.2rem;
+    max-width: 560px;
 }
 
 .hero-btns {
@@ -260,13 +328,19 @@ textarea:focus-visible {
 
 /* Buttons */
 .btn {
-    display: inline-block;
-    padding: 1rem 2.5rem;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 1rem 2.35rem;
     border-radius: 50px;
-    font-weight: 600;
+    font-weight: 800;
     cursor: pointer;
     border: none;
     text-align: center;
+    letter-spacing: -0.01em;
+    overflow: hidden;
 }
 
 .btn-sm {
@@ -278,7 +352,7 @@ textarea:focus-visible {
     background: var(--gradient-vibrant);
     background-size: 200% auto;
     color: var(--white);
-    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    box-shadow: 0 18px 48px rgba(79, 70, 229, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     transition: 0.5s ease;
 }
 
@@ -291,16 +365,19 @@ textarea:focus-visible {
 .btn-primary:hover {
     background-position: right center;
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+    box-shadow: 0 24px 70px rgba(34, 211, 238, 0.35), 0 18px 48px rgba(79, 70, 229, 0.36);
 }
 
 .btn-outline {
-    border: 2px solid var(--primary);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(14px);
     color: var(--white);
 }
 
 .btn-outline:hover {
-    background: var(--primary);
+    background: rgba(34, 211, 238, 0.14);
+    border-color: rgba(34, 211, 238, 0.45);
     transform: translateY(-3px);
 }
 
@@ -311,6 +388,8 @@ textarea:focus-visible {
 /* Hero Mockup Anim */
 .hero-image {
     position: relative;
+    transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+    transform-origin: center;
 }
 
 .blob {
@@ -320,9 +399,9 @@ textarea:focus-visible {
     transform: translate(-50%, -50%);
     width: 500px;
     height: 500px;
-    background: var(--gradient);
-    filter: blur(80px);
-    opacity: 0.2;
+    background: var(--gradient-vibrant);
+    filter: blur(95px);
+    opacity: 0.34;
     z-index: -1;
     border-radius: 50%;
 }
@@ -520,16 +599,18 @@ textarea:focus-visible {
 }
 
 .project-card {
-    background: var(--surface);
-    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(18, 27, 48, 0.9), rgba(9, 14, 31, 0.92));
+    border-radius: 30px;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     transition: 0.4s ease;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+    border-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 30px 90px -28px rgba(34, 211, 238, 0.34), 0 28px 70px rgba(0,0,0,0.56);
 }
 
 .project-image {
@@ -538,7 +619,8 @@ textarea:focus-visible {
     overflow: hidden;
     padding: 1rem;
     background:
-        radial-gradient(circle at 20% 0%, rgba(37, 99, 235, 0.18), transparent 32%),
+        radial-gradient(circle at 18% 0%, rgba(34, 211, 238, 0.22), transparent 34%),
+        radial-gradient(circle at 85% 20%, rgba(124, 58, 237, 0.24), transparent 38%),
         linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.98));
 }
 
@@ -562,8 +644,9 @@ textarea:focus-visible {
 }
 
 .project-category {
-    background: var(--glass);
+    background: rgba(5, 8, 22, 0.72);
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
     padding: 0.4rem 1rem;
     border-radius: 50px;
     font-size: 0.75rem;
@@ -598,6 +681,10 @@ textarea:focus-visible {
     font-size: 0.75rem;
     color: var(--accent);
     font-weight: 700;
+    padding: 0.34rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.14);
 }
 
 .project-actions {
@@ -626,16 +713,17 @@ textarea:focus-visible {
 }
 
 .process-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
+    border: 1px solid rgba(255,255,255,0.11);
+    border-radius: 24px;
     padding: 2rem;
     transition: 0.3s ease;
 }
 
 .process-card:hover {
     transform: translateY(-6px);
-    border-color: rgba(37,99,235,0.25);
+    border-color: rgba(34, 211, 238, 0.28);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28), 0 0 44px rgba(34, 211, 238, 0.08);
 }
 
 .process-step {
@@ -646,7 +734,7 @@ textarea:focus-visible {
     height: 42px;
     margin-bottom: 1.2rem;
     border-radius: 999px;
-    background: rgba(37,99,235,0.14);
+    background: rgba(34, 211, 238, 0.12);
     color: var(--accent);
     font-weight: 800;
     letter-spacing: 0.06em;
@@ -711,15 +799,17 @@ textarea:focus-visible {
     grid-template-columns: 1fr 1.1fr;
     border-radius: 32px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 36px 110px rgba(0,0,0,0.52), 0 0 90px rgba(79, 70, 229, 0.12);
     position: relative;
 }
 
 /* LEFT panel - info side */
 .contact-info {
     padding: 3rem;
-    background: linear-gradient(145deg, #0d1b3e 0%, #0f172a 100%);
+    background:
+        radial-gradient(circle at 12% 10%, rgba(34, 211, 238, 0.24), transparent 34%),
+        linear-gradient(145deg, #0b1638 0%, #050816 100%);
     position: relative;
     overflow: hidden;
     display: flex;
@@ -735,7 +825,7 @@ textarea:focus-visible {
     left: -80px;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(37,99,235,0.35) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.32) 0%, transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -758,19 +848,19 @@ textarea:focus-visible {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(37,99,235,0.12);
-    border: 1px solid rgba(37,99,235,0.25);
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.24);
     border-radius: 50px;
     padding: 0.4rem 1rem;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #60a5fa;
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 2rem;
 }
 
-.contact-eyebrow span { width: 6px; height: 6px; background: #60a5fa; border-radius: 50%; animation: pulse 1.5s infinite; }
+.contact-eyebrow span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
 
 .contact-info h2 {
     font-size: 1.45rem;
@@ -780,7 +870,7 @@ textarea:focus-visible {
 }
 
 .contact-info h2 .accent { 
-    background: linear-gradient(90deg, #60a5fa, #a78bfa);
+    background: linear-gradient(90deg, var(--accent), var(--accent-warm));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -812,7 +902,7 @@ textarea:focus-visible {
 
 .contact-highlight-card:hover {
     background: rgba(255,255,255,0.07);
-    border-color: rgba(37,99,235,0.3);
+    border-color: rgba(34, 211, 238, 0.3);
     transform: translateX(4px);
 }
 
@@ -856,7 +946,7 @@ textarea:focus-visible {
 /* RIGHT panel - form side */
 .contact-form {
     padding: 3rem;
-    background: #0f172a;
+    background: rgba(5, 8, 22, 0.96);
     position: relative;
 }
 
@@ -920,9 +1010,9 @@ textarea:focus-visible {
 
 .form-group input:focus, .form-group textarea:focus {
     outline: none;
-    border-color: rgba(37,99,235,0.5);
-    background: rgba(37,99,235,0.05);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    border-color: rgba(34, 211, 238, 0.52);
+    background: rgba(34, 211, 238, 0.055);
+    box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.12), 0 0 30px rgba(79, 70, 229, 0.1);
 }
 
 .btn-send {
@@ -952,7 +1042,7 @@ textarea:focus-visible {
 }
 
 .btn-send:hover::before { opacity: 1; }
-.btn-send:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+.btn-send:hover { transform: translateY(-2px); box-shadow: 0 16px 44px rgba(34, 211, 238, 0.26), 0 12px 34px rgba(79, 70, 229, 0.28); }
 
 .btn-send span { position: relative; z-index: 1; }
 
@@ -1021,7 +1111,7 @@ textarea:focus-visible {
     position: fixed;
     bottom: 40px;
     right: 40px;
-    background: var(--primary);
+    background: var(--gradient-vibrant);
     color: white;
     width: 60px;
     height: 60px;
@@ -1031,7 +1121,7 @@ textarea:focus-visible {
     font-size: 1.5rem;
     display: none;
     z-index: 999;
-    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 14px 34px rgba(34, 211, 238, 0.25), 0 10px 28px rgba(79, 70, 229, 0.28);
 }
 
 /* Responsive */
@@ -1072,8 +1162,9 @@ textarea:focus-visible {
         padding: 1.25rem;
         border: 1px solid var(--border);
         border-radius: 18px;
-        background: rgba(15, 23, 42, 0.96);
-        box-shadow: var(--shadow);
+        background: rgba(5, 8, 22, 0.96);
+        backdrop-filter: blur(18px) saturate(150%);
+        box-shadow: 0 28px 80px rgba(0, 0, 0, 0.48);
     }
 
     .nav-links.open {
@@ -1181,11 +1272,11 @@ textarea:focus-visible {
 
 /* Vibrant Button Upgrade */
 .btn-vibrant {
-    background: linear-gradient(135deg, #2563eb, #7c3aed, #3b82f6);
+    background: var(--gradient-vibrant);
     background-size: 200% auto;
     color: white !important;
-    font-weight: 700;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    font-weight: 800;
+    box-shadow: 0 18px 48px rgba(79, 70, 229, 0.36), 0 0 36px rgba(34, 211, 238, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.32);
     transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.3);
     animation: shine-flow 4s infinite linear;
@@ -1199,7 +1290,7 @@ textarea:focus-visible {
 
 .btn-vibrant:hover {
     transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 12px 30px rgba(124, 58, 237, 0.7);
+    box-shadow: 0 24px 70px rgba(34, 211, 238, 0.32), 0 18px 54px rgba(79, 70, 229, 0.42);
     filter: brightness(1.15);
     background-position: right center;
 }
