@@ -499,9 +499,22 @@ textarea:focus-visible {
 /* Projects Section */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 2.5rem;
     margin-top: 4rem;
+}
+
+.screenshot-crop {
+    width: 100%;
+    height: 115% !important; /* Scale up slightly to allow cropping */
+    object-fit: cover;
+    object-position: center 15% !important; /* Shift down to hide top-aligned logos */
+    filter: brightness(0.9) contrast(1.1); /* Match the site's high-end aesthetic */
+}
+
+.project-card:hover .screenshot-crop {
+    transform: scale(1.05) translateY(-2%);
+    filter: brightness(1.05) contrast(1.1);
 }
 
 .project-card {
