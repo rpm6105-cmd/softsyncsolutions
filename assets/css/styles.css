@@ -1305,6 +1305,77 @@ textarea:focus-visible {
     }
 }
 
+@media (max-width: 480px) {
+    .hero {
+        min-height: auto;
+        padding-top: 102px;
+        padding-bottom: 1.25rem;
+    }
+
+    .hero-container {
+        gap: 1rem;
+    }
+
+    .contact-eyebrow {
+        font-size: 0.62rem;
+        padding: 0.3rem 0.68rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.75rem, 8vw, 1.95rem);
+        line-height: 1.22;
+        margin-bottom: 12px;
+        letter-spacing: -0.025em;
+    }
+
+    .hero p {
+        font-size: 0.92rem;
+        line-height: 1.55;
+        margin-bottom: 16px;
+    }
+
+    .hero-btns {
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .hero-btns .btn {
+        padding: 14px 18px;
+        font-size: 0.92rem;
+    }
+
+    .hero-proofline,
+    .hero-proofpoints {
+        gap: 10px !important;
+        margin-top: 14px !important;
+    }
+
+    .hero-proofline-item {
+        font-size: 0.75rem !important;
+        line-height: 1.45;
+    }
+
+    .hero-proofpoint {
+        font-size: 0.73rem !important;
+        line-height: 1.4;
+    }
+
+    .hero-image {
+        margin-top: 4px;
+        transform: none;
+    }
+
+    .dash-wrap {
+        max-width: 100%;
+        border-radius: 20px;
+    }
+
+    .dash-body {
+        height: 300px;
+    }
+}
+
 /* Case Study Split List Alignment */
 .split-list {
     margin-top: 2rem;
