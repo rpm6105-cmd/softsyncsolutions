@@ -1174,11 +1174,52 @@ textarea:focus-visible {
     .nav-toggle {
         display: inline-flex;
     }
-    
-    .hero h1 { font-size: 3rem; }
+
+    .hero {
+        padding-top: 118px;
+    }
+
+    .hero::before {
+        background: radial-gradient(circle, rgba(79, 70, 229, 0.24), transparent 63%);
+    }
+
+    .hero::after {
+        background: radial-gradient(circle, rgba(34, 211, 238, 0.12), transparent 62%);
+    }
+
+    .hero .container,
+    .hero-container,
+    .hero-content,
+    .hero-image {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.75rem, 7vw, 2.125rem);
+        line-height: 1.24;
+        margin-bottom: 14px;
+        letter-spacing: -0.03em;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: manual;
+        text-wrap: balance;
+    }
 
     .hero p {
-        font-size: 1.05rem;
+        font-size: 0.98rem;
+        line-height: 1.6;
+        margin-bottom: 18px;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: normal;
     }
     
     .skills-grid,
@@ -1196,10 +1237,25 @@ textarea:focus-visible {
         flex-direction: column;
     }
 
+    .hero-btns {
+        width: 100%;
+        gap: 12px;
+        margin-top: 16px;
+    }
+
     .project-actions .btn,
     .hero-btns .btn,
     .cta-banner .btn {
         width: 100%;
+    }
+
+    .hero-btns .btn {
+        padding: 14px 20px;
+        margin-top: 0;
+    }
+
+    .hero-btns .btn + .btn {
+        margin-top: 16px;
     }
 }
 
