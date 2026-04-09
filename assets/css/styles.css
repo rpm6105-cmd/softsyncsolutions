@@ -1308,12 +1308,12 @@ textarea:focus-visible {
 @media (max-width: 480px) {
     .hero {
         min-height: auto;
-        padding-top: 102px;
-        padding-bottom: 1.25rem;
+        padding-top: 96px;
+        padding-bottom: 0.75rem;
     }
 
     .hero-container {
-        gap: 1rem;
+        gap: 0.75rem;
     }
 
     .contact-eyebrow {
@@ -1330,49 +1330,89 @@ textarea:focus-visible {
     }
 
     .hero p {
-        font-size: 0.92rem;
-        line-height: 1.55;
-        margin-bottom: 16px;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 14px;
     }
 
     .hero-btns {
-        gap: 10px;
-        margin-top: 14px;
+        gap: 8px;
+        margin-top: 12px;
     }
 
     .hero-btns .btn {
-        padding: 14px 18px;
-        font-size: 0.92rem;
+        padding: 13px 18px;
+        font-size: 0.88rem;
     }
 
     .hero-proofline,
     .hero-proofpoints {
-        gap: 10px !important;
-        margin-top: 14px !important;
+        gap: 8px !important;
+        margin-top: 12px !important;
     }
 
     .hero-proofline-item {
-        font-size: 0.75rem !important;
+        font-size: 0.7rem !important;
         line-height: 1.45;
     }
 
     .hero-proofpoint {
-        font-size: 0.73rem !important;
+        font-size: 0.68rem !important;
         line-height: 1.4;
     }
 
     .hero-image {
-        margin-top: 4px;
+        margin-top: 2px;
         transform: none;
+        max-width: 100%;
     }
 
     .dash-wrap {
         max-width: 100%;
-        border-radius: 20px;
+        border-radius: 18px;
+        transform: scale(0.88);
+        transform-origin: top center;
+        margin: -20px auto 0;
     }
 
     .dash-body {
-        height: 300px;
+        height: 250px;
+    }
+
+    .dash-main {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .dash-stats {
+        gap: 6px;
+    }
+
+    .dash-stat {
+        padding: 8px 9px;
+    }
+
+    .dash-stat-val {
+        font-size: 12px;
+    }
+
+    .dash-chart-box,
+    .dash-table {
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    .bar-chart {
+        height: 56px;
+    }
+
+    .donut {
+        width: 52px;
+        height: 52px;
+    }
+
+    .donut::after {
+        inset: 12px;
     }
 }
 
