@@ -146,9 +146,16 @@ textarea:focus-visible {
 
 /* Animations */
 .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 0.8s ease forwards;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s ease forwards;
+    }
 }
 
 .delay-1 { animation-delay: 0.2s; }
