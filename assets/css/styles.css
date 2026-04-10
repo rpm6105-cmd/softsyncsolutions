@@ -1478,6 +1478,7 @@ textarea:focus-visible {
         transform: none !important;
     }
 
+    .fade-in,
     .reveal {
         opacity: 1;
     }
