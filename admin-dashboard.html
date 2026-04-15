@@ -55,9 +55,15 @@
                                 <label>Project / Subject Summary</label>
                                 <textarea id="doc-subject" class="form-input" style="height: 60px;" placeholder="What is this document about?..." oninput="renderLive()"></textarea>
                             </div>
-                            <div id="date-field" class="form-group">
-                                <label>Date / Due Date</label>
-                                <input type="date" id="doc-date" class="form-input" oninput="renderLive()">
+                            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label>Document Date</label>
+                                    <input type="date" id="doc-date" class="form-input" oninput="renderLive()">
+                                </div>
+                                <div>
+                                    <label>Due Date</label>
+                                    <input type="date" id="doc-due-date" class="form-input" oninput="renderLive()">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label>Client Address</label>

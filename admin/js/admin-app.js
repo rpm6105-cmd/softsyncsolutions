@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     document.getElementById('app-layout').style.display = 'flex';
-    document.getElementById('doc-date').valueAsDate = new Date();
     
     initLineItems();
     renderLive();
@@ -115,13 +114,13 @@ window.renderLive = () => {
     const client = document.getElementById('doc-client').value || '---';
     const subject = document.getElementById('doc-subject').value || '---';
     const rawDate = new Date(document.getElementById('doc-date').value);
-    const dateStr = rawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '---';
     
-    // Generate IDs and Dates
-    const docId = `SS-${rawDate.getFullYear()}-${(rawDate.getMonth()+1).toString().padStart(2,'0')}${rawDate.getDate()}-01`;
-    const validUntil = new Date(rawDate);
-    validUntil.setDate(validUntil.getDate() + 21);
-    const validStr = validUntil.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    const rawDueDate = new Date(document.getElementById('doc-due-date').value);
+    const validStr = !isNaN(rawDueDate) ? rawDueDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '---';
+    
+    // Generate IDs based on Doc Date (if exists)
+    const docId = !isNaN(rawDate) ? `SS-${rawDate.getFullYear()}-${(rawDate.getMonth()+1).toString().padStart(2,'0')}${rawDate.getDate()}-01` : 'SS-XXXX-XXXX-01';
 
     const title = mode === 'quotation' ? 'Quotation' : (mode === 'invoice' ? 'Tax Invoice' : (mode === 'proposal' ? 'Project Proposal' : 'Letterhead'));
 
