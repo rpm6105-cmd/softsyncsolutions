@@ -186,39 +186,40 @@ window.renderLive = () => {
     document.getElementById('document-preview').innerHTML = `
         <div class="branding-bar-top"></div>
         <div class="doc-content">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2rem;">
-                <img src="assets/images/logo-s.png" style="height:60px;">
+            <div style="display:flex; justify-content:flex-end; align-items:flex-start; margin-bottom:3rem;">
                 <div class="doc-title-block">
                     <h1>${title}</h1>
-                    <p style="font-size:0.7rem; color:#94a3b8; letter-spacing:0.1em; font-weight:700;">DOCUMENT ID: ${docId}</p>
                 </div>
             </div>
 
             <div class="doc-header-grid">
                 <div class="doc-column">
-                    <h4>${mode} From</h4>
+                    <h4>${title} From</h4>
                     <strong>${company.name}</strong>
-                    <p>${company.address}</p>
-                    <p>${company.email}</p>
-                    <p>${company.phone}</p>
+                    <p>${company.address.split(',').slice(0, 2).join(', ')}</p>
+                    <p>${company.address.split(',').slice(2).join(', ')}</p>
+                    <p style="margin-top:8px;">Email: <strong>${company.email}</strong></p>
+                    <p>Phone: <strong>${company.phone}</strong></p>
                 </div>
                 <div class="doc-column">
-                    <h4>${mode} Prepared For</h4>
+                    <h4>${title} For</h4>
                     <strong>${client}</strong>
-                    <p>Client Reference Account</p>
-                    <p>Authorized Representative</p>
+                    <p>374/17A SRI MALLESHAWARA NILAYA, 23RD CRS, PIPELINE RD,</p>
+                    <p>Bangalore, Karnataka, India - 560057</p>
+                    <p style="margin-top:8px;">Phone: <strong>+91 38367-49283</strong></p>
                 </div>
-                <div class="doc-column">
-                    <h4>Document Details</h4>
-                    <p><strong>Date:</strong> ${dateStr}</p>
-                    <p><strong>Valid Till:</strong> ${validStr}</p>
-                    <p><strong>Currency:</strong> INR (₹)</p>
+                <div class="doc-column" style="text-align:left;">
+                    <h4>Details</h4>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:0.8rem;">
+                        <span style="color:#666;">${title} No</span><strong style="text-align:right;">A0000${docId.slice(-1)}</strong>
+                        <span style="color:#666;">${title} Date</span><strong style="text-align:right;">${dateStr}</strong>
+                        <span style="color:#666;">Valid Till Date</span><strong style="text-align:right;">${validStr}</strong>
+                    </div>
                 </div>
             </div>
 
-            <div style="margin-bottom:1.5rem;">
-                <h4 style="font-size:0.7rem; text-transform:uppercase; color:#94a3b8; margin-bottom:6px;">Project / Subject Summary</h4>
-                <p style="font-size:0.85rem; font-weight:600; color:#1e293b; line-height:1.4;">${subject.replace(/\n/g, '<br>')}</p>
+            <div style="margin-bottom:1.5rem; border-top: 1px solid #f2f2f2; padding-top: 1.5rem;">
+                <p style="font-size:0.85rem; color:#333; line-height:1.4;">${subject.replace(/\n/g, '<br>')}</p>
             </div>
 
             ${bodyHtml}
