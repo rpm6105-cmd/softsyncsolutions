@@ -15,7 +15,7 @@ const company = {
     name: 'Softsync Solutions',
     address: 'Pushpak Nagar, Karanjade, 410206',
     email: 'rohith@softsyncsolutions.in',
-    phone: '+91 72688-88866',
+    phone: '7259956572',
     director: 'Rohith P.M.'
 };
 
@@ -204,9 +204,8 @@ window.renderLive = () => {
                 <div class="doc-column">
                     <h4>${title} For</h4>
                     <strong>${client}</strong>
-                    <p>374/17A SRI MALLESHAWARA NILAYA, 23RD CRS, PIPELINE RD,</p>
-                    <p>Bangalore, Karnataka, India - 560057</p>
-                    <p style="margin-top:8px;">Phone: <strong>+91 38367-49283</strong></p>
+                    <p style="white-space: pre-wrap;">${document.getElementById('doc-client-address').value || '---'}</p>
+                    <p style="margin-top:8px;">Phone: <strong>${document.getElementById('doc-client-phone').value || '---'}</strong></p>
                 </div>
                 <div class="doc-column" style="text-align:left;">
                     <h4>Details</h4>
@@ -234,7 +233,6 @@ window.renderLive = () => {
             <div class="footer-content">
                 <span>WWW.SOFTSYNCSOLUTIONS.IN</span>
                 <span>TRUSTED PARTNER IN DIGITAL TRANSFORMATION</span>
-                <span>PAN: AXBPXXXXXF</span>
             </div>
         </div>
     `;
