@@ -52,13 +52,23 @@ window.updateUI = () => {
     const mode = document.getElementById('suite-mode').value;
     const preview = document.getElementById('document-preview');
     const itemsEditor = document.getElementById('items-editor');
+    const proposalEditor = document.getElementById('proposal-editor');
     
+    // Hide all specific editors by default
+    itemsEditor.style.display = 'none';
+    proposalEditor.style.display = 'none';
+
     if (mode === 'letterhead') {
-        itemsEditor.style.display = 'none';
         preview.className = 'a4-page theme-cyan';
-    } else {
+    } else if (mode === 'proposal') {
+        proposalEditor.style.display = 'block';
+        preview.className = 'a4-page theme-cyan';
+    } else if (mode === 'quotation') {
         itemsEditor.style.display = 'block';
-        preview.className = mode === 'quotation' ? 'a4-page theme-cyan' : 'a4-page theme-indigo';
+        preview.className = 'a4-page theme-cyan';
+    } else if (mode === 'invoice') {
+        itemsEditor.style.display = 'block';
+        preview.className = 'a4-page theme-indigo';
     }
     renderLive();
 };
@@ -107,7 +117,64 @@ window.renderLive = () => {
         return `<tr><td>${item.desc}</td><td style="text-align:center;">${item.qty}</td><td style="text-align:right;">₹${item.rate.toLocaleString()}</td><td style="text-align:right;">₹${lineTotal.toLocaleString()}</td></tr>`;
     }).join('');
 
-    const title = mode === 'quotation' ? 'Quotation' : (mode === 'invoice' ? 'Tax Invoice' : 'Letterhead');
+    const title = mode === 'quotation' ? 'Quotation' : (mode === 'invoice' ? 'Tax Invoice' : (mode === 'proposal' ? 'Project Proposal' : 'Letterhead'));
+
+    let bodyHtml = '';
+
+    if (mode === 'proposal') {
+        const scope = document.getElementById('p-scope').value;
+        const deliverables = document.getElementById('p-deliverables').value;
+        const cost = document.getElementById('p-cost').value;
+        const timeline = document.getElementById('p-timeline').value;
+        const payment = document.getElementById('p-payment').value;
+        const notes = document.getElementById('p-notes').value;
+
+        bodyHtml = `
+            <div style="margin-top:2rem;">
+                <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">1. Scope of Work</h4>
+                <p style="font-size:0.85rem; color:#444; line-height:1.6; margin-bottom:1.5rem;">${scope.replace(/\n/g, '<br>') || '---'}</p>
+
+                <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">2. Deliverables</h4>
+                <p style="font-size:0.85rem; color:#444; line-height:1.6; margin-bottom:1.5rem;">${deliverables.replace(/\n/g, '<br>') || '---'}</p>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:1.5rem;">
+                    <div>
+                        <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">3. Project Cost</h4>
+                        <p style="font-size:1.2rem; font-weight:800; font-family:'Outfit';">₹${parseFloat(cost).toLocaleString() || '0'}</p>
+                    </div>
+                    <div>
+                        <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">4. Timeline</h4>
+                        <p style="font-size:0.9rem; font-weight:600;">${timeline || '---'}</p>
+                    </div>
+                </div>
+
+                <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">5. Payment Terms</h4>
+                <p style="font-size:0.85rem; color:#444; line-height:1.6; margin-bottom:1.5rem;">${payment.replace(/\n/g, '<br>') || '---'}</p>
+
+                ${notes ? `
+                    <h4 style="color:var(--doc-accent); font-family:'Outfit',sans-serif; text-transform:uppercase; font-size:0.8rem; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:4px;">6. Additional Notes</h4>
+                    <p style="font-size:0.85rem; color:#666; line-height:1.6; font-style:italic;">${notes.replace(/\n/g, '<br>')}</p>
+                ` : ''}
+            </div>
+        `;
+    } else {
+        bodyHtml = `
+            <div style="margin-bottom:2rem;">
+                <p style="color:#666; font-size:0.85rem; line-height:1.6;">${subject.replace(/\n/g, '<br>')}</p>
+            </div>
+
+            ${mode !== 'letterhead' ? `
+                <table class="doc-table">
+                    <thead><tr><th style="text-align:left;">Description</th><th>Qty</th><th style="text-align:right;">Rate</th><th style="text-align:right;">Total</th></tr></thead>
+                    <tbody>${itemsHtml}</tbody>
+                </table>
+                <div class="doc-total">
+                    <span class="total-label">Grand Total:</span>
+                    <div class="total-amount">₹${subtotal.toLocaleString()}</div>
+                </div>
+            ` : ''}
+        `;
+    }
 
     document.getElementById('document-preview').innerHTML = `
         <div class="doc-header">
@@ -130,20 +197,7 @@ window.renderLive = () => {
             </div>
         </div>
 
-        <div style="margin-bottom:2rem;">
-            <p style="color:#666; font-size:0.85rem; line-height:1.6;">${subject.replace(/\n/g, '<br>')}</p>
-        </div>
-
-        ${mode !== 'letterhead' ? `
-            <table class="doc-table">
-                <thead><tr><th style="text-align:left;">Description</th><th>Qty</th><th style="text-align:right;">Rate</th><th style="text-align:right;">Total</th></tr></thead>
-                <tbody>${itemsHtml}</tbody>
-            </table>
-            <div class="doc-total">
-                <span class="total-label">Grand Total:</span>
-                <div class="total-amount">₹${subtotal.toLocaleString()}</div>
-            </div>
-        ` : ''}
+        ${bodyHtml}
 
         <div class="signature-block">
             <p class="signature">${company.director}</p>
@@ -159,15 +213,30 @@ window.saveDocument = async () => {
     const subject = document.getElementById('doc-subject').value;
     const date = document.getElementById('doc-date').value;
     
-    const amount = activeItems.reduce((acc, item) => acc + (item.qty * item.rate), 0);
+    const amount = mode === 'proposal' ? parseFloat(document.getElementById('p-cost').value || 0) : activeItems.reduce((acc, item) => acc + (item.qty * item.rate), 0);
     
-    const table = mode === 'invoice' ? 'invoices' : 'quotes';
+    let table = 'quotes';
+    if (mode === 'invoice') table = 'invoices';
+    if (mode === 'proposal') table = 'proposals';
+
     const payload = {
         client_name: client,
-        service: subject,
-        price: amount,
-        items: activeItems // Saving as JSONB
+        created_at: new Date().toISOString()
     };
+
+    if (mode === 'proposal') {
+        payload.project_title = subject;
+        payload.scope_of_work = document.getElementById('p-scope').value;
+        payload.deliverables = document.getElementById('p-deliverables').value;
+        payload.project_cost = amount;
+        payload.timeline = document.getElementById('p-timeline').value;
+        payload.payment_terms = document.getElementById('p-payment').value;
+        payload.notes = document.getElementById('p-notes').value;
+    } else {
+        payload.service = subject;
+        payload.price = amount;
+        payload.items = activeItems;
+    }
 
     if (mode === 'invoice') {
         payload.amount = amount;
@@ -188,17 +257,22 @@ window.saveDocument = async () => {
 async function loadHistory() {
     const { data: qData } = await supabase.from('quotes').select('*').order('created_at', { ascending: false }).limit(5);
     const { data: iData } = await supabase.from('invoices').select('*').order('created_at', { ascending: false }).limit(5);
+    const { data: pData } = await supabase.from('proposals').select('*').order('created_at', { ascending: false }).limit(5);
     
     const tbody = document.getElementById('history-list');
-    const all = [...(qData || []), ...(iData || [])].sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+    const all = [
+        ...(qData || []).map(d => ({ ...d, type: 'Quotation', val: d.price })),
+        ...(iData || []).map(d => ({ ...d, type: 'Invoice', val: d.amount })),
+        ...(pData || []).map(d => ({ ...d, type: 'Proposal', val: d.project_cost, client_name: d.client_name }))
+    ].sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
     
     tbody.innerHTML = all.map(d => `
         <tr>
-            <td><span class="badge" style="background:rgba(255,255,255,0.05);">${d.price ? 'Quotation' : 'Invoice'}</span></td>
+            <td><span class="badge" style="background:rgba(255,255,255,0.05);">${d.type}</span></td>
             <td style="font-weight:600;">${d.client_name}</td>
-            <td>₹${(d.price || d.amount).toLocaleString()}</td>
+            <td>₹${(d.val || 0).toLocaleString()}</td>
             <td style="color:var(--text-muted);">${new Date(d.created_at).toLocaleDateString()}</td>
-            <td><button class="btn btn-ghost" style="padding:4px 10px; font-size:0.75rem" onclick="restoreDoc('${d.id}')">View</button></td>
+            <td><button class="btn btn-ghost" style="padding:4px 10px; font-size:0.75rem" onclick="restoreDoc('${d.id}', '${d.type}')">View</button></td>
         </tr>
     `).join('');
 }

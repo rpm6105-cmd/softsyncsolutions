@@ -33,6 +33,7 @@
                     <div style="display: flex; gap: 1rem;">
                         <select id="suite-mode" class="form-input" style="width: auto;" onchange="updateUI()">
                             <option value="quotation">New Quotation</option>
+                            <option value="proposal">New Project Proposal</option>
                             <option value="invoice">New Tax Invoice</option>
                             <option value="letterhead">New Letterhead</option>
                         </select>
@@ -57,6 +58,35 @@
                             <div id="date-field" class="form-group">
                                 <label>Date / Due Date</label>
                                 <input type="date" id="doc-date" class="form-input" oninput="renderLive()">
+                            </div>
+                        </div>
+
+                        <!-- Proposal Specific Fields -->
+                        <div class="card" id="proposal-editor" style="display: none;">
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Project Structure</h3>
+                            <div class="form-group">
+                                <label>Scope of Work</label>
+                                <textarea id="p-scope" class="form-input" style="height: 100px;" oninput="renderLive()" placeholder="Describe the project boundaries..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Deliverables</label>
+                                <textarea id="p-deliverables" class="form-input" style="height: 80px;" oninput="renderLive()" placeholder="List what the client will receive..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Project Cost (INR)</label>
+                                <input type="number" id="p-cost" class="form-input" oninput="renderLive()">
+                            </div>
+                            <div class="form-group">
+                                <label>Timeline</label>
+                                <input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4 Weeks / Q3 Delivery">
+                            </div>
+                            <div class="form-group">
+                                <label>Payment Terms</label>
+                                <textarea id="p-payment" class="form-input" style="height: 60px;" oninput="renderLive()" placeholder="e.g. 50% advance..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Internal/Client Notes</label>
+                                <textarea id="p-notes" class="form-input" style="height: 60px;" oninput="renderLive()"></textarea>
                             </div>
                         </div>
 
