@@ -1,7 +1,13 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 import { SUPABASE_CONFIG } from './config.js';
 
-const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
+const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, {
+    auth: {
+        persistSession: true,
+        storage: window.sessionStorage,
+        autoRefreshToken: true
+    }
+});
 
 // --- State ---
 let activeItems = [{ desc: 'Platform Architecture & UI Design', qty: 1, rate: 50000 }];
