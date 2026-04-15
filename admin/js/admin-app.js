@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('app-layout').style.display = 'flex';
     
+    // Auto-fill dates
+    const today = new Date();
+    document.getElementById('doc-date').valueAsDate = today;
+    updateDueDate(); // Set initial +14 days
+    
     initLineItems();
     renderLive();
     loadHistory();
@@ -106,6 +111,16 @@ window.removeItem = (idx) => {
 window.updateItem = (idx, field, val) => {
     activeItems[idx][field] = field === 'desc' ? val : parseFloat(val) || 0;
     renderLive();
+};
+
+window.updateDueDate = () => {
+    const docDate = new Date(document.getElementById('doc-date').value);
+    if (!isNaN(docDate)) {
+        const dueDate = new Date(docDate);
+        dueDate.setDate(dueDate.getDate() + 14);
+        document.getElementById('doc-due-date').valueAsDate = dueDate;
+        renderLive();
+    }
 };
 
 // --- Rendering Engine ---
