@@ -10,7 +10,7 @@ const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, {
 });
 
 // --- State ---
-let activeItems = [{ desc: 'Platform Architecture & UI Design', qty: 1, rate: 50000 }];
+let activeItems = [];
 const company = {
     name: 'Softsync Solutions',
     address: 'Pushpak Nagar, Karanjade, 410206',
