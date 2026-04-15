@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Softsync Admin</title>
+    <title>Business Suite | Softsync Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="admin/css/admin-styles.css">
 </head>
 <body class="dashboard-theme">
@@ -17,10 +17,8 @@
                 <h2>Softsync Admin</h2>
             </div>
             <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-view="dashboard">📊 Dashboard</a>
-                <a href="#" class="nav-item" data-view="quotes">📄 Quotes</a>
-                <a href="#" class="nav-item" data-view="invoices">💰 Invoices</a>
-                <a href="#" class="nav-item" data-view="projects">🚀 Projects</a>
+                <a href="#" class="nav-item active" data-view="suite">🛠️ Business Suite</a>
+                <a href="#" class="nav-item" data-view="history">📜 Document History</a>
             </nav>
             <div class="sidebar-footer">
                 <button id="logout-btn" class="btn btn-ghost" style="width: 100%; color: var(--danger); border-color: transparent;">Sign Out</button>
@@ -28,103 +26,65 @@
         </aside>
 
         <main class="main-content">
-            <!-- Dashboard Overview -->
-            <section id="view-dashboard" class="view-section active">
+            <!-- Professional Suite View -->
+            <section id="view-suite" class="view-section active">
                 <header>
-                    <h1>Overview</h1>
-                    <button class="btn btn-primary" onclick="switchView('projects')">+ Track Project</button>
+                    <h1>Softsync Business Suite</h1>
+                    <div style="display: flex; gap: 1rem;">
+                        <select id="suite-mode" class="form-input" style="width: auto;" onchange="updateUI()">
+                            <option value="quotation">New Quotation</option>
+                            <option value="invoice">New Tax Invoice</option>
+                            <option value="letterhead">New Letterhead</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="saveDocument()">💾 Save & Sync</button>
+                        <button class="btn btn-ghost" onclick="window.print()">🖨️ Print PDF</button>
+                    </div>
                 </header>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
-                    <div class="card"><p style="color:var(--text-muted); font-size:0.8rem;">Total Quotes</p><h2 id="stats-quotes">0</h2></div>
-                    <div class="card"><p style="color:var(--text-muted); font-size:0.8rem;">Pending Invoices</p><h2 id="stats-invoices">0</h2></div>
-                    <div class="card"><p style="color:var(--text-muted); font-size:0.8rem;">Active Projects</p><h2 id="stats-projects">0</h2></div>
-                </div>
-            </section>
 
-            <!-- Quotes View -->
-            <section id="view-quotes" class="view-section">
-                <header>
-                    <h1>Manage Quotes</h1>
-                    <button class="btn btn-primary" onclick="showForm('quote')">+ Create Quote</button>
-                </header>
-                <div class="card" id="form-quote" style="display: none;">
-                    <form onsubmit="handleQuoteSubmit(event)">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                            <div class="form-group"><label>Client Name</label><input type="text" id="q-client" class="form-input" required></div>
-                            <div class="form-group"><label>Service</label><input type="text" id="q-service" class="form-input" required></div>
-                            <div class="form-group"><label>Price (INR)</label><input type="number" id="q-price" class="form-input" required></div>
-                        </div>
-                        <div style="display: flex; gap: 1rem;">
-                            <button type="submit" class="btn btn-primary">Save Quote</button>
-                            <button type="button" class="btn btn-ghost" onclick="hideForm('quote')">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="card">
-                    <table>
-                        <thead><tr><th>Client</th><th>Service</th><th>Price</th><th>Date</th></tr></thead>
-                        <tbody id="list-quotes"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Invoices View -->
-            <section id="view-invoices" class="view-section">
-                <header>
-                    <h1>Invoicing</h1>
-                    <button class="btn btn-primary" onclick="showForm('invoice')">+ Create Invoice</button>
-                </header>
-                <div class="card" id="form-invoice" style="display: none;">
-                    <form onsubmit="handleInvoiceSubmit(event)">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                            <div class="form-group"><label>Client Name</label><input type="text" id="i-client" class="form-input" required></div>
-                            <div class="form-group"><label>Amount</label><input type="number" id="i-amount" class="form-input" required></div>
+                <div class="split-layout">
+                    <!-- Column 1: Editor -->
+                    <div class="editor-pane">
+                        <div class="card">
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Client Details</h3>
                             <div class="form-group">
-                                <label>Status</label>
-                                <select id="i-status" class="form-input">
-                                    <option value="Pending">Pending</option>
-                                    <option value="Paid">Paid</option>
-                                    <option value="Overdue">Overdue</option>
-                                </select>
+                                <label>Client Name / Company</label>
+                                <input type="text" id="doc-client" class="form-input" value="Acme Corp" oninput="renderLive()">
+                            </div>
+                            <div class="form-group">
+                                <label>Project / Subject Summary</label>
+                                <textarea id="doc-subject" class="form-input" style="height: 60px;" oninput="renderLive()">Custom SaaS Development Package</textarea>
+                            </div>
+                            <div id="date-field" class="form-group">
+                                <label>Date / Due Date</label>
+                                <input type="date" id="doc-date" class="form-input" oninput="renderLive()">
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem;">
-                            <button type="submit" class="btn btn-primary">Generate Invoice</button>
-                            <button type="button" class="btn btn-ghost" onclick="hideForm('invoice')">Cancel</button>
+
+                        <div class="card" id="items-editor">
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Line Items</h3>
+                            <div id="line-items-container">
+                                <!-- Dynamic Rows Here -->
+                            </div>
+                            <button class="btn btn-ghost" style="width: 100%; border-style: dashed;" onclick="addLineItem()">+ Add Item</button>
                         </div>
-                    </form>
-                </div>
-                <div class="card">
-                    <table>
-                        <thead><tr><th>Client</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
-                        <tbody id="list-invoices"></tbody>
-                    </table>
+                    </div>
+
+                    <!-- Column 2: Preview -->
+                    <div class="preview-pane">
+                        <div id="document-preview" class="a4-page theme-cyan">
+                            <!-- Branded Template Renders Here -->
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Projects View -->
-            <section id="view-projects" class="view-section">
-                <header>
-                    <h1>Track Projects</h1>
-                    <button class="btn btn-primary" onclick="showForm('project')">+ New Project</button>
-                </header>
-                <div class="card" id="form-project" style="display: none;">
-                    <form onsubmit="handleProjectSubmit(event)">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                            <div class="form-group"><label>Client Name</label><input type="text" id="p-client" class="form-input" required></div>
-                            <div class="form-group"><label>Project Name</label><input type="text" id="p-name" class="form-input" required></div>
-                            <div class="form-group"><label>Status</label><input type="text" id="p-status" class="form-input" placeholder="Discovery / Dev" required></div>
-                        </div>
-                        <div style="display: flex; gap: 1rem;">
-                            <button type="submit" class="btn btn-primary">Start project</button>
-                            <button type="button" class="btn btn-ghost" onclick="hideForm('project')">Cancel</button>
-                        </div>
-                    </form>
-                </div>
+            <!-- History View -->
+            <section id="view-history" class="view-section">
+                <header><h1>Document History</h1></header>
                 <div class="card">
                     <table>
-                        <thead><tr><th>Client</th><th>Project</th><th>Status</th></tr></thead>
-                        <tbody id="list-projects"></tbody>
+                        <thead><tr><th>Type</th><th>Client</th><th>Amount</th><th>Date</th><th>Action</th></tr></thead>
+                        <tbody id="history-list"></tbody>
                     </table>
                 </div>
             </section>
