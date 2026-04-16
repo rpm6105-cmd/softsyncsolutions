@@ -192,7 +192,7 @@ window.renderLive = () => {
             </div>
             <div style="margin-top:2rem;">
                 <h4 style="font-size:0.7rem; text-transform:uppercase; color:#94a3b8; margin-bottom:6px;">Terms & Conditions</h4>
-                <p style="font-size:0.7rem; color:#64748b; line-height:1.6;">• Applicable taxes will be extra.<br>• Validity of this document is 21 days.<br>• Project kickoff only after advance payment.</p>
+                <p style="font-size:0.7rem; color:#64748b; line-height:1.6;">• Validity of this quotation is 21 days.<br>• Project kickoff only after advance payment.</p>
             </div>
         `;
     }
@@ -237,9 +237,9 @@ window.renderLive = () => {
 
             ${bodyHtml}
 
-            <div class="signature-block">
-                <p class="signature">${company.director}</p>
-                <div style="width:200px; height:1px; background:#e2e8f0; margin:5px 0 5px auto;"></div>
+            <div class="signature-block" style="text-align: right; margin-top: 4rem; width: 100%;">
+                <p class="signature" style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin-bottom: 0;">${company.director}</p>
+                <div style="width:180px; height:1px; background:#e2e8f0; margin:5px 0 5px auto;"></div>
                 <p style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:#64748b;">Director, Softsync</p>
             </div>
         </div>
