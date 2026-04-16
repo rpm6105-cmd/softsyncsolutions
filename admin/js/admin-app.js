@@ -197,9 +197,53 @@ window.renderLive = () => {
         `;
     }
 
-    document.getElementById('document-preview').innerHTML = `
-        <div class="branding-bar-top"></div>
-        <div class="doc-content">
+    let headerHtml = '';
+    
+    if (mode === 'letterhead') {
+        headerHtml = `
+            <div class="doc-header-minimal">
+                <img src="assets/images/logo-s.png" style="height:60px; margin-bottom:1rem;">
+                <div class="company-meta">
+                    <span>${company.address}</span>
+                    <span>${company.email}</span>
+                    <span>${company.phone}</span>
+                </div>
+            </div>
+            <div style="margin-bottom:3rem; display:flex; justify-content:space-between; align-items:flex-end;">
+                <div>
+                    <h4 style="font-size:0.7rem; text-transform:uppercase; color:#94a3b8; margin-bottom:8px;">To</h4>
+                    <strong style="font-size:1.1rem;">${client}</strong>
+                </div>
+                <div style="text-align:right;">
+                    <p style="font-size:0.8rem; color:#64748b;">Date: <strong>${dateStr}</strong></p>
+                </div>
+            </div>
+        `;
+    } else if (mode === 'proposal') {
+        headerHtml = `
+            <div class="doc-proposal-header">
+                <div class="doc-proposal-title">Project Proposal</div>
+                <div style="font-size:1.5rem; color:#64748b; font-weight:300; margin-bottom:4rem;">${subject}</div>
+                
+                <div class="doc-proposal-meta">
+                    <div class="meta-item">
+                        <h4>Prepared For</h4>
+                        <strong style="font-size:1.1rem;">${client}</strong>
+                    </div>
+                    <div class="meta-item">
+                        <h4>Prepared By</h4>
+                        <strong style="font-size:1.1rem;">${company.name}</strong>
+                    </div>
+                    <div class="meta-item">
+                        <h4>Date Published</h4>
+                        <strong style="font-size:1.1rem;">${dateStr}</strong>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else {
+        // Financial Grid for Quotations/Invoices
+        headerHtml = `
             <div style="display:flex; justify-content:flex-end; align-items:flex-start; margin-bottom:3rem;">
                 <div class="doc-title-block">
                     <h1>${title}</h1>
@@ -234,8 +278,15 @@ window.renderLive = () => {
             <div style="margin-bottom:1.5rem; border-top: 1px solid #f2f2f2; padding-top: 1.5rem;">
                 <p style="font-size:0.85rem; color:#333; line-height:1.4;">${subject.replace(/\n/g, '<br>')}</p>
             </div>
+        `;
+    }
 
-            ${bodyHtml}
+    document.getElementById('document-preview').innerHTML = `
+        <div class="branding-bar-top"></div>
+        <div class="doc-content">
+            ${headerHtml}
+            ${mode === 'proposal' ? '' : bodyHtml}
+            ${mode === 'proposal' ? bodyHtml : ''}
 
             <div class="signature-block" style="text-align: right; margin-top: 4rem; width: 100%;">
                 <p class="signature" style="font-family: 'Great Vibes', cursive; font-size: 2.2rem; margin-bottom: 0;">${company.director}</p>

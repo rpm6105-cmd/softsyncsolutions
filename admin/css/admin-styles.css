@@ -153,12 +153,61 @@ td { padding: 1.25rem 1rem; border-bottom: 1px solid var(--border); font-size: 0
 
 .doc-header-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr 1.2fr;
     gap: 1.5rem;
     margin-top: 1rem;
     margin-bottom: 3rem;
     border-bottom: 1px solid #eee;
     padding-bottom: 2rem;
+}
+
+/* Letterhead Specific */
+.doc-header-minimal {
+    text-align: center;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+}
+.doc-header-minimal .company-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Proposal Specific */
+.doc-proposal-header {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    text-align: center;
+}
+.doc-proposal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--primary-dark);
+    line-height: 1;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.doc-proposal-meta {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 3rem;
+    border-top: 1px solid #eee;
+    padding-top: 2rem;
+}
+.meta-item h4 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    letter-spacing: 0.1em;
 }
 
 .doc-column h4 {
