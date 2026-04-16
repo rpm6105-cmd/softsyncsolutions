@@ -192,7 +192,7 @@ window.renderLive = () => {
             </div>
             <div style="margin-top:2rem;">
                 <h4 style="font-size:0.7rem; text-transform:uppercase; color:#94a3b8; margin-bottom:6px;">Terms & Conditions</h4>
-                <p style="font-size:0.7rem; color:#64748b; line-height:1.6;">• Validity of this quotation is 21 days.<br>• Project kickoff only after advance payment.</p>
+                <p style="font-size:0.7rem; color:#64748b; line-height:1.6;">• Quoted prices are final and all-inclusive. No additional taxes will be levied.<br>• Validity of this quotation is 21 days.<br>• Project kickoff only after advance payment.</p>
             </div>
         `;
     }
