@@ -69,39 +69,67 @@
                                 <label>Client Address</label>
                                 <textarea id="doc-client-address" class="form-input" style="height: 60px;" placeholder="Full Address of the client..." oninput="renderLive()"></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Client Phone</label>
-                                <input type="text" id="doc-client-phone" class="form-input" placeholder="Client Phone Number..." oninput="renderLive()">
+                            <div class="form-group row-2">
+                                <div>
+                                    <label>Client Phone</label>
+                                    <input type="text" id="doc-client-phone" class="form-input" placeholder="Client Phone Number..." oninput="renderLive()">
+                                </div>
+                                <div>
+                                    <label>Project ID / Ref</label>
+                                    <input type="text" id="doc-ref" class="form-input" placeholder="e.g. PRJ-2026-001" oninput="renderLive()">
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Document Metadata -->
+                        <div class="card" id="meta-editor">
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Document Branding</h3>
+                            <div class="form-group row-2">
+                                <div>
+                                    <label>Prepared For</label>
+                                    <input type="text" id="meta-for" class="form-input" placeholder="e.g. CEO, Apex Corp" oninput="renderLive()">
+                                </div>
+                                <div>
+                                    <label>Prepared By</label>
+                                    <input type="text" id="meta-by" class="form-input" placeholder="e.g. Project Director" oninput="renderLive()">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Valid For (Days)</label>
+                                <input type="number" id="doc-validity" class="form-input" value="21" oninput="renderLive()">
                             </div>
                         </div>
 
                         <!-- Proposal Specific Fields -->
                         <div class="card" id="proposal-editor" style="display: none;">
-                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Project Structure</h3>
-                            <div class="form-group">
-                                <label>Scope of Work</label>
-                                <textarea id="p-scope" class="form-input" style="height: 100px;" oninput="renderLive()" placeholder="Describe the project boundaries..."></textarea>
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Project Roadmap</h3>
+                            <div id="timeline-container">
+                                <!-- Dynamic Timeline Phases -->
                             </div>
+                            <button class="btn btn-ghost" style="width: 100%; border-style: dashed; margin-bottom: 1.5rem;" onclick="addTimelinePhase()">+ Add Project Phase</button>
+                            
+                            <h4 style="margin-bottom: 1rem; font-family: 'Outfit'; font-size: 0.9rem;">Scope & Inclusions</h4>
                             <div class="form-group">
-                                <label>Deliverables</label>
-                                <textarea id="p-deliverables" class="form-input" style="height: 80px;" oninput="renderLive()" placeholder="List what the client will receive..."></textarea>
+                                <textarea id="p-scope" class="form-input" style="height: 100px;" oninput="renderLive()" placeholder="Describe the scope (one item per line)..."></textarea>
                             </div>
-                            <div class="form-group">
-                                <label>Project Cost (INR)</label>
-                                <input type="number" id="p-cost" class="form-input" oninput="renderLive()">
-                            </div>
-                            <div class="form-group">
-                                <label>Timeline</label>
-                                <input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4 Weeks / Q3 Delivery">
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Terms</label>
-                                <textarea id="p-payment" class="form-input" style="height: 60px;" oninput="renderLive()" placeholder="e.g. 50% advance..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Internal/Client Notes</label>
-                                <textarea id="p-notes" class="form-input" style="height: 60px;" oninput="renderLive()"></textarea>
+                        </div>
+
+                        <div class="card" id="payment-editor" style="display: none;">
+                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Payment Information</h3>
+                            <div class="grid-2">
+                                <div class="payment-block">
+                                    <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem;">Bank Transfer</h4>
+                                    <input type="text" id="pay-bank" class="form-input sm" placeholder="Bank Name" oninput="renderLive()">
+                                    <input type="text" id="pay-acc-name" class="form-input sm" placeholder="Account Name" oninput="renderLive()">
+                                    <input type="text" id="pay-acc-no" class="form-input sm" placeholder="Account Number" oninput="renderLive()">
+                                    <input type="text" id="pay-routing" class="form-input sm" placeholder="Routing / IFSC" oninput="renderLive()">
+                                    <input type="text" id="pay-swift" class="form-input sm" placeholder="SWIFT Code" oninput="renderLive()">
+                                </div>
+                                <div class="payment-block">
+                                    <h4 style="font-size: 0.8rem; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.5rem;">Digital / UPI</h4>
+                                    <input type="text" id="pay-upi" class="form-input sm" placeholder="UPI ID (e.g. user@bank)" oninput="renderLive()">
+                                    <input type="text" id="pay-paypal" class="form-input sm" placeholder="PayPal Email" oninput="renderLive()">
+                                </div>
                             </div>
                         </div>
 
