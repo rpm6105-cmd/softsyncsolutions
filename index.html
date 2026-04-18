@@ -29,14 +29,14 @@
     <link rel="icon" type="image/png" href="assets/images/logo-s.png">
     <style>
       /* Dashboard Mockup */
-      .dash-wrap { width:100%; border-radius:28px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); box-shadow:0 44px 120px rgba(0,0,0,0.62),0 0 90px rgba(34,211,238,0.12); background:linear-gradient(145deg,#0f172a,#050816); font-family:Inter,sans-serif; font-size:11px; }
+      .dash-wrap { width:100%; border-radius:28px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); box-shadow:0 44px 120px rgba(0,0,0,0.62),0 0 90px rgba(16, 185, 129, 0.12); background:linear-gradient(145deg,#0f172a,#050816); font-family:Inter,sans-serif; font-size:11px; }
       .dash-titlebar { background:linear-gradient(90deg,rgba(30,41,59,0.96),rgba(15,23,42,0.88)); padding:12px 16px; display:flex; align-items:center; gap:6px; border-bottom:1px solid rgba(255,255,255,0.08); }
       .dash-titlebar .dot { width:9px; height:9px; border-radius:50%; }
       .dot-r{background:#ff5f56;} .dot-y{background:rgba(255,255,255,0.15);} .dot-g{background:var(--primary);}
       .dash-body { display:flex; height:380px; }
       .dash-sidebar { width:58px; background:rgba(15,23,42,0.82); border-right:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; align-items:center; padding:14px 0; gap:14px; }
       .dash-nav-icon { width:30px; height:30px; border-radius:10px; background:rgba(255,255,255,0.06); }
-      .dash-nav-icon.active { background:linear-gradient(135deg,#22d3ee,#4f46e5); box-shadow:0 0 24px rgba(34,211,238,0.32); }
+      .dash-nav-icon.active { background:#10b981; box-shadow:0 0 24px rgba(16, 185, 129, 0.32); }
       .dash-main { flex:1; padding:18px; overflow:hidden; display:flex; flex-direction:column; gap:12px; }
       .dash-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
       .dash-stat { background:rgba(255,255,255,0.055); border:1px solid rgba(255,255,255,0.09); border-radius:14px; padding:12px 13px; }
@@ -47,10 +47,10 @@
       .dash-chart-box { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:12px; display:flex; flex-direction:column; gap:6px; }
       .dash-chart-title { color:rgba(255,255,255,0.55); font-size:9px; text-transform:uppercase; letter-spacing:0.5px; }
       .bar-chart { display:flex; align-items:flex-end; gap:5px; height:80px; margin-top:auto; }
-      .bar { flex:1; border-radius:6px 6px 0 0; background:linear-gradient(to top,#4f46e5,#22d3ee); opacity:0.9; min-width:0; box-shadow:0 0 18px rgba(34,211,238,0.14); }
+      .bar { flex:1; border-radius:6px 6px 0 0; background:linear-gradient(to top,#4f46e5,#10b981); opacity:0.9; min-width:0; box-shadow:0 0 18px rgba(16, 185, 129, 0.14); }
       .bar.accent { background:linear-gradient(to top,#7c3aed,#f8d36f); }
       .donut-wrap { display:flex; align-items:center; justify-content:center; flex:1; gap:10px; }
-      .donut { width:65px; height:65px; border-radius:50%; background:conic-gradient(var(--accent) 0% 65%,rgba(124,58,237,0.65) 65% 85%,#374151 85% 100%); flex-shrink:0; position:relative; box-shadow:0 0 28px rgba(34,211,238,0.16); }
+      .donut { width:65px; height:65px; border-radius:50%; background:conic-gradient(var(--accent) 0% 65%,rgba(124,58,237,0.65) 65% 85%,#374151 85% 100%); flex-shrink:0; position:relative; box-shadow:0 0 28px rgba(16, 185, 129, 0.16); }
       .donut::after { content:''; position:absolute; inset:15px; background:#0f172a; border-radius:50%; }
       .donut-legend { display:flex; flex-direction:column; gap:5px; }
       .legend-item { display:flex; align-items:center; gap:5px; color:rgba(255,255,255,0.5); font-size:9px; }
@@ -58,7 +58,7 @@
       .dash-table { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.09); border-radius:16px; padding:12px; }
       .dash-table-row { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:6px; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.04); align-items:center; }
       .dash-table-row:last-child { border-bottom:none; }
-      .cell-bar { height:6px; border-radius:3px; background:linear-gradient(to right,#4f46e5,#22d3ee); }
+      .cell-bar { height:6px; border-radius:3px; background:linear-gradient(to right,#4f46e5,#10b981); }
       .badge { padding:2px 6px; border-radius:4px; font-size:8px; font-weight:600; text-transform:uppercase; }
       .badge-green { background:rgba(34,197,94,0.15); color:#22c55e; }
       .badge-yellow { background:rgba(234,179,8,0.15); color:#eab308; }
@@ -70,7 +70,7 @@
       .service-card { background:linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.025)); border:1px solid rgba(255,255,255,0.12); border-radius:26px; padding:2rem; transition:0.3s ease; position:relative; overflow:hidden; box-shadow:0 22px 70px rgba(0,0,0,0.24); }
       .service-card::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 0%,rgba(34,211,238,0.18),transparent 34%),linear-gradient(135deg,rgba(79,70,229,0.08),transparent); opacity:0; transition:0.3s; }
       .service-card:hover::before { opacity:1; }
-      .service-card:hover { border-color:rgba(34,211,238,0.34); transform:translateY(-7px); box-shadow:0 28px 90px rgba(0,0,0,0.32),0 0 60px rgba(34,211,238,0.1); }
+      .service-card:hover { border-color:rgba(16, 185, 129, 0.34); transform:translateY(-7px); box-shadow:0 28px 90px rgba(0,0,0,0.32),0 0 60px rgba(16, 185, 129, 0.1); }
       .service-icon { width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.4rem; margin-bottom:1.25rem; }
       .service-card h3 { font-size:1.05rem; font-weight:700; margin-bottom:0.75rem; color:rgba(255,255,255,0.9); }
       .service-card p { font-size:0.875rem; color:rgba(255,255,255,0.45); line-height:1.7; }
@@ -90,13 +90,13 @@
       .testimonial-stars { color:#f59e0b; font-size:0.85rem; margin-bottom:1rem; letter-spacing:2px; }
       .testimonial-text { font-size:0.875rem; color:rgba(255,255,255,0.55); line-height:1.8; margin-bottom:1.5rem; font-style:italic; }
       .testimonial-author { display:flex; align-items:center; gap:0.75rem; }
-      .author-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#22d3ee,#4f46e5); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:700; color:#fff; flex-shrink:0; }
+      .author-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#10b981,#4f46e5); display:flex; align-items:center; justify-content:center; font-size:0.9rem; font-weight:700; color:#fff; flex-shrink:0; }
       .author-name { font-size:0.85rem; font-weight:700; color:rgba(255,255,255,0.85); }
       .author-role { font-size:0.72rem; color:rgba(255,255,255,0.35); }
 
       /* CTA Banner */
       .cta-banner { background:linear-gradient(135deg,#071225,#101a3f); border:1px solid rgba(34,211,238,0.18); border-radius:24px; padding:3rem 2.5rem; text-align:center; position:relative; overflow:hidden; margin-top:4rem; box-shadow:0 22px 70px rgba(0,0,0,0.28),0 0 48px rgba(34,211,238,0.07); }
-      .cta-banner::before { content:''; position:absolute; top:-90px; left:-90px; width:280px; height:280px; background:radial-gradient(circle,rgba(34,211,238,0.16),transparent 70%); border-radius:50%; }
+      .cta-banner::before { content:''; position:absolute; top:-90px; left:-90px; width:280px; height:280px; background:radial-gradient(circle,rgba(16, 185, 129, 0.16),transparent 70%); border-radius:50%; }
       .cta-banner::after { content:''; position:absolute; bottom:-70px; right:-70px; width:220px; height:220px; background:radial-gradient(circle,rgba(248,211,111,0.1),transparent 70%); border-radius:50%; }
       .cta-banner h2 { font-size:1.65rem; font-weight:800; margin-bottom:0.75rem; position:relative; z-index:1; }
       .cta-banner p { color:rgba(255,255,255,0.5); max-width:500px; margin:0 auto 1.5rem; font-size:0.9rem; line-height:1.65; position:relative; z-index:1; }
@@ -237,7 +237,7 @@
                           <div class="donut-wrap">
                             <div class="donut"></div>
                             <div class="donut-legend">
-                              <div class="legend-item"><div class="legend-dot" style="background:#22d3ee"></div>HRMS</div>
+                              <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div>HRMS</div>
                               <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div>Comply</div>
                               <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Solar</div>
                               <div class="legend-item"><div class="legend-dot" style="background:#374151"></div>Other</div>
@@ -286,7 +286,7 @@
             <div class="services-grid reveal">
 
                 <div class="service-card">
-                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(79,70,229,0.08));border:1px solid rgba(34,211,238,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(79,70,229,0.08));border:1px solid rgba(16,185,129,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
                     <h3>HR & Payroll Automation</h3>
                     <p><strong>Problem:</strong> Scattered spreadsheets & manual payroll errors.<br><strong>Solution:</strong> Automated biometric & statutory systems.<br><strong>Outcome:</strong> 80% faster payroll processing.</p>
                     <div class="service-features">
@@ -297,7 +297,7 @@
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(79,70,229,0.08));border:1px solid rgba(34,211,238,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14h6"></path><path d="M9 18h6"></path><path d="M9 10h.01"></path></svg></div>
+                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(79,70,229,0.08));border:1px solid rgba(16,185,129,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M9 14h6"></path><path d="M9 18h6"></path><path d="M9 10h.01"></path></svg></div>
                     <h3>Workflow & Compliance Management</h3>
                     <p><strong>Problem:</strong> Logistical tracking & filing bottlenecks.<br><strong>Solution:</strong> Real-time statutory tracking & alerts.<br><strong>Outcome:</strong> Zero missed deadlines across 12 months.</p>
                     <div class="service-features">
@@ -308,7 +308,7 @@
                 </div>
 
                 <div class="service-card">
-                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(34,211,238,0.2),rgba(79,70,229,0.08));border:1px solid rgba(34,211,238,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
+                    <div class="service-icon" style="background:linear-gradient(135deg,rgba(16,185,129,0.2),rgba(79,70,229,0.08));border:1px solid rgba(16,185,129,0.22);color:var(--accent);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></div>
                     <h3>Fleet & Operations Systems</h3>
                     <p><strong>Problem:</strong> Manual field coordination & no visibility.<br><strong>Solution:</strong> Custom operations dashboards & field tooling.<br><strong>Outcome:</strong> 30% increase in operational throughput.</p>
                     <div class="service-features">

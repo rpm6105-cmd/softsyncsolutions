@@ -1,5 +1,5 @@
 :root {
-    --primary: #22d3ee;
+    --primary: #10b981;
     --primary-dark: #4f46e5;
     --bg-dark: #020617;
     --sidebar-bg: #0f172a;
@@ -9,7 +9,7 @@
     --text-muted: #94a3b8;
     --success: #10b981;
     --danger: #ef4444;
-    --cyan: #22d3ee;
+    --cyan: #10b981;
     --indigo: #4f46e5;
     --doc-blue: #3b82f6; /* Matching the blue in the screenshot */
 }
