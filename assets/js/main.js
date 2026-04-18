@@ -87,6 +87,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const nextBtn = document.getElementById('next-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const step1 = document.getElementById('step-1');
+    const step2 = document.getElementById('step-2');
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const company = document.getElementById('company').value;
+            if(!name || !email || !company) {
+                formStatus.textContent = 'Please fill out Name, Email and Industry fields before proceeding.';
+                formStatus.className = 'form-status is-error';
+                return;
+            }
+            formStatus.textContent = '';
+            step1.classList.remove('active');
+            step2.classList.add('active');
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            step2.classList.remove('active');
+            step1.classList.add('active');
+        });
+    }
+
     if (contactForm) {
         contactForm.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -120,7 +148,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     contactForm.reset();
-                    formStatus.textContent = 'Thanks. Your inquiry was sent successfully. We will get back to you soon.';
+                    if(step2 && step1) { step2.classList.remove('active'); step1.classList.add('active'); }
+                    formStatus.textContent = "Thanks! We'll be in touch within 24 hours.";
                     formStatus.className = 'form-status is-success';
                 })
                 .catch((error) => {
@@ -129,8 +158,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
                 .finally(() => {
                     submitButton.disabled = false;
-                    submitButton.querySelector('span').textContent = 'Request Discovery Call →';
+                    submitButton.querySelector('span').textContent = 'Get Your Automation Plan →';
                 });
+        });
+    }
+
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(faq => faq.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active classes
+                filterBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.style.background = 'rgba(255,255,255,0.05)';
+                    b.style.color = 'var(--text-dim)';
+                    b.style.border = '1px solid rgba(255,255,255,0.1)';
+                });
+
+                // Add active state to clicked button
+                btn.classList.add('active');
+                btn.style.background = 'var(--accent)';
+                btn.style.color = '#000';
+                btn.style.border = 'none';
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
         });
     }
 });

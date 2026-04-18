@@ -182,12 +182,13 @@ textarea:focus-visible {
 
 /* Navbar */
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
     width: 100%;
     padding: 0.9rem 0;
     z-index: 1000;
     transition: 0.4s ease;
+    backdrop-filter: blur(8px);
 }
 
 .navbar.scrolled {
@@ -730,7 +731,19 @@ textarea:focus-visible {
     border: 1px solid rgba(255,255,255,0.11);
     border-radius: 24px;
     padding: 2rem;
+    position: relative;
     transition: 0.3s ease;
+}
+
+@media (min-width: 900px) {
+    .process-card:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 53px;
+        right: -1.5rem;
+        width: 1.5rem;
+        border-top: 2px dashed rgba(255,255,255,0.22);
+    }
 }
 
 .process-card:hover {

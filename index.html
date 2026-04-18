@@ -152,7 +152,7 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#projects">Case Studies</a></li>
                 <li><a href="#process">Process</a></li>
-                <li><a href="#contact" class="btn btn-sm btn-vibrant">Schedule a Call</a></li>
+                <li><a href="#contact" class="btn btn-sm" style="background:var(--accent); color:#000; font-weight:700; border:none; box-shadow:0 0 16px rgba(34,211,238,0.4);">Schedule a Call</a></li>
             </ul>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
@@ -173,7 +173,7 @@
                 <p class="fade-in delay-2">Stop wrestling with complex spreadsheets. We build custom internal tools, dashboards, and automation systems that work exactly how your team does.</p>
                 <div class="hero-btns fade-in delay-3">
                     <a href="#contact" class="btn btn-vibrant">Book Free Automation Audit</a>
-                    <a href="#projects" class="btn btn-outline">View Demo</a>
+                    <a href="#process" class="btn btn-outline">View Demo</a>
                 </div>
                 <!-- Trust badges -->
                 <div class="hero-proofline fade-in delay-3" style="display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap;">
@@ -354,9 +354,18 @@
                 </div>
             </div>
 
+            <div class="project-filters" style="display:flex; gap:0.8rem; justify-content:center; margin-top:2rem; flex-wrap:wrap;">
+                <button class="filter-btn active" data-filter="all" style="padding:0.6rem 1.2rem; border-radius:50px; background:var(--accent); color:#000; font-weight:600; border:none; cursor:pointer;">All</button>
+                <button class="filter-btn" data-filter="hr" style="padding:0.6rem 1.2rem; border-radius:50px; background:rgba(255,255,255,0.05); color:var(--text-dim); font-weight:500; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">HR & Payroll</button>
+                <button class="filter-btn" data-filter="compliance" style="padding:0.6rem 1.2rem; border-radius:50px; background:rgba(255,255,255,0.05); color:var(--text-dim); font-weight:500; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Compliance</button>
+                <button class="filter-btn" data-filter="fleet" style="padding:0.6rem 1.2rem; border-radius:50px; background:rgba(255,255,255,0.05); color:var(--text-dim); font-weight:500; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Fleet</button>
+                <button class="filter-btn" data-filter="energy" style="padding:0.6rem 1.2rem; border-radius:50px; background:rgba(255,255,255,0.05); color:var(--text-dim); font-weight:500; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Energy</button>
+                <button class="filter-btn" data-filter="inventory" style="padding:0.6rem 1.2rem; border-radius:50px; background:rgba(255,255,255,0.05); color:var(--text-dim); font-weight:500; border:1px solid rgba(255,255,255,0.1); cursor:pointer;">Inventory</button>
+            </div>
+
             <div class="project-grid">
                 <!-- Case Study 1: HRMS -->
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-category="hr">
                     <div class="project-image">
                         <img src="assets/img/projects/showcase-hrms.svg" alt="Anonymized HRMS payroll dashboard mockup" class="screenshot-crop">
                         <div class="project-overlay"><span class="project-category">HR &amp; Payroll</span></div>
@@ -382,7 +391,7 @@
                 </div>
 
                 <!-- Case Study 2: Compliance -->
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-category="compliance">
                     <div class="project-image">
                         <img src="assets/img/projects/showcase-compliance.svg" alt="Anonymized compliance tracker dashboard mockup" class="screenshot-crop">
                         <div class="project-overlay"><span class="project-category">Legal &amp; Compliance</span></div>
@@ -402,13 +411,12 @@
                         </div>
                         <div class="project-actions">
                             <a href="#contact" class="btn btn-sm btn-primary">Watch System Overview</a>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-left:1rem;">Live demo available</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Case Study 3: Solar -->
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-category="energy">
                     <div class="project-image">
                         <img src="assets/img/projects/showcase-solar.svg" alt="Anonymized solar ROI proposal engine mockup" class="screenshot-crop">
                         <div class="project-overlay"><span class="project-category">Energy &amp; Utilities</span></div>
@@ -428,13 +436,12 @@
                         </div>
                         <div class="project-actions">
                             <a href="#contact" class="btn btn-sm btn-primary">Explore Architecture</a>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-left:1rem;">Live demo available</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Case Study 4: Fleet Management -->
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-category="fleet">
                     <div class="project-image">
                         <img src="assets/img/projects/showcase-fleet.svg" alt="Anonymized fleet operations dashboard mockup" class="screenshot-crop">
                         <div class="project-overlay"><span class="project-category">Logistics</span></div>
@@ -454,13 +461,12 @@
                         </div>
                         <div class="project-actions">
                             <a href="#contact" class="btn btn-sm btn-primary">Read Case Study</a>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-left:1rem;">Live demo available</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Case Study 5: Operations -->
-                <div class="project-card reveal">
+                <div class="project-card reveal" data-category="inventory">
                     <div class="project-image">
                         <img src="assets/img/projects/showcase-ops.svg" alt="Anonymized operations center dashboard mockup" class="screenshot-crop">
                         <div class="project-overlay"><span class="project-category">Inventory &amp; Ops</span></div>
@@ -480,7 +486,6 @@
                         </div>
                         <div class="project-actions">
                             <a href="#contact" class="btn btn-sm btn-primary">Unlock Module Details</a>
-                            <span style="font-size:0.7rem;color:rgba(255,255,255,0.3);margin-left:1rem;">Live demo available</span>
                         </div>
                     </div>
                 </div>
@@ -516,6 +521,51 @@
                     <span class="process-step">04</span>
                     <h3>Support & Expansion</h3>
                     <p>After launch, we refine workflows, add modules, and help you scale the system as your business grows.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="container">
+            <div class="section-header text-center reveal">
+                <div class="eyebrow">COMMON QUESTIONS</div>
+                <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+                <p>Everything you need to know about how we build and deliver.</p>
+            </div>
+            
+            <style>
+                .faq-section { max-width: 800px; margin: 0 auto; margin-bottom: 3rem; }
+                .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); padding: 1.25rem 0; cursor: pointer; transition: 0.3s; }
+                .faq-question { display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; font-weight: 600; color: rgba(255,255,255,0.85); transition: 0.3s; }
+                .faq-item:hover .faq-question { color: var(--accent); }
+                .faq-icon { color: rgba(34,211,238,0.7); font-size: 1.4rem; font-weight: 300; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+                .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); color: rgba(255,255,255,0.45); font-size: 0.9rem; line-height: 1.6; }
+                .faq-item.active .faq-answer { max-height: 200px; margin-top: 0.8rem; }
+                .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--accent); }
+            </style>
+            
+            <div class="faq-section reveal">
+                <div class="faq-item">
+                    <div class="faq-question">How long does a typical build take? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">Depending on the architectural complexity, most automation systems, dashboards, and portals take between 2 to 8 weeks from strategy mapping to final deployment.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">What tech stack do you use? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">We utilize industry-standard, scalable infrastructure. This typically includes React/Next.js for blazing fast frontends, Node.js or Python for complex backend logic, and robust SQL databases like PostgreSQL.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Do you offer post-launch support? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">Yes, absolutely. We provide active maintenance, feature upgrades, and SLA-driven support to ensure your system evolves seamlessly alongside your business.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can you integrate with tools like Tally or Zoho? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">Yes. A large part of custom software is connecting disconnected tools. We build native API bridges to synchronize your legacy software, Tally, Zoho, ERPs, and external services instantly.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Where is Softsync Solutions based? <span class="faq-icon">+</span></div>
+                    <div class="faq-answer">We are an India-based development team, but we build custom workflow automation tools for operations-heavy businesses across the globe.</div>
                 </div>
             </div>
         </div>
@@ -569,62 +619,64 @@
                     <input type="hidden" name="replyto" value="">
                     <input type="checkbox" name="botcheck" class="hidden-field" tabindex="-1" autocomplete="off">
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="Full Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Work Email</label>
-                            <input type="email" id="email" name="email" placeholder="you@company.com" required>
-                        </div>
-                    </div>
+                    <style>
+                        .form-step { display: none; }
+                        .form-step.active { display: block; animation: fadeIn 0.4s ease; }
+                        .btn-next { background:var(--accent); color:#000; width:100%; border-radius:12px; font-weight:700; border:none; padding:1.15rem; cursor:pointer; font-size:1rem; transition:0.3s; margin-top:1rem;}
+                        .btn-next:hover { box-shadow:0 0 24px rgba(34,211,238,0.4); }
+                        .btn-prev { padding:1.15rem 1.5rem; border-radius:12px; background:rgba(255,255,255,0.05); color:white; border:1px solid rgba(255,255,255,0.1); cursor:pointer; transition:0.3s;}
+                        .btn-prev:hover { background:rgba(255,255,255,0.1); }
+                    </style>
 
-                    <div class="form-row">
+                    <div class="form-step active" id="step-1">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Work Email</label>
+                                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="company">Business Type / Industry</label>
-                            <input type="text" id="company" name="company" placeholder="e.g. Logistics, E-commerce, Healthcare">
+                            <input type="text" id="company" name="company" placeholder="e.g. Logistics, E-commerce, Healthcare" required>
                         </div>
+                        <button type="button" class="btn-next" id="next-btn">Next Step &rarr;</button>
+                    </div>
+
+                    <div class="form-step" id="step-2">
                         <div class="form-group">
                             <label for="industry">Problem to Solve</label>
-                            <input type="text" id="industry" name="industry" placeholder="e.g. Manual payroll, Fleet tracking">
+                            <input type="text" id="industry" name="industry" placeholder="e.g. Manual payroll, Fleet tracking" required>
                         </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="team-size">Team Size</label>
-                            <input type="text" id="team-size" name="team-size" placeholder="e.g. 10, 50, 200+">
-                        </div>
-                        <div class="form-group">
-                            <label for="timeline">Desired Timeline</label>
-                            <input type="text" id="timeline" name="timeline" placeholder="e.g. ASAP, 1 month, this quarter">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="budget">Budget Range</label>
-                            <input type="text" id="budget" name="budget" placeholder="e.g. MVP, fixed budget, need guidance">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="team-size">Team Size</label>
+                                <input type="text" id="team-size" name="team-size" placeholder="e.g. 10, 50, 200+">
+                            </div>
+                            <div class="form-group">
+                                <label for="budget">Budget Range</label>
+                                <input type="text" id="budget" name="budget" placeholder="e.g. MVP, fixed budget">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="tools">Current Tools</label>
-                            <input type="text" id="tools" name="tools" placeholder="e.g. Excel, WhatsApp, Tally, Sheets">
+                            <label for="message">Details on current biggest bottleneck</label>
+                            <textarea id="message" name="message" placeholder="Describe the current workflow, where it breaks, and what outcome you want from the new system."></textarea>
+                        </div>
+                        
+                        <div style="text-align:center;margin:1rem 0;">
+                            <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Takes 2 minutes to complete</span>
+                        </div>
+
+                        <div style="display:flex; gap:10px;">
+                            <button type="button" class="btn-prev" id="prev-btn">&larr; Back</button>
+                            <button type="submit" class="btn-send" style="flex:1;">
+                                <span>Get Your Automation Plan &rarr;</span>
+                            </button>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="message">Details on current biggest bottleneck</label>
-                        <textarea id="message" name="message" placeholder="Describe the current workflow, where it breaks, and what outcome you want from the new system."></textarea>
-                    </div>
-
-                    <div style="text-align:center;margin-bottom:1rem;">
-                        <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">Takes less than 30 seconds to complete</span>
-                    </div>
-
-                    <button type="submit" class="btn-send">
-                        <span>Get Your Automation Plan &rarr;</span>
-                    </button>
                     <p class="form-status" id="form-status" aria-live="polite"></p>
                     <p class="form-note">This form submits directly to our contact backend. We only use this information to respond to your request.</p>
                 </form>
@@ -637,7 +689,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-bottom" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                <p>&copy; 2026 Softsync Solutions. All Rights Reserved.</p>
+                <p>&copy; 2026 Softsync Solutions. All Rights Reserved. <span style="margin-left: 0.5rem; color: rgba(255,255,255,0.4);">| India-based team 🇮🇳</span></p>
                 <div class="social-links" style="display: flex; gap: 1.5rem; align-items: center; font-size: 0.9rem;">
                     <a href="https://www.linkedin.com/company/softsyncsolutionsindia/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 0.4rem; color: rgba(255,255,255,0.6); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='rgba(255,255,255,0.6)'">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="#0a66c2"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -647,14 +699,15 @@
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="url(#ig-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="25%" stop-color="#e6683c"/><stop offset="50%" stop-color="#dc2743"/><stop offset="75%" stop-color="#cc2366"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                         Instagram
                     </a>
-                    <span style="color: rgba(255,255,255,0.2);">|</span>
-                    <a href="admin-login.html" style="color: rgba(255,255,255,0.2); text-decoration: none; font-size: 0.8rem; transition: 0.3s;" onmouseover="this.style.color='rgba(255,255,255,0.6)'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">Admin Login</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <button id="scroll-top" class="scroll-top">↑</button>
+    <a href="https://wa.me/910000000000" target="_blank" rel="noopener noreferrer" style="position:fixed; bottom:24px; right:24px; width:56px; height:56px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(37,211,102,0.4); z-index:9999; color:white; transition:0.3s;" onmouseover="this.style.transform='scale(1.1) translateY(-4px)'" onmouseout="this.style.transform='scale(1) translateY(0)'">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+    <button id="scroll-top" class="scroll-top" style="bottom:100px;">↑</button>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
