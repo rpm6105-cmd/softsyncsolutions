@@ -114,6 +114,15 @@
         .stats-bar { grid-template-columns:repeat(2,1fr); }
         .company-pillars { grid-template-columns:1fr; }
         .cta-banner { padding:2rem 1.25rem; }
+        
+        /* Dashboard Mockup Mobile Layout Fix */
+        .dash-body { flex-direction: column; height: auto; }
+        .dash-sidebar { width: 100%; height: auto; flex-direction: row; justify-content: center; padding: 10px 0; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dash-nav-icon { margin-bottom: 0; margin-right: 12px; }
+        .dash-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .dash-charts { grid-template-columns: 1fr; gap: 8px; }
+        .dash-chart-box { height: 160px; }
+        .cell-bar { display: none; }
       }
     </style>
     <script>
