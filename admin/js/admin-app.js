@@ -69,13 +69,13 @@ window.updateUI = () => {
     proposalEditor.style.display = 'none';
 
     if (mode === 'letterhead') {
-        preview.className = 'a4-page theme-cyan';
+        preview.className = 'a4-page theme-emerald';
     } else if (mode === 'proposal') {
         proposalEditor.style.display = 'block';
-        preview.className = 'a4-page theme-cyan';
+        preview.className = 'a4-page theme-emerald';
     } else if (mode === 'quotation') {
         itemsEditor.style.display = 'block';
-        preview.className = 'a4-page theme-cyan';
+        preview.className = 'a4-page theme-emerald';
     } else if (mode === 'invoice') {
         itemsEditor.style.display = 'block';
         preview.className = 'a4-page theme-indigo';
