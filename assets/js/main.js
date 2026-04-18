@@ -81,6 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 top: targetSection.offsetTop - 80,
                 behavior: 'smooth'
             });
+            
+            // Update the URL without jumping
+            history.pushState(null, '', targetId);
         });
     });
 
