@@ -321,8 +321,8 @@ td { padding: 1.25rem 1rem; border-bottom: 1px solid var(--border); font-size: 0
 }
 .cat-svc-row:hover { border-color: rgba(255,255,255,0.15); }
 .cat-svc-row.cat-selected {
-    border-color: rgba(16, 185, 129, 0.4);
-    background: rgba(16, 185, 129, 0.05);
+    border-color: rgba(16,185,129,0.4);
+    background: rgba(16,185,129,0.05);
 }
 
 .cat-checkbox {
@@ -368,8 +368,7 @@ td { padding: 1.25rem 1rem; border-bottom: 1px solid var(--border); font-size: 0
 }
 .status-pill:hover { border-color: var(--primary); color: var(--primary); }
 .status-pill.active-pill {
-    background: rgba(16, 185, 129, 0.15);
+    background: rgba(16,185,129,0.15);
     border-color: var(--primary);
     color: var(--primary);
 }
-
