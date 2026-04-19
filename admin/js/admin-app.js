@@ -92,120 +92,230 @@ window.updateDueDate = () => {
 
 // --- Rendering Engine ---
 window.renderLive = () => {
-    const mode      = document.getElementById('suite-mode').value;
-    const client    = document.getElementById('doc-client').value || '---';
-    const subject   = document.getElementById('doc-subject').value || '---';
-    const rawDate   = new Date(document.getElementById('doc-date').value);
-    const dateStr   = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '---';
-    const rawDue    = new Date(document.getElementById('doc-due-date').value);
-    const validStr  = !isNaN(rawDue) ? rawDue.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '---';
-    const docId     = !isNaN(rawDate) ? `SS-${rawDate.getFullYear()}-${(rawDate.getMonth()+1).toString().padStart(2,'0')}${rawDate.getDate()}-01` : 'SS-XXXX-XXXX-01';
-    const title     = mode === 'quotation' ? 'Quotation' : (mode === 'invoice' ? 'Tax Invoice' : (mode === 'proposal' ? 'Project Proposal' : 'Letterhead'));
+    const mode    = document.getElementById('suite-mode').value;
+    const client  = document.getElementById('doc-client').value || '---';
+    const subject = document.getElementById('doc-subject').value || '';
+    const addr    = document.getElementById('doc-client-address').value || '';
+    const phone   = document.getElementById('doc-client-phone').value || '';
+    const rawDate = new Date(document.getElementById('doc-date').value);
+    const rawDue  = new Date(document.getElementById('doc-due-date').value);
+    const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const title   = mode==='quotation'?'Quotation':mode==='invoice'?'Tax Invoice':mode==='proposal'?'Project Proposal':'Letterhead';
 
-    let subtotal = 0;
-    const itemsHtml = activeItems.map((item, idx) => {
-        const lineTotal = item.qty * item.rate; subtotal += lineTotal;
-        return `<tr><td style="color:#94a3b8;width:40px;">${idx+1}.</td><td>${item.desc}</td><td style="text-align:center;">${item.qty}</td><td style="text-align:right;">₹${item.rate.toLocaleString()}</td><td style="text-align:right;font-weight:700;">₹${lineTotal.toLocaleString()}</td></tr>`;
-    }).join('');
+    /* ── helpers ── */
+    const sig = `<p style="font-family:'Great Vibes',cursive;font-size:2rem;color:#0f172a;margin:0 0 3px;">${company.director}</p>
+        <div style="width:110px;height:1px;background:#cbd5e1;margin:0 0 4px auto;"></div>
+        <p style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;">Director, Softsync</p>`;
 
-    let bodyHtml = '';
-    if (mode === 'proposal') {
-        const scope=document.getElementById('p-scope').value, deliverables=document.getElementById('p-deliverables').value,
-              cost=document.getElementById('p-cost').value, timeline=document.getElementById('p-timeline').value,
-              payment=document.getElementById('p-payment').value, notes=document.getElementById('p-notes').value;
-        bodyHtml = `<div style="margin-top:1rem;">
-            <h4 style="color:var(--doc-accent);font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;">1. Scope of Work</h4>
-            <p style="font-size:0.8rem;color:#444;line-height:1.6;margin-bottom:1.5rem;">${scope.replace(/\n/g,'<br>')||'---'}</p>
-            <h4 style="color:var(--doc-accent);font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;">2. Deliverables</h4>
-            <p style="font-size:0.8rem;color:#444;line-height:1.6;margin-bottom:1.5rem;">${deliverables.replace(/\n/g,'<br>')||'---'}</p>
-            <h4 style="color:var(--doc-accent);font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;">3. Project Cost</h4>
-            <p style="font-size:1.2rem;font-weight:700;color:#1a1a2e;margin-bottom:1.5rem;">₹${parseFloat(cost||0).toLocaleString()}</p>
-            <h4 style="color:var(--doc-accent);font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;">4. Timeline</h4>
-            <p style="font-size:0.8rem;color:#444;line-height:1.6;margin-bottom:1.5rem;">${timeline||'---'}</p>
-            <h4 style="color:var(--doc-accent);font-family:'Outfit',sans-serif;text-transform:uppercase;font-size:0.75rem;letter-spacing:0.05em;margin-bottom:12px;border-bottom:1px solid #eee;padding-bottom:6px;">5. Payment Terms</h4>
-            <p style="font-size:0.8rem;color:#444;line-height:1.6;">${payment.replace(/\n/g,'<br>')||'---'}</p>
-            ${notes?`<div style="margin-top:2rem;padding:1rem;background:#f8fafc;border-left:3px solid var(--doc-accent);font-size:0.8rem;color:#64748b;">${notes}</div>`:''}
+    const footerBar = (bg='#0f172a') =>
+        `<div style="background:${bg};padding:10px 18mm;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.55rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;">www.softsyncsolutions.in</span>
+            <span style="font-size:0.55rem;color:rgba(255,255,255,0.4);letter-spacing:0.1em;text-transform:uppercase;">Trusted Partner in Digital Transformation</span>
         </div>`;
-    } else if (mode !== 'letterhead') {
-        bodyHtml = `
-            <table class="doc-table">
-                <thead><tr><th>No.</th><th style="text-align:left;">Description</th><th style="text-align:center;">Qty</th><th style="text-align:right;">Rate</th><th style="text-align:right;">Amount</th></tr></thead>
-                <tbody>${itemsHtml}</tbody>
-            </table>
-            <div class="total-box-container"><div class="total-box"><span class="label">Total (INR)</span><span class="amount">₹${subtotal.toLocaleString()}</span></div></div>
-            <div style="margin-top:2rem;">
-                <h4 style="font-size:0.7rem;text-transform:uppercase;color:#94a3b8;margin-bottom:6px;">Terms & Conditions</h4>
-                <p style="font-size:0.7rem;color:#64748b;line-height:1.6;">• Quoted prices are final and all-inclusive. No additional taxes will be levied.<br>• Validity of this quotation is 21 days.<br>• Project kickoff only after advance payment.</p>
-            </div>`;
-    }
 
-    let headerHtml = '';
-    if (mode === 'letterhead') {
-        headerHtml = `
-            <div class="doc-header-minimal">
-                <img src="assets/images/logo-s.png" style="height:60px;margin-bottom:1rem;">
-                <div class="company-meta"><span>${company.address}</span><span>${company.email}</span><span>${company.phone}</span></div>
-            </div>
-            <div style="margin-bottom:3rem;display:flex;justify-content:space-between;align-items:flex-end;">
-                <div><h4 style="font-size:0.7rem;text-transform:uppercase;color:#94a3b8;margin-bottom:8px;">To</h4><strong style="font-size:1.1rem;">${client}</strong></div>
-                <div style="text-align:right;"><p style="font-size:0.8rem;color:#64748b;">Date: <strong>${dateStr}</strong></p></div>
-            </div>`;
-    } else if (mode === 'proposal') {
-        headerHtml = `
-            <div class="doc-proposal-header">
-                <div class="doc-proposal-title">Project Proposal</div>
-                <div style="font-size:1.5rem;color:#64748b;font-weight:300;margin-bottom:4rem;">${subject}</div>
-                <div class="doc-proposal-meta">
-                    <div class="meta-item"><h4>Prepared For</h4><strong style="font-size:1.1rem;">${client}</strong></div>
-                    <div class="meta-item"><h4>Prepared By</h4><strong style="font-size:1.1rem;">${company.name}</strong></div>
-                    <div class="meta-item"><h4>Date Published</h4><strong style="font-size:1.1rem;">${dateStr}</strong></div>
-                </div>
-            </div>`;
-    } else {
-        headerHtml = `
-            <div style="display:flex;justify-content:flex-end;align-items:flex-start;margin-bottom:3rem;">
-                <div class="doc-title-block"><h1>${title}</h1></div>
-            </div>
-            <div class="doc-header-grid">
-                <div class="doc-column">
-                    <h4>${title} From</h4><strong>${company.name}</strong>
-                    <p>${company.address.split(',').slice(0,2).join(', ')}</p>
-                    <p>${company.address.split(',').slice(2).join(', ')}</p>
-                    <p style="margin-top:8px;">Email: <strong>${company.email}</strong></p>
-                    <p>Phone: <strong>${company.phone}</strong></p>
-                </div>
-                <div class="doc-column">
-                    <h4>${title} For</h4><strong>${client}</strong>
-                    <p style="white-space:pre-wrap;">${document.getElementById('doc-client-address').value||'---'}</p>
-                    <p style="margin-top:8px;">Phone: <strong>${document.getElementById('doc-client-phone').value||'---'}</strong></p>
-                </div>
-                <div class="doc-column" style="text-align:left;">
-                    <h4>Details</h4>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:0.8rem;">
-                        <span style="color:#666;">${title} No</span><strong style="text-align:right;">A0000${docId.slice(-1)}</strong>
-                        <span style="color:#666;">${title} Date</span><strong style="text-align:right;">${dateStr}</strong>
-                        <span style="color:#666;">Valid Till Date</span><strong style="text-align:right;">${validStr}</strong>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-bottom:1.5rem;border-top:1px solid #f2f2f2;padding-top:1.5rem;">
-                <p style="font-size:0.85rem;color:#333;line-height:1.4;">${subject.replace(/\n/g,'<br>')}</p>
-            </div>`;
-    }
+    /* ══════════════════════════════════════════════
+       QUOTATION & INVOICE
+    ══════════════════════════════════════════════ */
+    if (mode === 'quotation' || mode === 'invoice') {
+        const isInv   = mode === 'invoice';
+        const hdrBg   = isInv ? '#1e1b4b' : '#0c1a14';
+        const accent  = isInv ? '#6366f1' : '#10b981';
+        const accentL = isInv ? '#eef2ff' : '#f0fdf4';
+        const accentT = isInv ? '#4f46e5' : '#059669';
 
-    document.getElementById('document-preview').innerHTML = `
-        <div class="branding-bar-top"></div>
-        <div class="doc-content">
-            ${headerHtml}${bodyHtml}
-            <div class="signature-block" style="text-align:right;margin-top:4rem;width:100%;">
-                <p class="signature" style="font-family:'Great Vibes',cursive;font-size:2.2rem;margin-bottom:0;">${company.director}</p>
-                <div style="width:180px;height:1px;background:#e2e8f0;margin:5px 0 5px auto;"></div>
-                <p style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;">Director, Softsync</p>
+        let subtotal = 0;
+        const rows = activeItems.map((item,idx) => {
+            const lt = item.qty * item.rate; subtotal += lt;
+            return `<tr style="border-bottom:1px solid #f1f5f9;">
+                <td style="padding:9px 12px;font-size:0.72rem;color:#94a3b8;width:28px;">${idx+1}</td>
+                <td style="padding:9px 12px;font-size:0.78rem;color:#1e293b;font-weight:500;">${item.desc}</td>
+                <td style="padding:9px 12px;font-size:0.78rem;color:#475569;text-align:center;">${item.qty}</td>
+                <td style="padding:9px 12px;font-size:0.78rem;color:#475569;text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
+                <td style="padding:9px 12px;font-size:0.78rem;font-weight:700;color:#0f172a;text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
+            </tr>`;
+        }).join('');
+
+        document.getElementById('document-preview').innerHTML = `
+        <div style="background:${hdrBg};padding:10mm 18mm 8mm;display:flex;justify-content:space-between;align-items:flex-end;">
+            <div>
+                <img src="assets/images/logo-s.png" style="height:32px;filter:brightness(0) invert(1);display:block;margin-bottom:8px;">
+                <div style="font-size:0.58rem;color:rgba(255,255,255,0.45);line-height:1.7;">${company.address}<br>${company.email} · ${company.phone}</div>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:2.8rem;font-weight:800;color:#fff;letter-spacing:-0.04em;line-height:1;font-family:'Outfit',sans-serif;opacity:0.95;">${title.toUpperCase()}</div>
+                <div style="margin-top:5px;display:inline-block;background:${accent};color:#fff;font-size:0.6rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.06em;">A00001</div>
             </div>
         </div>
-        <div class="branding-bar-footer">
-            <div class="footer-content"><span>WWW.SOFTSYNCSOLUTIONS.IN</span><span>TRUSTED PARTNER IN DIGITAL TRANSFORMATION</span></div>
-        </div>`;
+        <div style="height:3px;background:${accent};"></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 0.85fr;background:#f8fafc;border-bottom:1px solid #e2e8f0;">
+            <div style="padding:5mm 18mm 5mm;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;margin-bottom:5px;">From</div>
+                <div style="font-size:0.85rem;font-weight:800;color:#0f172a;margin-bottom:3px;">${company.name}</div>
+                <div style="font-size:0.68rem;color:#64748b;line-height:1.5;">${company.address}</div>
+            </div>
+            <div style="padding:5mm 6mm;border-left:1px solid #e2e8f0;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;margin-bottom:5px;">Bill To</div>
+                <div style="font-size:0.85rem;font-weight:800;color:#0f172a;margin-bottom:3px;">${client}</div>
+                <div style="font-size:0.68rem;color:#64748b;line-height:1.5;">${addr}</div>
+                ${phone ? `<div style="font-size:0.68rem;color:#64748b;margin-top:2px;">${phone}</div>` : ''}
+            </div>
+            <div style="padding:5mm 6mm;border-left:1px solid #e2e8f0;background:${accentL};">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;margin-bottom:6px;">Details</div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.65rem;color:#64748b;">Issue Date</span><span style="font-size:0.65rem;font-weight:700;color:#0f172a;">${dateStr}</span></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.65rem;color:#64748b;">Valid Till</span><span style="font-size:0.65rem;font-weight:700;color:#0f172a;">${validStr}</span></div>
+                <div style="margin-top:6px;padding-top:6px;border-top:1px solid ${isInv?'#c7d2fe':'#bbf7d0'};display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-size:0.6rem;color:#64748b;font-weight:600;">Status</span>
+                    <span style="font-size:0.6rem;font-weight:700;color:${accentT};background:${isInv?'#e0e7ff':'#d1fae5'};padding:2px 8px;border-radius:10px;">${isInv?'PENDING':'DRAFT'}</span>
+                </div>
+            </div>
+        </div>
+
+        ${subject ? `<div style="padding:4mm 18mm;background:#fff;border-bottom:1px solid #f1f5f9;">
+            <span style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;">Re: </span>
+            <span style="font-size:0.78rem;color:#334155;font-weight:600;">${subject}</span>
+        </div>` : ''}
+
+        <div style="padding:0 18mm;background:#fff;">
+            <table style="width:100%;border-collapse:collapse;margin-top:4mm;">
+                <thead><tr style="background:${hdrBg};">
+                    <th style="padding:7px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.6);text-align:left;width:28px;">#</th>
+                    <th style="padding:7px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.6);text-align:left;">Description</th>
+                    <th style="padding:7px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.6);text-align:center;width:48px;">Qty</th>
+                    <th style="padding:7px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.6);text-align:right;width:80px;">Rate</th>
+                    <th style="padding:7px 12px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;color:rgba(255,255,255,0.6);text-align:right;width:88px;">Amount</th>
+                </tr></thead>
+                <tbody>${rows || `<tr><td colspan="5" style="padding:20px 12px;text-align:center;color:#94a3b8;font-size:0.75rem;font-style:italic;">No items added yet</td></tr>`}</tbody>
+            </table>
+            <div style="display:flex;justify-content:flex-end;border-top:2px solid ${accent};">
+                <div style="background:${hdrBg};display:flex;justify-content:space-between;align-items:center;padding:8px 16px;min-width:240px;gap:32px;">
+                    <span style="font-size:0.72rem;font-weight:600;color:rgba(255,255,255,0.7);">Total (INR)</span>
+                    <span style="font-size:1.15rem;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;">₹${subtotal.toLocaleString('en-IN')}</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:4mm 18mm 5mm;background:#fff;display:grid;grid-template-columns:1.1fr 0.9fr;gap:6mm;align-items:end;">
+            <div style="background:#f8fafc;border-radius:6px;padding:4mm;border:1px solid #e2e8f0;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:#94a3b8;margin-bottom:5px;">Terms & Conditions</div>
+                ${['Quoted prices are final and all-inclusive.','Validity of this quotation is 21 days.','Project kickoff only after advance payment.'].map(t=>`<div style="display:flex;gap:5px;margin-bottom:3px;"><span style="color:${accent};font-weight:700;font-size:0.7rem;">·</span><span style="font-size:0.65rem;color:#64748b;">${t}</span></div>`).join('')}
+            </div>
+            <div style="text-align:right;">${sig}</div>
+        </div>
+
+        <div style="height:16mm;"></div>
+        <div style="position:absolute;bottom:0;left:0;width:100%;">${footerBar(hdrBg)}</div>`;
+
+    /* ══════════════════════════════════════════════
+       PROJECT PROPOSAL
+    ══════════════════════════════════════════════ */
+    } else if (mode === 'proposal') {
+        const scope=document.getElementById('p-scope').value,
+              deliverables=document.getElementById('p-deliverables').value,
+              cost=document.getElementById('p-cost').value,
+              timeline=document.getElementById('p-timeline').value,
+              payment=document.getElementById('p-payment').value,
+              notes=document.getElementById('p-notes').value;
+
+        const section = (num, title, content) =>
+            `<div style="margin-bottom:5mm;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:3mm;">
+                    <div style="width:22px;height:22px;background:#0c1a14;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <span style="font-size:0.6rem;font-weight:800;color:#10b981;">${num}</span>
+                    </div>
+                    <div style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0c1a14;">${title}</div>
+                </div>
+                <div style="padding-left:30px;font-size:0.75rem;color:#475569;line-height:1.65;">${content||'<span style="color:#94a3b8;font-style:italic;">Not specified</span>'}</div>
+            </div>`;
+
+        document.getElementById('document-preview').innerHTML = `
+        <div style="background:#0c1a14;padding:10mm 18mm 8mm;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <img src="assets/images/logo-s.png" style="height:30px;filter:brightness(0) invert(1);">
+                <div style="text-align:right;">
+                    <div style="font-size:0.55rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:3px;">Prepared by</div>
+                    <div style="font-size:0.8rem;font-weight:700;color:#fff;">${company.name}</div>
+                    <div style="font-size:0.6rem;color:rgba(255,255,255,0.45);">${company.email} · ${company.phone}</div>
+                </div>
+            </div>
+            <div style="margin-top:8mm;padding-top:6mm;border-top:1px solid rgba(255,255,255,0.1);">
+                <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.4);margin-bottom:4px;">Project Proposal</div>
+                <div style="font-size:1.8rem;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1.1;font-family:'Outfit',sans-serif;">${subject||'Project Title'}</div>
+            </div>
+        </div>
+        <div style="height:3px;background:linear-gradient(90deg,#10b981,#059669 60%,rgba(16,185,129,0.1));"></div>
+
+        <div style="background:#f8fafc;padding:4mm 18mm;display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid #e2e8f0;">
+            <div><div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;margin-bottom:3px;">Prepared For</div>
+                <div style="font-size:0.82rem;font-weight:800;color:#0f172a;">${client}</div>
+                ${addr ? `<div style="font-size:0.65rem;color:#64748b;">${addr}</div>` : ''}
+            </div>
+            <div style="border-left:1px solid #e2e8f0;padding-left:6mm;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;margin-bottom:3px;">Date</div>
+                <div style="font-size:0.82rem;font-weight:700;color:#0f172a;">${dateStr}</div>
+            </div>
+            <div style="border-left:1px solid #e2e8f0;padding-left:6mm;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;margin-bottom:3px;">Project Cost</div>
+                <div style="font-size:0.82rem;font-weight:800;color:#059669;">₹${parseFloat(cost||0).toLocaleString('en-IN')}</div>
+                ${timeline ? `<div style="font-size:0.65rem;color:#64748b;margin-top:2px;">Timeline: ${timeline}</div>` : ''}
+            </div>
+        </div>
+
+        <div style="padding:6mm 18mm;background:#fff;">
+            ${section('1','Scope of Work', scope.replace(/\n/g,'<br>'))}
+            ${section('2','Deliverables', deliverables.replace(/\n/g,'<br>'))}
+            ${section('3','Payment Terms', payment.replace(/\n/g,'<br>'))}
+            ${notes ? `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:4mm;margin-top:4mm;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#059669;margin-bottom:4px;">Additional Notes</div>
+                <div style="font-size:0.72rem;color:#166534;">${notes}</div>
+            </div>` : ''}
+
+            <div style="margin-top:6mm;padding-top:5mm;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:flex-end;">
+                <div style="font-size:0.65rem;color:#94a3b8;line-height:1.7;">This proposal is valid for 21 days from the date above.<br>Kickoff begins upon receipt of advance payment.</div>
+                <div style="text-align:right;">${sig}</div>
+            </div>
+        </div>
+        <div style="height:12mm;"></div>
+        <div style="position:absolute;bottom:0;left:0;width:100%;">${footerBar('#0c1a14')}</div>`;
+
+    /* ══════════════════════════════════════════════
+       LETTERHEAD
+    ══════════════════════════════════════════════ */
+    } else if (mode === 'letterhead') {
+        document.getElementById('document-preview').innerHTML = `
+        <div style="background:#0c1a14;padding:7mm 18mm;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <img src="assets/images/logo-s.png" style="height:30px;filter:brightness(0) invert(1);">
+                <div style="text-align:right;">
+                    <div style="font-size:0.62rem;color:rgba(255,255,255,0.45);line-height:1.7;">${company.address}<br>${company.email} &nbsp;·&nbsp; ${company.phone}</div>
+                </div>
+            </div>
+        </div>
+        <div style="height:3px;background:linear-gradient(90deg,#10b981,#059669 60%,rgba(16,185,129,0.1));"></div>
+        <div style="background:#f8fafc;padding:4mm 18mm;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e2e8f0;">
+            <div>
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;margin-bottom:3px;">To</div>
+                <div style="font-size:0.9rem;font-weight:800;color:#0f172a;">${client}</div>
+                ${addr ? `<div style="font-size:0.68rem;color:#64748b;">${addr}</div>` : ''}
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:0.55rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#94a3b8;margin-bottom:3px;">Date</div>
+                <div style="font-size:0.78rem;font-weight:700;color:#0f172a;">${dateStr}</div>
+            </div>
+        </div>
+
+        <div style="padding:8mm 18mm 6mm;background:#fff;min-height:160mm;">
+            ${subject ? `<div style="font-size:0.78rem;font-weight:700;color:#0f172a;margin-bottom:6mm;padding-bottom:3mm;border-bottom:1px solid #f1f5f9;">Re: ${subject}</div>` : ''}
+            <div style="font-size:0.78rem;color:#64748b;font-style:italic;line-height:1.8;"></div>
+        </div>
+
+        <div style="padding:0 18mm 4mm;background:#fff;display:flex;justify-content:flex-end;">
+            <div style="text-align:right;">${sig}</div>
+        </div>
+        <div style="height:12mm;"></div>
+        <div style="position:absolute;bottom:0;left:0;width:100%;">${footerBar('#0c1a14')}</div>`;
+    }
 };
 
 // --- Sync & History ---

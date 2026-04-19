@@ -6,241 +6,507 @@
     <title>Business Suite | Softsync Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin/css/admin-styles.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin/css/admin-styles.css?v=5">
+    <style>
+        /* ── Dashboard Redesign ────────────────────────── */
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --indigo: #6366f1;
+            --bg-dark: #030712;
+            --sidebar-bg: #070d1a;
+            --card-bg: rgba(255,255,255,0.03);
+            --card-hover: rgba(255,255,255,0.055);
+            --border: rgba(255,255,255,0.07);
+            --border-bright: rgba(255,255,255,0.12);
+            --text-main: #f1f5f9;
+            --text-muted: #64748b;
+            --text-dim: #334155;
+            --danger: #ef4444;
+            --cyan: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── Layout ── */
+        .admin-layout { display: flex; height: 100vh; }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 240px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1.5rem 1.25rem 1.25rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 0.75rem;
+        }
+        .brand img { width: 30px; height: 30px; border-radius: 8px; }
+        .brand h2 { font-family: 'Outfit'; font-size: 1rem; font-weight: 700; color: var(--text-main); }
+
+        .nav-section-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            padding: 0 1.25rem;
+            margin: 0.75rem 0 0.4rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.65rem 1.25rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.15s;
+            border-left: 2px solid transparent;
+            margin: 1px 0;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.04); color: var(--text-main); }
+        .nav-item.active {
+            background: rgba(16,185,129,0.08);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+        .nav-icon { font-size: 14px; width: 18px; text-align: center; }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Main ── */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--bg-dark);
+        }
+
+        .view-section { display: none; }
+        .view-section.active { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+        /* ── Top bar ── */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            background: rgba(3,7,18,0.8);
+            backdrop-filter: blur(8px);
+        }
+        .topbar h1 {
+            font-family: 'Outfit';
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .topbar-actions { display: flex; gap: 0.75rem; align-items: center; }
+
+        /* ── Select ── */
+        .mode-select {
+            background: var(--card-bg);
+            border: 1px solid var(--border-bright);
+            color: var(--text-main);
+            font-family: 'Inter';
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 0.55rem 0.9rem;
+            border-radius: 10px;
+            outline: none;
+            cursor: pointer;
+        }
+        .mode-select:focus { border-color: var(--primary); }
+
+        /* ── Buttons ── */
+        .btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            border: none;
+            font-size: 0.82rem;
+            font-family: 'Inter';
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-bright);
+            color: var(--text-main);
+        }
+        .btn-ghost:hover { background: var(--card-hover); }
+
+        /* ── Split layout ── */
+        .split-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 0;
+        }
+
+        .editor-pane {
+            width: 340px;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .preview-pane {
+            flex: 1;
+            overflow-y: auto;
+            background: #1a1f2e;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.25rem;
+        }
+        .card h3 {
+            font-family: 'Outfit';
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* ── Forms ── */
+        .form-group { margin-bottom: 0.85rem; }
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border-radius: 9px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            font-family: 'Inter';
+            font-size: 0.82rem;
+            outline: none;
+            transition: 0.15s;
+        }
+        .form-input:focus { border-color: var(--primary); background: rgba(16,185,129,0.04); }
+        .form-input::placeholder { color: var(--text-dim); }
+        textarea.form-input { resize: vertical; }
+        select.form-input { cursor: pointer; }
+
+        /* ── Item rows ── */
+        .item-row {
+            display: grid;
+            grid-template-columns: 1fr 60px 80px 32px;
+            gap: 6px;
+            align-items: end;
+            margin-bottom: 6px;
+        }
+        .item-row .form-group { margin-bottom: 0; }
+
+        /* ── A4 Page ── */
+        .a4-page {
+            width: 210mm;
+            min-height: 297mm;
+            background: #fff;
+            color: #1a1a1a;
+            box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+            transform: scale(0.63);
+            transform-origin: top center;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── Badges ── */
+        .badge {
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(16,185,129,0.15);
+            color: var(--primary);
+        }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 0.75rem 1rem; font-size: 0.75rem; color: var(--text-muted); border-bottom: 1px solid var(--border); font-weight: 600; }
+        td { padding: 1rem; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+
+        /* ── Status pills ── */
+        .status-pill {
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border: 1px solid var(--border-bright);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s;
+            font-family: 'Inter', sans-serif;
+        }
+        .status-pill:hover { border-color: var(--primary); color: var(--primary); }
+        .status-pill.active-pill { background: rgba(16,185,129,0.15); border-color: var(--primary); color: var(--primary); }
+
+        /* ── Login ── */
+        .login-container { display: flex; align-items: center; justify-content: center; height: 100vh; }
+        .login-card { width: 100%; max-width: 380px; text-align: center; }
+
+        /* ── Catalogue ── */
+        .view-section#view-catalogue { overflow: hidden; }
+        .view-section#view-history   { overflow: hidden; }
+
+        /* ── Print ── */
+        @media print {
+            body * { visibility: hidden !important; }
+            .a4-page, .a4-page * { visibility: visible !important; }
+            .a4-page { position: fixed; left:0; top:0; width:100%; height:100%; margin:0; transform:scale(1) !important; box-shadow:none; }
+        }
+
+        @media (max-width: 768px) { .sidebar { display: none; } }
+    </style>
 </head>
-<body class="dashboard-theme">
-    <div class="admin-layout" id="app-layout" style="display: none;">
-        <aside class="sidebar">
-            <div class="brand">
-                <img src="assets/images/logo-s.png" alt="Logo">
-                <h2>Softsync Admin</h2>
-            </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active" data-view="suite">🛠️ Business Suite</a>
-                <a href="#" class="nav-item" data-view="catalogue">📦 Service Catalogue</a>
-                <a href="#" class="nav-item" data-view="history">📜 Document History</a>
-            </nav>
-            <div class="sidebar-footer">
-                <button id="logout-btn" class="btn btn-ghost" style="width: 100%; color: var(--danger); border-color: transparent;">Sign Out</button>
-            </div>
-        </aside>
+<body>
+<div class="admin-layout" id="app-layout" style="display:none;">
 
-        <main class="main-content">
-            <!-- Professional Suite View -->
-            <section id="view-suite" class="view-section active">
-                <header>
-                    <h1>Softsync Business Suite</h1>
-                    <div style="display: flex; gap: 1rem;">
-                        <select id="suite-mode" class="form-input" style="width: auto;" onchange="updateUI()">
-                            <option value="quotation">New Quotation</option>
-                            <option value="proposal">New Project Proposal</option>
-                            <option value="invoice">New Tax Invoice</option>
-                            <option value="letterhead">New Letterhead</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="saveDocument()">💾 Save & Sync</button>
-                        <button class="btn btn-ghost" onclick="window.print()">🖨️ Print PDF</button>
-                    </div>
-                </header>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <img src="assets/images/logo-s.png" alt="Logo">
+            <h2>Softsync Admin</h2>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-section-label">Workspace</div>
+            <a href="#" class="nav-item active" data-view="suite">
+                <span class="nav-icon">⚡</span> Business Suite
+            </a>
+            <a href="#" class="nav-item" data-view="catalogue">
+                <span class="nav-icon">📦</span> Service Catalogue
+            </a>
+            <div class="nav-section-label" style="margin-top:1rem;">Records</div>
+            <a href="#" class="nav-item" data-view="history">
+                <span class="nav-icon">📋</span> Document History
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button id="logout-btn" class="btn btn-ghost" style="width:100%;color:var(--danger);border-color:transparent;font-size:0.8rem;">Sign Out</button>
+        </div>
+    </aside>
 
-                <div class="split-layout">
-                    <!-- Column 1: Editor -->
-                    <div class="editor-pane">
-                        <div class="card">
-                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Client Details</h3>
+    <!-- Main -->
+    <main class="main-content">
+
+        <!-- ── Business Suite ── -->
+        <section id="view-suite" class="view-section active">
+            <div class="topbar">
+                <h1>Business Suite</h1>
+                <div class="topbar-actions">
+                    <select id="suite-mode" class="mode-select" onchange="updateUI()">
+                        <option value="quotation">New Quotation</option>
+                        <option value="proposal">New Proposal</option>
+                        <option value="invoice">New Tax Invoice</option>
+                        <option value="letterhead">New Letterhead</option>
+                    </select>
+                    <button class="btn btn-ghost" onclick="saveDocument()">💾 Save & Sync</button>
+                    <button class="btn btn-primary" onclick="window.print()">🖨️ Print PDF</button>
+                </div>
+            </div>
+
+            <div class="split-layout">
+                <div class="editor-pane">
+                    <div class="card">
+                        <h3>Client Details</h3>
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" id="doc-client" class="form-input" placeholder="e.g. Acme Corp" oninput="renderLive()">
+                        </div>
+                        <div class="form-group">
+                            <label>Project / Subject</label>
+                            <textarea id="doc-subject" class="form-input" style="height:56px;" placeholder="What is this document about?" oninput="renderLive()"></textarea>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
                             <div class="form-group">
-                                <label>Client Name / Company</label>
-                                <input type="text" id="doc-client" class="form-input" placeholder="Enter Client Name..." oninput="renderLive()">
+                                <label>Issue Date</label>
+                                <input type="date" id="doc-date" class="form-input" oninput="updateDueDate()">
                             </div>
                             <div class="form-group">
-                                <label>Project / Subject Summary</label>
-                                <textarea id="doc-subject" class="form-input" style="height: 60px;" placeholder="What is this document about?..." oninput="renderLive()"></textarea>
-                            </div>
-                            <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <div>
-                                    <label>Document Date</label>
-                                    <input type="date" id="doc-date" class="form-input" oninput="updateDueDate()">
-                                </div>
-                                <div>
-                                    <label>Due Date</label>
-                                    <input type="date" id="doc-due-date" class="form-input" oninput="renderLive()">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Client Address</label>
-                                <textarea id="doc-client-address" class="form-input" style="height: 60px;" placeholder="Full Address of the client..." oninput="renderLive()"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Client Phone</label>
-                                <input type="text" id="doc-client-phone" class="form-input" placeholder="Client Phone Number..." oninput="renderLive()">
+                                <label>Valid Till</label>
+                                <input type="date" id="doc-due-date" class="form-input" oninput="renderLive()">
                             </div>
                         </div>
-
-                        <!-- Proposal Specific Fields -->
-                        <div class="card" id="proposal-editor" style="display: none;">
-                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Project Structure</h3>
-                            <div class="form-group">
-                                <label>Scope of Work</label>
-                                <textarea id="p-scope" class="form-input" style="height: 100px;" oninput="renderLive()" placeholder="Describe the project boundaries..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Deliverables</label>
-                                <textarea id="p-deliverables" class="form-input" style="height: 80px;" oninput="renderLive()" placeholder="List what the client will receive..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Project Cost (INR)</label>
-                                <input type="number" id="p-cost" class="form-input" oninput="renderLive()">
-                            </div>
-                            <div class="form-group">
-                                <label>Timeline</label>
-                                <input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4 Weeks / Q3 Delivery">
-                            </div>
-                            <div class="form-group">
-                                <label>Payment Terms</label>
-                                <textarea id="p-payment" class="form-input" style="height: 60px;" oninput="renderLive()" placeholder="e.g. 50% advance..."></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Internal/Client Notes</label>
-                                <textarea id="p-notes" class="form-input" style="height: 60px;" oninput="renderLive()"></textarea>
-                            </div>
+                        <div class="form-group">
+                            <label>Client Address</label>
+                            <textarea id="doc-client-address" class="form-input" style="height:52px;" placeholder="Full address..." oninput="renderLive()"></textarea>
                         </div>
-
-                        <div class="card" id="items-editor">
-                            <h3 style="margin-bottom: 1.5rem; font-family: 'Outfit';">Line Items</h3>
-                            <div id="line-items-container">
-                                <!-- Dynamic Rows Here -->
-                            </div>
-                            <button class="btn btn-ghost" style="width: 100%; border-style: dashed;" onclick="addLineItem()">+ Add Item</button>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label>Client Phone</label>
+                            <input type="text" id="doc-client-phone" class="form-input" placeholder="Phone number" oninput="renderLive()">
                         </div>
                     </div>
 
-                    <!-- Column 2: Preview -->
-                    <div class="preview-pane">
-                        <div id="document-preview" class="a4-page theme-cyan">
-                            <!-- Branded Template Renders Here -->
+                    <div class="card" id="proposal-editor" style="display:none;">
+                        <h3>Project Structure</h3>
+                        <div class="form-group"><label>Scope of Work</label><textarea id="p-scope" class="form-input" style="height:80px;" oninput="renderLive()" placeholder="Project boundaries..."></textarea></div>
+                        <div class="form-group"><label>Deliverables</label><textarea id="p-deliverables" class="form-input" style="height:70px;" oninput="renderLive()" placeholder="What client will receive..."></textarea></div>
+                        <div class="form-group"><label>Project Cost (₹)</label><input type="number" id="p-cost" class="form-input" oninput="renderLive()"></div>
+                        <div class="form-group"><label>Timeline</label><input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4 Weeks"></div>
+                        <div class="form-group"><label>Payment Terms</label><textarea id="p-payment" class="form-input" style="height:52px;" oninput="renderLive()" placeholder="e.g. 50% advance..."></textarea></div>
+                        <div class="form-group" style="margin-bottom:0;"><label>Notes</label><textarea id="p-notes" class="form-input" style="height:52px;" oninput="renderLive()"></textarea></div>
+                    </div>
+
+                    <div class="card" id="items-editor">
+                        <h3>Line Items</h3>
+                        <div style="display:grid;grid-template-columns:1fr 60px 80px 32px;gap:6px;margin-bottom:6px;">
+                            <span style="font-size:0.65rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;">Description</span>
+                            <span style="font-size:0.65rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;">Qty</span>
+                            <span style="font-size:0.65rem;color:var(--text-dim);font-weight:600;text-transform:uppercase;">Rate ₹</span>
+                            <span></span>
                         </div>
+                        <div id="line-items-container"></div>
+                        <button class="btn btn-ghost" style="width:100%;border-style:dashed;margin-top:4px;font-size:0.8rem;" onclick="addLineItem()">+ Add Item</button>
                     </div>
                 </div>
-            </section>
 
-            <!-- Service Catalogue View -->
-            <section id="view-catalogue" class="view-section">
-                <header>
-                    <h1>Service Catalogue</h1>
-                    <div style="display:flex; gap:1rem; align-items:center;">
-                        <input type="text" id="cat-search" class="form-input" style="width:220px;" placeholder="🔍 Search services..." oninput="filterCatalogue()">
-                        <button class="btn btn-primary" onclick="openCatModal()">+ Add Service</button>
+                <div class="preview-pane">
+                    <div id="document-preview" class="a4-page"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Service Catalogue ── -->
+        <section id="view-catalogue" class="view-section">
+            <div class="topbar">
+                <h1>Service Catalogue</h1>
+                <div class="topbar-actions">
+                    <input type="text" id="cat-search" class="form-input" style="width:200px;" placeholder="Search services..." oninput="filterCatalogue()">
+                    <button class="btn btn-primary" onclick="openCatModal()">+ Add Service</button>
+                </div>
+            </div>
+            <div style="display:flex;flex:1;overflow:hidden;">
+                <div style="flex:1;overflow-y:auto;padding:1.5rem 1.25rem;">
+                    <div id="catalogue-groups"></div>
+                </div>
+                <div style="width:340px;flex-shrink:0;border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;">
+                    <div style="padding:1.25rem;border-bottom:1px solid var(--border);">
+                        <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.85rem;">Quick Quote Builder</div>
+                        <div class="form-group" style="margin-bottom:0.65rem;"><label>Client Name</label><input type="text" id="qq-client" class="form-input" placeholder="e.g. Amex"/></div>
+                        <div class="form-group" style="margin-bottom:0.65rem;"><label>Project / Module</label><input type="text" id="qq-project" class="form-input" placeholder="e.g. HRMS"/></div>
+                        <div><label style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);display:block;margin-bottom:0.4rem;">Status</label>
+                        <div style="display:flex;gap:5px;flex-wrap:wrap;">
+                            <button class="status-pill active-pill" data-status="draft" onclick="setQQStatus(this)">Draft</button>
+                            <button class="status-pill" data-status="sent" onclick="setQQStatus(this)">Sent</button>
+                            <button class="status-pill" data-status="viewed" onclick="setQQStatus(this)">Viewed</button>
+                            <button class="status-pill" data-status="won" onclick="setQQStatus(this)">Won ✓</button>
+                            <button class="status-pill" data-status="lost" onclick="setQQStatus(this)">Lost</button>
+                        </div></div>
                     </div>
-                </header>
-
-                <div style="display:flex; gap:2rem; height:calc(100vh - 140px); overflow:hidden;">
-                    <!-- Left: Catalogue -->
-                    <div style="flex:1; overflow-y:auto; padding-right:0.5rem;">
-                        <div id="catalogue-groups"></div>
+                    <div style="flex:1;overflow-y:auto;padding:1rem 1.25rem;" id="qq-items-container">
+                        <div id="qq-empty" style="text-align:center;padding:2rem 1rem;color:var(--text-muted);font-size:0.82rem;line-height:1.7;">
+                            <div style="font-size:1.8rem;margin-bottom:0.5rem;">📋</div>
+                            <strong style="color:var(--text-main);display:block;margin-bottom:3px;">Nothing selected</strong>
+                            Tap any service to add it here.
+                        </div>
+                        <div id="qq-items"></div>
                     </div>
-
-                    <!-- Right: Quote Builder -->
-                    <div style="width:360px; background:var(--card-bg); border:1px solid var(--border); border-radius:20px; display:flex; flex-direction:column; overflow:hidden;">
-                        <div style="padding:1.5rem 1.5rem 1rem; border-bottom:1px solid var(--border);">
-                            <h3 style="font-family:'Outfit'; margin-bottom:1rem;">Quick Quote Builder</h3>
-                            <div class="form-group" style="margin-bottom:0.75rem;">
-                                <label>Client Name</label>
-                                <input type="text" id="qq-client" class="form-input" placeholder="e.g. Amex" />
-                            </div>
-                            <div class="form-group" style="margin-bottom:0.75rem;">
-                                <label>Project / Module</label>
-                                <input type="text" id="qq-project" class="form-input" placeholder="e.g. HRMS Implementation" />
-                            </div>
-                            <div>
-                                <label style="font-size:0.8rem; color:var(--text-muted); display:block; margin-bottom:0.5rem;">Status</label>
-                                <div style="display:flex; gap:6px; flex-wrap:wrap;" id="status-chips">
-                                    <button class="status-pill active-pill" data-status="draft" onclick="setQQStatus(this)">Draft</button>
-                                    <button class="status-pill" data-status="sent" onclick="setQQStatus(this)">Sent</button>
-                                    <button class="status-pill" data-status="viewed" onclick="setQQStatus(this)">Viewed</button>
-                                    <button class="status-pill" data-status="won" onclick="setQQStatus(this)">Won ✓</button>
-                                    <button class="status-pill" data-status="lost" onclick="setQQStatus(this)">Lost</button>
-                                </div>
-                            </div>
+                    <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);">
+                        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;">
+                            <span style="font-size:0.75rem;color:var(--text-muted);">Total</span>
+                            <span id="qq-total" style="font-size:1.5rem;font-weight:700;font-family:'Outfit';color:var(--primary);">₹0</span>
                         </div>
-
-                        <!-- Items -->
-                        <div style="flex:1; overflow-y:auto; padding:1rem 1.5rem;" id="qq-items-container">
-                            <div id="qq-empty" style="text-align:center; padding:2.5rem 1rem; color:var(--text-muted); font-size:0.85rem; line-height:1.7;">
-                                <div style="font-size:2rem; margin-bottom:0.75rem;">📋</div>
-                                <strong style="color:var(--text-main); display:block; margin-bottom:4px;">No services selected</strong>
-                                Tap any service on the left to add it here.
-                            </div>
-                            <div id="qq-items"></div>
-                        </div>
-
-                        <!-- Footer -->
-                        <div style="padding:1.25rem 1.5rem; border-top:1px solid var(--border);">
-                            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:2px;">
-                                <span style="font-size:0.8rem; color:var(--text-muted);">Total</span>
-                                <span id="qq-total" style="font-size:1.6rem; font-weight:700; font-family:'Outfit';">₹0</span>
-                            </div>
-                            <div id="qq-count" style="font-size:0.75rem; color:var(--text-muted); margin-bottom:1rem;">0 services</div>
-                            <button class="btn btn-primary" style="width:100%; margin-bottom:0.5rem;" onclick="sendToQuotation()">Send to Quotation →</button>
-                            <button class="btn btn-ghost" style="width:100%; font-size:0.85rem;" onclick="clearQQ()">Clear all</button>
-                        </div>
+                        <div id="qq-count" style="font-size:0.72rem;color:var(--text-muted);margin-bottom:0.85rem;">0 services</div>
+                        <button class="btn btn-primary" style="width:100%;margin-bottom:0.5rem;" onclick="sendToQuotation()">Send to Quotation →</button>
+                        <button class="btn btn-ghost" style="width:100%;font-size:0.78rem;" onclick="clearQQ()">Clear all</button>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- History View -->
-            <section id="view-history" class="view-section">
-                <header><h1>Document History</h1></header>
-                <div class="card">
+        <!-- ── History ── -->
+        <section id="view-history" class="view-section">
+            <div class="topbar"><h1>Document History</h1></div>
+            <div style="padding:1.5rem;overflow-y:auto;flex:1;">
+                <div class="card" style="padding:0;overflow:hidden;">
                     <table>
                         <thead><tr><th>Type</th><th>Client</th><th>Amount</th><th>Date</th><th>Action</th></tr></thead>
                         <tbody id="history-list"></tbody>
                     </table>
                 </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </section>
 
-    <!-- Add Service Modal -->
-    <div id="cat-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center;">
-        <div style="background:#0f172a; border:1px solid var(--border); border-radius:20px; padding:2rem; width:420px; box-shadow:0 40px 80px rgba(0,0,0,0.5);">
-            <h3 style="font-family:'Outfit'; margin-bottom:1.5rem;">Add Custom Service</h3>
-            <div class="form-group">
-                <label>Service Name</label>
-                <input type="text" id="new-svc-name" class="form-input" placeholder="e.g. Mobile App Development" />
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <select id="new-svc-cat" class="form-input">
-                    <option>Web & Design</option>
-                    <option>Development</option>
-                    <option>Monthly Retainers</option>
-                    <option>Add-ons</option>
-                    <option>Consulting</option>
-                    <option>Other</option>
-                </select>
-            </div>
-            <div class="form-group" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-                <div>
-                    <label>Price (₹)</label>
-                    <input type="number" id="new-svc-price" class="form-input" placeholder="25000" />
-                </div>
-                <div>
-                    <label>Type</label>
-                    <select id="new-svc-tag" class="form-input">
-                        <option value="project">Project</option>
-                        <option value="retainer">Retainer</option>
-                        <option value="addon">Add-on</option>
-                    </select>
-                </div>
-            </div>
-            <div style="display:flex; gap:1rem; margin-top:1.5rem;">
-                <button class="btn btn-ghost" style="flex:1;" onclick="closeCatModal()">Cancel</button>
-                <button class="btn btn-primary" style="flex:1;" onclick="saveNewService()">Add Service</button>
+    </main>
+</div>
+
+<!-- Add Service Modal -->
+<div id="cat-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:1000;align-items:center;justify-content:center;">
+    <div style="background:#0b1120;border:1px solid var(--border-bright);border-radius:16px;padding:1.75rem;width:400px;box-shadow:0 40px 80px rgba(0,0,0,0.6);">
+        <div style="font-family:'Outfit';font-size:1rem;font-weight:700;margin-bottom:1.25rem;">Add Custom Service</div>
+        <div class="form-group"><label>Service Name</label><input type="text" id="new-svc-name" class="form-input" placeholder="e.g. Mobile App Development"/></div>
+        <div class="form-group"><label>Category</label>
+            <select id="new-svc-cat" class="form-input"><option>Web & Design</option><option>Development</option><option>Monthly Retainers</option><option>Add-ons</option><option>Consulting</option><option>Other</option></select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
+            <div class="form-group"><label>Price (₹)</label><input type="number" id="new-svc-price" class="form-input" placeholder="25000"/></div>
+            <div class="form-group"><label>Type</label>
+                <select id="new-svc-tag" class="form-input"><option value="project">Project</option><option value="retainer">Retainer</option><option value="addon">Add-on</option></select>
             </div>
         </div>
+        <div style="display:flex;gap:0.75rem;margin-top:1.25rem;">
+            <button class="btn btn-ghost" style="flex:1;" onclick="closeCatModal()">Cancel</button>
+            <button class="btn btn-primary" style="flex:1;" onclick="saveNewService()">Add Service</button>
+        </div>
     </div>
+</div>
 
-    <!-- Scripts -->
-    <script type="module" src="admin/js/admin-app.js?v=4"></script>
+<script type="module" src="admin/js/admin-app.js?v=5"></script>
 </body>
 </html>
