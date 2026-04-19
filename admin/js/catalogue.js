@@ -263,23 +263,18 @@ function showCatToast(msg) {
 }
 
 // ─── Init on view switch ────────────────────────────────────────────────────
-// Patch switchView to init catalogue on first load
-const _origSwitchView = window.switchView;
-window.switchView = function(view) {
-    if (typeof _origSwitchView === 'function') _origSwitchView(view);
-    if (view === 'catalogue') {
+document.addEventListener('viewChanged', (e) => {
+    if (e.detail.view === 'catalogue') {
         renderCatalogue();
         renderQQ();
     }
-};
+});
 
 // Auto-init if catalogue is first active
 document.addEventListener('DOMContentLoaded', () => {
-    // Slight delay to let admin-app.js init first
-    setTimeout(() => {
-        if (document.getElementById('view-catalogue')?.classList.contains('active')) {
-            renderCatalogue();
-            renderQQ();
-        }
-    }, 300);
+    // Check if we are already on the catalogue view
+    if (document.getElementById('view-catalogue')?.classList.contains('active')) {
+        renderCatalogue();
+        renderQQ();
+    }
 });

@@ -43,8 +43,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 window.switchView = (viewName) => {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.getElementById(`view-${viewName}`).classList.add('active');
-    document.querySelector(`[data-view="${viewName}"]`).classList.add('active');
+    const section = document.getElementById(`view-${viewName}`);
+    const navItem = document.querySelector(`[data-view="${viewName}"]`);
+    if (section) section.classList.add('active');
+    if (navItem) navItem.classList.add('active');
+    
+    // Broadcast event for other modules (like catalogue) to react
+    document.dispatchEvent(new CustomEvent('viewChanged', { detail: { view: viewName } }));
 };
 
 document.querySelectorAll('.nav-item').forEach(item => {
