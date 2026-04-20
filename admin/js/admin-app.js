@@ -56,10 +56,10 @@ window.updateUI = () => {
     const proposalEditor = document.getElementById('proposal-editor');
     itemsEditor.style.display = 'none';
     proposalEditor.style.display = 'none';
-    if (mode === 'letterhead')      { preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'proposal')   { proposalEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'quotation')  { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'invoice')    { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-indigo'; }
+    if (mode === 'letterhead') { preview.className = 'a4-page theme-cyan'; }
+    else if (mode === 'proposal') { proposalEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
+    else if (mode === 'quotation') { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
+    else if (mode === 'invoice') { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-indigo'; }
     renderLive();
 };
 
@@ -77,8 +77,8 @@ function initLineItems() {
 }
 
 window.addLineItem = () => { activeItems.push({ desc: 'New Service Item', qty: 1, rate: 0 }); initLineItems(); renderLive(); };
-window.removeItem  = (idx) => { activeItems.splice(idx, 1); initLineItems(); renderLive(); };
-window.updateItem  = (idx, field, val) => { activeItems[idx][field] = field === 'desc' ? val : parseFloat(val) || 0; renderLive(); };
+window.removeItem = (idx) => { activeItems.splice(idx, 1); initLineItems(); renderLive(); };
+window.updateItem = (idx, field, val) => { activeItems[idx][field] = field === 'desc' ? val : parseFloat(val) || 0; renderLive(); };
 
 window.updateDueDate = () => {
     const docDate = new Date(document.getElementById('doc-date').value);
@@ -92,30 +92,30 @@ window.updateDueDate = () => {
 
 // --- Rendering Engine ---
 window.renderLive = () => {
-    const mode    = document.getElementById('suite-mode').value;
-    const client  = document.getElementById('doc-client').value || '---';
+    const mode = document.getElementById('suite-mode').value;
+    const client = document.getElementById('doc-client').value || '---';
     const subject = document.getElementById('doc-subject').value || '';
-    const addr    = document.getElementById('doc-client-address').value || '';
-    const phone   = document.getElementById('doc-client-phone').value || '';
+    const addr = document.getElementById('doc-client-address').value || '';
+    const phone = document.getElementById('doc-client-phone').value || '';
     const rawDate = new Date(document.getElementById('doc-date').value);
-    const rawDue  = new Date(document.getElementById('doc-due-date').value);
-    const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
-    const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    const rawDue = new Date(document.getElementById('doc-due-date').value);
+    const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
+    const validStr = !isNaN(rawDue) ? rawDue.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
 
     /* ── BRAND PALETTE (matched to Softsync logo) ── */
     const C = {
-        navy:        '#1E2D6B',   /* deep navy from logo text */
-        navyDark:    '#151F4E',   /* darker navy for header bg */
-        violet:      '#6B5CE7',   /* violet accent from logo gradient */
+        navy: '#1E2D6B',   /* deep navy from logo text */
+        navyDark: '#151F4E',   /* darker navy for header bg */
+        violet: '#6B5CE7',   /* violet accent from logo gradient */
         violetLight: '#EEF0FB',   /* very light blue-violet tint */
-        violetMid:   '#C7CDEF',   /* mid tint for borders in accent panels */
-        white:       '#FFFFFF',
-        offWhite:    '#F8F9FC',   /* almost white with cool tint */
-        textDark:    '#0F172A',   /* near-black for headings */
-        textMid:     '#475569',   /* slate for body text */
-        textLight:   '#94A3B8',   /* muted label text */
-        border:      '#E2E8F0',   /* clean cool gray border */
-        borderMid:   '#CBD5E1',
+        violetMid: '#C7CDEF',   /* mid tint for borders in accent panels */
+        white: '#FFFFFF',
+        offWhite: '#F8F9FC',   /* almost white with cool tint */
+        textDark: '#0F172A',   /* near-black for headings */
+        textMid: '#475569',   /* slate for body text */
+        textLight: '#94A3B8',   /* muted label text */
+        border: '#E2E8F0',   /* clean cool gray border */
+        borderMid: '#CBD5E1',
     };
 
     /* ── LOGO ── */
@@ -141,12 +141,12 @@ window.renderLive = () => {
        QUOTATION & INVOICE
     ══════════════════════════════════════════════ */
     if (mode === 'quotation' || mode === 'invoice') {
-        const isInv       = mode === 'invoice';
-        const label       = isInv ? 'TAX INVOICE' : 'QUOTATION';
+        const isInv = mode === 'invoice';
+        const label = isInv ? 'TAX INVOICE' : 'QUOTATION';
         const accentColor = isInv ? '#7C3AED' : C.violet;   /* invoice slightly deeper purple */
-        const statusLabel = isInv ? 'PENDING'   : 'DRAFT';
-        const statusBg    = isInv ? '#EDE9FE'   : C.violetLight;
-        const statusColor = isInv ? '#5B21B6'   : C.navy;
+        const statusLabel = isInv ? 'PENDING' : 'DRAFT';
+        const statusBg = isInv ? '#EDE9FE' : C.violetLight;
+        const statusColor = isInv ? '#5B21B6' : C.navy;
 
         let subtotal = 0;
         const rows = activeItems.map((item, idx) => {
@@ -241,8 +241,8 @@ window.renderLive = () => {
             <div style="padding:0 18mm 7mm;background:${C.white};display:grid;grid-template-columns:1.2fr 0.8fr;gap:8mm;align-items:end;">
                 <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:6px;padding:4mm;">
                     <div style="font-size:0.5rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.violet};margin-bottom:6px;">Terms & Conditions</div>
-                    ${['Quoted prices are final and all-inclusive.','Validity of this quotation is 21 days.','Project kickoff only after advance payment.'].map(t =>
-                        `<div style="display:flex;gap:6px;margin-bottom:4px;">
+                    ${['Quoted prices are final and all-inclusive.', 'Validity of this quotation is 21 days.', 'Project kickoff only after advance payment.'].map(t =>
+            `<div style="display:flex;gap:6px;margin-bottom:4px;">
                             <span style="color:${C.violet};font-size:0.7rem;margin-top:1px;">·</span>
                             <span style="font-size:0.63rem;color:${C.textMid};line-height:1.5;">${t}</span>
                         </div>`).join('')}
@@ -254,16 +254,16 @@ window.renderLive = () => {
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
 
-    /* ══════════════════════════════════════════════
-       PROJECT PROPOSAL
-    ══════════════════════════════════════════════ */
+        /* ══════════════════════════════════════════════
+           PROJECT PROPOSAL
+        ══════════════════════════════════════════════ */
     } else if (mode === 'proposal') {
-        const scope        = document.getElementById('p-scope').value;
+        const scope = document.getElementById('p-scope').value;
         const deliverables = document.getElementById('p-deliverables').value;
-        const cost         = document.getElementById('p-cost').value;
-        const timeline     = document.getElementById('p-timeline').value;
-        const payment      = document.getElementById('p-payment').value;
-        const notes        = document.getElementById('p-notes').value;
+        const cost = document.getElementById('p-cost').value;
+        const timeline = document.getElementById('p-timeline').value;
+        const payment = document.getElementById('p-payment').value;
+        const notes = document.getElementById('p-notes').value;
 
         const section = (num, title, content) => `
             <div style="margin-bottom:5mm;padding-bottom:5mm;border-bottom:1px solid ${C.border};">
@@ -336,9 +336,9 @@ window.renderLive = () => {
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
 
-    /* ══════════════════════════════════════════════
-       LETTERHEAD
-    ══════════════════════════════════════════════ */
+        /* ══════════════════════════════════════════════
+           LETTERHEAD
+        ══════════════════════════════════════════════ */
     } else if (mode === 'letterhead') {
         document.getElementById('document-preview').innerHTML = `
         <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
@@ -390,28 +390,105 @@ window.saveDocument = async () => {
     const mode = document.getElementById('suite-mode').value;
     const client = document.getElementById('doc-client').value;
     const subject = document.getElementById('doc-subject').value;
-    const amount = mode === 'proposal' ? parseFloat(document.getElementById('p-cost').value||0) : activeItems.reduce((acc,item)=>acc+(item.qty*item.rate),0);
-    let table = mode==='invoice' ? 'invoices' : (mode==='proposal' ? 'proposals' : 'quotes');
+    const amount = mode === 'proposal' ? parseFloat(document.getElementById('p-cost').value || 0) : activeItems.reduce((acc, item) => acc + (item.qty * item.rate), 0);
+    let table = mode === 'invoice' ? 'invoices' : (mode === 'proposal' ? 'proposals' : 'quotes');
     const payload = { client_name: client, created_at: new Date().toISOString() };
-    if (mode==='proposal') {
-        Object.assign(payload,{project_title:subject,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
+    if (mode === 'proposal') {
+        Object.assign(payload, { project_title: subject, scope_of_work: document.getElementById('p-scope').value, deliverables: document.getElementById('p-deliverables').value, project_cost: amount, timeline: document.getElementById('p-timeline').value, payment_terms: document.getElementById('p-payment').value, notes: document.getElementById('p-notes').value });
     } else {
-        payload.service=subject; payload.items=activeItems;
-        if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}else{payload.price=amount;}
+        payload.service = subject; payload.items = activeItems;
+        if (mode === 'invoice') { payload.amount = amount; payload.status = 'Pending'; } else { payload.price = amount; }
     }
     const { error } = await supabase.from(table).insert([payload]);
-    if (error) alert("Sync Error: "+error.message);
+    if (error) alert("Sync Error: " + error.message);
     else { alert("Synced to Cloud!"); loadHistory(); }
 };
 
+// Store history records globally so View button can access them
+let _historyRecords = [];
+
 async function loadHistory() {
-    const {data:q}=await supabase.from('quotes').select('*').order('created_at',{ascending:false}).limit(3);
-    const {data:i}=await supabase.from('invoices').select('*').order('created_at',{ascending:false}).limit(3);
-    const {data:p}=await supabase.from('proposals').select('*').order('created_at',{ascending:false}).limit(3);
-    document.getElementById('history-list').innerHTML=[...(q||[]).map(x=>({...x,t:'Quote',v:x.price})),...(i||[]).map(x=>({...x,t:'Invoice',v:x.amount})),...(p||[]).map(x=>({...x,t:'Proposal',v:x.project_cost}))]
-        .sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))
-        .map(d=>`<tr><td><span class="badge">${d.t}</span></td><td style="font-weight:600;">${d.client_name}</td><td>₹${(d.v||0).toLocaleString()}</td><td style="color:#94a3b8;">${new Date(d.created_at).toLocaleDateString()}</td><td><button class="btn btn-ghost" style="padding:4px 10px;font-size:0.7rem">View</button></td></tr>`).join('');
+    const { data: q } = await supabase.from('quotes').select('*').order('created_at', { ascending: false }).limit(10);
+    const { data: i } = await supabase.from('invoices').select('*').order('created_at', { ascending: false }).limit(10);
+    const { data: p } = await supabase.from('proposals').select('*').order('created_at', { ascending: false }).limit(10);
+
+    _historyRecords = [
+        ...(q || []).map(x => ({ ...x, _type: 'quotation', _label: 'Quote', _val: x.price })),
+        ...(i || []).map(x => ({ ...x, _type: 'invoice', _label: 'Invoice', _val: x.amount })),
+        ...(p || []).map(x => ({ ...x, _type: 'proposal', _label: 'Proposal', _val: x.project_cost }))
+    ].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+    document.getElementById('history-list').innerHTML = _historyRecords.map((d, idx) => `
+        <tr>
+            <td><span class="badge">${d._label}</span></td>
+            <td style="font-weight:600;">${d.client_name || '—'}</td>
+            <td>₹${(d._val || 0).toLocaleString('en-IN')}</td>
+            <td style="color:#94a3b8;">${new Date(d.created_at).toLocaleDateString('en-IN')}</td>
+            <td>
+                <button class="btn btn-ghost" style="padding:4px 14px;font-size:0.75rem;"
+                    onclick="loadDocumentFromHistory(${idx})">
+                    View →
+                </button>
+            </td>
+        </tr>`).join('');
 }
+
+window.loadDocumentFromHistory = (idx) => {
+    const d = _historyRecords[idx];
+    if (!d) return;
+
+    // Switch to Business Suite
+    switchView('suite');
+
+    // Set document type
+    const modeSelect = document.getElementById('suite-mode');
+    modeSelect.value = d._type;
+    updateUI();
+
+    // Fill client details
+    const clientEl = document.getElementById('doc-client');
+    const subjectEl = document.getElementById('doc-subject');
+    if (clientEl) clientEl.value = d.client_name || '';
+    if (subjectEl) subjectEl.value = d.service || d.project_title || '';
+
+    if (d._type === 'proposal') {
+        // Fill proposal fields
+        const fields = {
+            'p-scope': d.scope_of_work || '',
+            'p-deliverables': d.deliverables || '',
+            'p-cost': d.project_cost || '',
+            'p-timeline': d.timeline || '',
+            'p-payment': d.payment_terms || '',
+            'p-notes': d.notes || '',
+        };
+        for (const [id, val] of Object.entries(fields)) {
+            const el = document.getElementById(id);
+            if (el) el.value = val;
+        }
+    } else {
+        // Fill line items
+        activeItems.length = 0;
+        if (Array.isArray(d.items) && d.items.length) {
+            d.items.forEach(item => activeItems.push(item));
+        } else if (d.service) {
+            // Fallback: single item from service name + total
+            activeItems.push({ desc: d.service || 'Service', qty: 1, rate: d._val || 0 });
+        }
+        initLineItems();
+    }
+
+    // Set date if available
+    if (d.created_at) {
+        const dateEl = document.getElementById('doc-date');
+        if (dateEl) {
+            dateEl.valueAsDate = new Date(d.created_at);
+            updateDueDate();
+        }
+    }
+
+    renderLive();
+    showCatToast(\`Loaded \${d._label} for \${d.client_name || 'client'} ✓\`);
+};
 
 // ═══════════════════════════════════════════════════════════════
 // SERVICE CATALOGUE
@@ -445,7 +522,7 @@ let catalogue = {
 };
 
 let qqItems  = [];
-let qqStatus = 'draft';
+
 const TAG_COLORS = {
     project:  { bg:'rgba(124,58,237,0.2)',  color:'#a78bfa' },
     retainer: { bg:'rgba(16,185,129,0.2)',  color:'#34d399' },
@@ -465,7 +542,7 @@ function renderCatalogue(filter = '') {
         const visible = items.filter(s => !lower || s.name.toLowerCase().includes(lower) || cat.toLowerCase().includes(lower));
         if (!visible.length) continue;
         html += `
-        <div style="margin-bottom:2rem;">
+        < div style = "margin-bottom:2rem;" >
             <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
                         color:var(--text-muted);margin-bottom:0.75rem;padding-bottom:0.5rem;
                         border-bottom:1px solid var(--border);">${cat}</div>
@@ -512,9 +589,9 @@ function renderCatalogue(filter = '') {
                     + Add to ${cat}
                 </button>
             </div>
-        </div>`;
+        </div > `;
     }
-    root.innerHTML = html || `<div style="color:var(--text-muted);padding:2rem;text-align:center;">No services found for "${filter}"</div>`;
+    root.innerHTML = html || `< div style = "color:var(--text-muted);padding:2rem;text-align:center;" > No services found for "${filter}"</div > `;
 }
 
 window.toggleQQ = (id) => {
@@ -552,7 +629,7 @@ function renderQQ() {
     if (!qqItems.length) { emptyEl.style.display='block'; itemsEl.innerHTML=''; return; }
     emptyEl.style.display = 'none';
     itemsEl.innerHTML = qqItems.map(q => `
-        <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
+        < div style = "display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);" >
             <div style="flex:1;">
                 <div style="font-size:0.85rem;font-weight:600;">${q.name}</div>
                 <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">${q.cat} · ${q.unit}</div>
@@ -560,14 +637,10 @@ function renderQQ() {
             <div style="font-size:0.9rem;font-weight:700;color:var(--primary);white-space:nowrap;">${fmtINR(q.price)}</div>
             <button onclick="toggleQQ('${q.id}')" title="Remove"
                     style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;padding:0 2px;">✕</button>
-        </div>`).join('');
+        </div > `).join('');
 }
 
-window.setQQStatus = (el) => {
-    document.querySelectorAll('.status-pill').forEach(p => p.classList.remove('active-pill'));
-    el.classList.add('active-pill');
-    qqStatus = el.dataset.status;
-};
+// status tracking removed — not needed for agency workflow
 
 window.sendToQuotation = () => {
     const client  = document.getElementById('qq-client')?.value.trim();
@@ -583,16 +656,13 @@ window.sendToQuotation = () => {
     qqItems.forEach(q => activeItems.push({ desc: q.name, qty: 1, rate: q.price }));
     initLineItems();
     renderLive();
-    showCatToast(`Quote for ${client} loaded into Business Suite ✓`);
+    showCatToast(`Quote for ${ client } loaded into Business Suite ✓`);
 };
 
 window.clearQQ = () => {
     qqItems = [];
     const c=document.getElementById('qq-client'), p=document.getElementById('qq-project');
     if(c) c.value=''; if(p) p.value='';
-    document.querySelectorAll('.status-pill').forEach(p=>p.classList.remove('active-pill'));
-    document.querySelector('[data-status="draft"]')?.classList.add('active-pill');
-    qqStatus='draft';
     renderCatalogue(document.getElementById('cat-search')?.value||'');
     renderQQ();
 };
@@ -624,7 +694,7 @@ window.saveNewService = () => {
     catalogue[cat].push({ id:'custom-'+Date.now(), name, price, unit, tag });
     closeCatModal();
     renderCatalogue(document.getElementById('cat-search')?.value||'');
-    showCatToast(`"${name}" added to ${cat}`);
+    showCatToast(`"${name}" added to ${ cat } `);
 };
 
 function showCatToast(msg) {
