@@ -275,8 +275,8 @@ window.renderLive = () => {
                         <div style="width:4px;height:18px;background:${GRADIENT};border-radius:2px;"></div>
                         Payment Details
                     </h3>
-                    <div style="display:grid;grid-template-columns:1fr;gap:20px;">
-                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;">
+                    <div style="display:flex;gap:20px;">
+                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;flex: 1; max-width: 480px;">
                             <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Bank Transfer</h4>
                             <div style="font-size:0.75rem;color:${C.textMid};display:grid;grid-template-columns:1fr 1fr;gap:6px;">
                                 <div style="display:flex;justify-content:space-between;padding-right:20px;border-right:1px solid ${C.border};"><span>Bank</span><span style="font-weight:600;color:${C.textDark};">${BANK.bank}</span></div>
