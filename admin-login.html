@@ -492,8 +492,15 @@
             hideError();
             setLoading(true);
 
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
+            const formData = new FormData(form);
+            const email = form.querySelector('#email').value.trim();
+            const password = form.querySelector('#password').value;
+
+            if (!email || !password) {
+                showError('Please enter both email and password.');
+                setLoading(false);
+                return;
+            }
 
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
