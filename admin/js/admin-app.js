@@ -168,13 +168,13 @@ window.renderLive = () => {
         let subtotal = 0;
         const rows = activeItems.map((item, idx) => {
             const lt = item.qty * item.rate; subtotal += lt;
-            return \`<tr style="border-bottom:1px solid \${C.border};">
-                <td style="padding:10px 14px;font-size:0.7rem;color:\${C.textLight};vertical-align:top;">\${idx + 1}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:\${C.textDark};font-weight:500;line-height:1.4;">\${item.desc}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:\${C.textMid};text-align:center;">\${item.qty}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:\${C.textMid};text-align:right;">₹\${item.rate.toLocaleString('en-IN')}</td>
-                <td style="padding:10px 14px;font-size:0.78rem;font-weight:700;color:\${C.textDark};text-align:right;">₹\${lt.toLocaleString('en-IN')}</td>
-            </tr>\`;
+            return `<tr style="border-bottom:1px solid ${C.border};">
+                <td style="padding:10px 14px;font-size:0.7rem;color:${C.textLight};vertical-align:top;">${idx + 1}</td>
+                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textDark};font-weight:500;line-height:1.4;">${item.desc}</td>
+                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textMid};text-align:center;">${item.qty}</td>
+                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textMid};text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
+                <td style="padding:10px 14px;font-size:0.78rem;font-weight:700;color:${C.textDark};text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
+            </tr>`;
         }).join('');
 
         document.getElementById('document-preview').innerHTML = `
@@ -437,19 +437,19 @@ async function loadHistory() {
 
     const list = document.getElementById('history-list');
     if (list) {
-        list.innerHTML = _historyRecords.map((d, idx) => \`
+        list.innerHTML = _historyRecords.map((d, idx) => `
             <tr>
-                <td><span class="badge">\${d._label}</span></td>
-                <td style="font-weight:600;">\${d.client_name || '—'}</td>
-                <td>₹\${(d._val||0).toLocaleString('en-IN')}</td>
-                <td style="color:#94a3b8;">\${new Date(d.created_at).toLocaleDateString('en-IN')}</td>
+                <td><span class="badge">${d._label}</span></td>
+                <td style="font-weight:600;">${d.client_name || '—'}</td>
+                <td>₹${(d._val||0).toLocaleString('en-IN')}</td>
+                <td style="color:#94a3b8;">${new Date(d.created_at).toLocaleDateString('en-IN')}</td>
                 <td>
                     <button class="btn btn-ghost" style="padding:4px 14px;font-size:0.75rem;"
-                        onclick="loadDocumentFromHistory(\${idx})">
+                        onclick="loadDocumentFromHistory(${idx})">
                         View →
                     </button>
                 </td>
-            </tr>\`).join('');
+            </tr>`).join('');
     }
 }
 
@@ -507,7 +507,7 @@ window.loadDocumentFromHistory = (idx) => {
     }
 
     renderLive();
-    showCatToast(\`Loaded \${d._label} for \${d.client_name || 'client'} ✓\`);
+    showCatToast(`Loaded ${d._label} for ${d.client_name || 'client'} ✓`);
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -561,57 +561,57 @@ function renderCatalogue(filter = '') {
     for (const [cat, items] of Object.entries(catalogue)) {
         const visible = items.filter(s => !lower || s.name.toLowerCase().includes(lower) || cat.toLowerCase().includes(lower));
         if (!visible.length) continue;
-        html += \`
+        html += `
         <div style="margin-bottom:2rem;">
             <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
                         color:var(--text-muted);margin-bottom:0.75rem;padding-bottom:0.5rem;
-                        border-bottom:1px solid var(--border);">\${cat}</div>
+                        border-bottom:1px solid var(--border);">${cat}</div>
             <div style="display:flex;flex-direction:column;gap:6px;">
-                \${visible.map(s => {
+                ${visible.map(s => {
                     const sel = inQQ(s.id);
                     const tc  = TAG_COLORS[s.tag];
-                    return \`
+                    return `
                     <div style="display:flex;align-items:center;gap:12px;
-                                background:\${sel?'rgba(16,185,129,0.05)':'var(--card-bg)'};
-                                border:1px solid \${sel?'rgba(16,185,129,0.4)':'var(--border)'};
+                                background:${sel?'rgba(16,185,129,0.05)':'var(--card-bg)'};
+                                border:1px solid ${sel?'rgba(16,185,129,0.4)':'var(--border)'};
                                 border-radius:12px;padding:12px 14px;transition:border-color 0.2s;">
-                        <div onclick="toggleQQ('\${s.id}')"
+                        <div onclick="toggleQQ('${s.id}')"
                              style="width:18px;height:18px;border-radius:5px;cursor:pointer;flex-shrink:0;
                                     display:flex;align-items:center;justify-content:center;transition:all 0.15s;
-                                    background:\${sel?'var(--primary)':'transparent'};
-                                    border:1.5px solid \${sel?'var(--primary)':'var(--border)'};">
-                            \${sel?\`<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>\`:''}
+                                    background:${sel?'var(--primary)':'transparent'};
+                                    border:1.5px solid ${sel?'var(--primary)':'var(--border)'};">
+                            ${sel?`<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`:''}
                         </div>
-                        <div style="flex:1;cursor:pointer;" onclick="toggleQQ('\${s.id}')">
-                            <div style="font-size:0.9rem;font-weight:\${sel?'600':'500'};color:\${sel?'var(--primary)':'var(--text-main)'};">\${s.name}</div>
+                        <div style="flex:1;cursor:pointer;" onclick="toggleQQ('${s.id}')">
+                            <div style="font-size:0.9rem;font-weight:${sel?'600':'500'};color:${sel?'var(--primary)':'var(--text-main)'};">${s.name}</div>
                             <div style="display:flex;align-items:center;gap:8px;margin-top:3px;">
-                                <span style="font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:20px;background:\${tc.bg};color:\${tc.color};">\${s.tag}</span>
-                                <span style="font-size:0.75rem;color:var(--text-muted);">\${s.unit}</span>
+                                <span style="font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:20px;background:${tc.bg};color:${tc.color};">${s.tag}</span>
+                                <span style="font-size:0.75rem;color:var(--text-muted);">${s.unit}</span>
                             </div>
                         </div>
                         <div style="display:flex;align-items:center;background:rgba(255,255,255,0.05);
                                     border:1px solid var(--border);border-radius:8px;padding:4px 10px;"
                              onclick="event.stopPropagation()">
                             <span style="font-size:0.8rem;color:var(--text-muted);margin-right:2px;">₹</span>
-                            <input type="number" value="\${s.price}" oninput="updateCatPrice('\${s.id}',this.value)"
+                            <input type="number" value="${s.price}" oninput="updateCatPrice('${s.id}',this.value)"
                                    style="width:80px;border:none;background:transparent;color:var(--text-main);
                                           font-size:0.85rem;font-weight:600;font-family:'Inter',monospace;
                                           outline:none;text-align:right;" />
                         </div>
-                    </div>\`;
+                    </div>`;
                 }).join('')}
-                <button onclick="openCatModal('\${cat}')"
+                <button onclick="openCatModal('${cat}')"
                         style="margin-top:4px;background:transparent;border:1px dashed var(--border);
                                color:var(--text-muted);border-radius:10px;padding:8px 14px;font-size:0.8rem;
                                cursor:pointer;text-align:left;font-family:'Inter',sans-serif;transition:0.2s;"
                         onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
                         onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">
-                    + Add to \${cat}
+                    + Add to ${cat}
                 </button>
             </div>
-        </div>\`;
+        </div>`;
     }
-    root.innerHTML = html || \`<div style="color:var(--text-muted);padding:2rem;text-align:center;">No services found for "\${filter}"</div>\`;
+    root.innerHTML = html || `<div style="color:var(--text-muted);padding:2rem;text-align:center;">No services found for "${filter}"</div>`;
 }
 
 window.toggleQQ = (id) => {
@@ -648,16 +648,16 @@ function renderQQ() {
     if (countEl) countEl.textContent = qqItems.length + ' service' + (qqItems.length !== 1 ? 's' : '');
     if (!qqItems.length) { if(emptyEl) emptyEl.style.display='block'; itemsEl.innerHTML=''; return; }
     if(emptyEl) emptyEl.style.display = 'none';
-    itemsEl.innerHTML = qqItems.map(q => \`
+    itemsEl.innerHTML = qqItems.map(q => `
         <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);">
             <div style="flex:1;">
-                <div style="font-size:0.85rem;font-weight:600;">\${q.name}</div>
-                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">\${q.cat} · \${q.unit}</div>
+                <div style="font-size:0.85rem;font-weight:600;">${q.name}</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">${q.cat} · ${q.unit}</div>
             </div>
-            <div style="font-size:0.9rem;font-weight:700;color:var(--primary);white-space:nowrap;">\${fmtINR(q.price)}</div>
-            <button onclick="toggleQQ('\${q.id}')" title="Remove"
+            <div style="font-size:0.9rem;font-weight:700;color:var(--primary);white-space:nowrap;">${fmtINR(q.price)}</div>
+            <button onclick="toggleQQ('${q.id}')" title="Remove"
                     style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1rem;padding:0 2px;">✕</button>
-        </div>\`).join('');
+        </div>`).join('');
 }
 
 window.sendToQuotation = () => {
@@ -674,7 +674,7 @@ window.sendToQuotation = () => {
     qqItems.forEach(q => activeItems.push({ desc: q.name, qty: 1, rate: q.price }));
     initLineItems();
     renderLive();
-    showCatToast(\`Quote for \${client} loaded into Business Suite ✓\`);
+    showCatToast(`Quote for ${client} loaded into Business Suite ✓`);
 };
 
 window.clearQQ = () => {
@@ -715,7 +715,7 @@ window.saveNewService = () => {
     catalogue[cat].push({ id:'custom-'+Date.now(), name, price, unit, tag });
     closeCatModal();
     renderCatalogue(document.getElementById('cat-search')?.value||'');
-    showCatToast(\`"\${name}" added to \${cat}\`);
+    showCatToast(`"${name}" added to ${cat}`);
 };
 
 function showCatToast(msg) {
