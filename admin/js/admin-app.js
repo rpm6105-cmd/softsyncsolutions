@@ -119,39 +119,41 @@ window.renderLive = () => {
     const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
     const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
 
-    /* ── BRAND PALETTE (matched to Softsync logo) ── */
+    /* ── BRAND PALETTE (upgraded) ── */
     const C = {
-        navy:        '#1E2D6B',   /* deep navy from logo text */
-        navyDark:    '#151F4E',   /* darker navy for header bg */
-        violet:      '#6B5CE7',   /* violet accent from logo gradient */
-        violetLight: '#EEF0FB',   /* very light blue-violet tint */
-        violetMid:   '#C7CDEF',   /* mid tint for borders in accent panels */
-        white:       '#FFFFFF',
-        offWhite:    '#F8F9FC',   /* almost white with cool tint */
-        textDark:    '#0F172A',   /* near-black for headings */
-        textMid:     '#475569',   /* slate for body text */
-        textLight:   '#94A3B8',   /* muted label text */
-        border:      '#E2E8F0',   /* clean cool gray border */
-        borderMid:   '#CBD5E1',
+        navy:        '#0f172a',
+        navyDark:    '#020617',
+        violet:      '#7c3aed',
+        violetLight: '#f5f3ff',
+        violetMid:   '#c4b5fd',
+        white:       '#ffffff',
+        offWhite:    '#f8fafc',
+        textDark:    '#1e293b',
+        textMid:     '#475569',
+        textLight:   '#94a3b8',
+        border:      '#e2e8f0',
+        borderMid:   '#cbd5e1',
+        blue:        '#2563eb',
+        blueLight:   '#eff6ff'
     };
 
-    /* ── LOGO ── */
+    const GRADIENT = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
     const LOGO = 'assets/images/company-logo-full.svg';
 
     /* ── SIGNATURE ── */
     const sig = `
         <div style="text-align:right;">
             <p style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:${C.navy};margin:0 0 2px;line-height:1.1;">Rohith P.M.</p>
-            <div style="width:120px;height:1px;background:${C.violetMid};margin:0 0 5px auto;"></div>
+            <div style="width:120px;height:2px;background:${GRADIENT};margin:0 0 5px auto;"></div>
             <p style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:${C.textLight};">Director, Softsync Solutions</p>
         </div>`;
 
     /* ── FOOTER BAR ── */
     const footer = `
-        <div style="background:${C.navyDark};padding:8px 18mm;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.5rem;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;">www.softsyncsolutions.in</span>
-            <div style="width:4px;height:4px;border-radius:50%;background:${C.violet};opacity:0.6;"></div>
-            <span style="font-size:0.5rem;color:rgba(255,255,255,0.4);letter-spacing:0.12em;text-transform:uppercase;">Trusted Partner in Digital Transformation</span>
+        <div style="background:${C.navyDark};padding:12px 18mm;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">www.softsyncsolutions.in</span>
+            <div style="width:5px;height:5px;border-radius:50%;background:${C.violet};opacity:0.8;box-shadow:0 0 10px ${C.violet};"></div>
+            <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">Trusted Partner in Digital Transformation</span>
         </div>`;
 
     /* ══════════════════════════════════════════════
@@ -160,120 +162,139 @@ window.renderLive = () => {
     if (mode === 'quotation' || mode === 'invoice') {
         const isInv       = mode === 'invoice';
         const label       = isInv ? 'TAX INVOICE' : 'QUOTATION';
-        const accentColor = isInv ? '#7C3AED' : C.violet;   /* invoice slightly deeper purple */
+        const accentColor = isInv ? '#2563eb' : C.violet;
         const statusLabel = isInv ? 'PENDING'   : 'DRAFT';
-        const statusBg    = isInv ? '#EDE9FE'   : C.violetLight;
-        const statusColor = isInv ? '#5B21B6'   : C.navy;
+        const statusBg    = isInv ? '#eff6ff'   : C.violetLight;
+        const statusColor = isInv ? '#1e40af'   : C.violet;
 
         let subtotal = 0;
         const rows = activeItems.map((item, idx) => {
             const lt = item.qty * item.rate; subtotal += lt;
             return `<tr style="border-bottom:1px solid ${C.border};">
-                <td style="padding:10px 14px;font-size:0.7rem;color:${C.textLight};vertical-align:top;">${idx + 1}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textDark};font-weight:500;line-height:1.4;">${item.desc}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textMid};text-align:center;">${item.qty}</td>
-                <td style="padding:10px 8px;font-size:0.78rem;color:${C.textMid};text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
-                <td style="padding:10px 14px;font-size:0.78rem;font-weight:700;color:${C.textDark};text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
+                <td style="padding:12px 14px;font-size:0.75rem;color:${C.textMid};vertical-align:top;">${idx + 1}</td>
+                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textDark};font-weight:500;line-height:1.4;">${item.desc}</td>
+                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:center;">${item.qty}</td>
+                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
+                <td style="padding:12px 14px;font-size:0.85rem;font-weight:700;color:${C.textDark};text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
             </tr>`;
         }).join('');
 
         document.getElementById('document-preview').innerHTML = `
         <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
 
-            <!-- HEADER: white bg, logo left, doc type right -->
-            <div style="background:${C.white};padding:8mm 18mm 6mm;border-bottom:3px solid ${C.navyDark};display:flex;justify-content:space-between;align-items:flex-end;">
-                <img src="${LOGO}" style="height:60px;width:auto;display:block;mix-blend-mode:multiply;filter:contrast(1.05) brightness(1.05);">
-                <div style="text-align:right;">
-                    <div style="font-size:0.48rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${accentColor};margin-bottom:3px;">${label}</div>
-                    <div style="font-size:2.4rem;font-weight:800;color:${C.navyDark};letter-spacing:-0.04em;line-height:1;font-family:'Outfit',sans-serif;">A00001</div>
-                    <div style="font-size:0.58rem;color:${C.textLight};margin-top:3px;">${company.address}</div>
-                    <div style="font-size:0.58rem;color:${C.textLight};">${company.email} · ${company.phone}</div>
-                </div>
-            </div>
-            <!-- Violet accent stripe under header -->
-            <div style="height:3px;background:linear-gradient(90deg,${accentColor},rgba(107,92,231,0.15));"></div>
-
-            <!-- FROM / BILL TO / DETAILS -->
-            <div style="display:grid;grid-template-columns:1fr 1fr 0.85fr;border-bottom:1px solid ${C.border};">
-                <div style="padding:5mm 18mm 5mm;">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:5px;">From</div>
-                    <div style="font-size:0.88rem;font-weight:800;color:${C.textDark};margin-bottom:3px;">${company.name}</div>
-                    <div style="font-size:0.65rem;color:${C.textMid};line-height:1.6;">${company.address}</div>
-                </div>
-                <div style="padding:5mm 8mm;border-left:1px solid ${C.border};">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:5px;">Bill To</div>
-                    <div style="font-size:0.88rem;font-weight:800;color:${C.textDark};margin-bottom:3px;">${client}</div>
-                    <div style="font-size:0.65rem;color:${C.textMid};line-height:1.6;">${addr}</div>
-                    ${phone ? `<div style="font-size:0.65rem;color:${C.textMid};margin-top:2px;">${phone}</div>` : ''}
-                </div>
-                <div style="padding:5mm 8mm;border-left:1px solid ${C.border};background:${C.violetLight};">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:6px;">Details</div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="font-size:0.63rem;color:${C.textMid};">Issue Date</span><span style="font-size:0.63rem;font-weight:700;color:${C.textDark};">${dateStr}</span></div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="font-size:0.63rem;color:${C.textMid};">Valid Till</span><span style="font-size:0.63rem;font-weight:700;color:${C.textDark};">${validStr}</span></div>
-                    <div style="padding-top:6px;border-top:1px solid ${C.violetMid};display:flex;justify-content:space-between;align-items:center;">
-                        <span style="font-size:0.58rem;color:${C.textMid};font-weight:600;">Status</span>
-                        <span style="font-size:0.58rem;font-weight:700;color:${statusColor};background:${statusBg};padding:2px 9px;border-radius:20px;letter-spacing:0.04em;">${statusLabel}</span>
+            <!-- HEADER -->
+            <div style="position:relative;background:${C.white};padding:10mm 18mm 8mm;border-bottom:1px solid ${C.border};overflow:hidden;">
+                <div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>
+                <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
+                    <div style="display:flex;align-items:center;gap:15px;">
+                        <div style="width:56px;height:56px;border-radius:12px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                            <img src="${LOGO_ICON}" style="width:36px;height:auto;filter:brightness(0) invert(1);">
+                        </div>
+                        <div>
+                            <h1 style="font-size:1.5rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</h1>
+                            <p style="font-size:0.75rem;color:${C.textMid};margin:2px 0 0;">SaaS Development Agency</p>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-size:1.8rem;font-weight:900;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em;">${label}</div>
+                        <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
+                            <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
+                            <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            ${subject ? `<div style="padding:3mm 18mm;background:${C.offWhite};border-bottom:1px solid ${C.border};">
-                <span style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:${C.textLight};">Re: </span>
-                <span style="font-size:0.75rem;color:${C.textDark};font-weight:600;">${subject}</span>
-            </div>` : ''}
+            <!-- BILLING INFO -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;background:${C.offWhite};">
+                <div style="padding:8mm 18mm;border-right:1px solid ${C.border};">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:8px;">From</div>
+                    <div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:4px;">${company.name}</div>
+                    <div style="font-size:0.75rem;color:${C.textMid};line-height:1.6;max-width:240px;">${company.address}</div>
+                </div>
+                <div style="padding:8mm 15mm;">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:8px;">Bill To</div>
+                    <div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:4px;">${client}</div>
+                    <div style="font-size:0.75rem;color:${C.textMid};line-height:1.6;">${addr}</div>
+                    ${phone ? `<div style="font-size:0.75rem;color:${C.textMid};margin-top:2px;">${phone}</div>` : ''}
+                </div>
+            </div>
 
             <!-- LINE ITEMS -->
-            <div style="padding:0 18mm;background:${C.white};">
-                <table style="width:100%;border-collapse:collapse;margin-top:5mm;">
-                    <thead>
-                        <tr style="background:${C.navyDark};">
-                            <th style="padding:8px 14px;font-size:0.56rem;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.5);text-align:left;width:24px;">#</th>
-                            <th style="padding:8px 8px;font-size:0.56rem;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.5);text-align:left;">Description</th>
-                            <th style="padding:8px 8px;font-size:0.56rem;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.5);text-align:center;width:44px;">Qty</th>
-                            <th style="padding:8px 8px;font-size:0.56rem;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.5);text-align:right;width:80px;">Rate</th>
-                            <th style="padding:8px 14px;font-size:0.56rem;font-weight:700;letter-spacing:0.12em;color:rgba(255,255,255,0.5);text-align:right;width:88px;">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody style="border:1px solid ${C.border};border-top:none;">
-                        ${rows || `<tr><td colspan="5" style="padding:22px;text-align:center;color:${C.textLight};font-size:0.72rem;font-style:italic;border:1px solid ${C.border};">No items added yet</td></tr>`}
-                    </tbody>
-                </table>
+            <div style="padding:8mm 18mm;background:${C.white};">
+                <div style="border-radius:12px;border:1px solid ${C.border};overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+                    <table style="width:100%;border-collapse:collapse;">
+                        <thead>
+                            <tr style="background:${GRADIENT};">
+                                <th style="padding:14px;font-size:0.75rem;font-weight:700;color:white;text-align:left;width:30px;">#</th>
+                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:left;">Description</th>
+                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:center;width:50px;">Qty</th>
+                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:right;width:100px;">Rate</th>
+                                <th style="padding:14px 14px;font-size:0.75rem;font-weight:700;color:white;text-align:right;width:110px;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${rows || `<tr><td colspan="5" style="padding:40px;text-align:center;color:${C.textLight};font-size:0.9rem;font-style:italic;">No items added yet</td></tr>`}
+                        </tbody>
+                    </table>
+                </div>
 
-                <!-- TOTAL -->
-                <div style="display:flex;justify-content:flex-end;margin-bottom:7mm;">
-                    <div style="min-width:260px;border:1px solid ${C.border};border-top:none;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:${C.offWhite};">
-                            <span style="font-size:0.6rem;color:${C.textMid};font-weight:600;letter-spacing:0.04em;">SUBTOTAL</span>
-                            <span style="font-size:0.75rem;color:${C.textDark};font-weight:600;">₹${subtotal.toLocaleString('en-IN')}</span>
+                <!-- TOTALS SECTION -->
+                <div style="display:flex;justify-content:flex-end;margin-top:10mm;margin-bottom:10mm;">
+                    <div style="width:320px;background:${C.offWhite};border-radius:12px;padding:20px;border:1px solid ${C.border};">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                            <span style="font-size:0.85rem;color:${C.textMid};">Subtotal</span>
+                            <span style="font-size:0.9rem;font-weight:700;color:${C.textDark};">₹${subtotal.toLocaleString('en-IN')}</span>
                         </div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:${C.navyDark};">
-                            <span style="font-size:0.6rem;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:0.08em;">TOTAL (INR)</span>
-                            <span style="font-size:1.2rem;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;letter-spacing:-0.02em;">₹${subtotal.toLocaleString('en-IN')}</span>
+                        <div style="display:flex;justify-content:space-between;margin-bottom:15px;">
+                            <span style="font-size:0.85rem;color:${C.textMid};">Tax (GST 18%)</span>
+                            <span style="font-size:0.9rem;font-weight:700;color:${C.textDark};">₹${(subtotal * 0.18).toLocaleString('en-IN')}</span>
+                        </div>
+                        <div style="height:1px;background:${C.borderMid};margin-bottom:15px;"></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;background:${GRADIENT};margin:-10px -10px -10px -10px;padding:15px;border-radius:0 0 12px 12px;">
+                            <span style="font-size:1rem;font-weight:800;color:white;">Grand Total</span>
+                            <span style="font-size:1.3rem;font-weight:900;color:white;">₹${(subtotal * 1.18).toLocaleString('en-IN')}</span>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- TERMS & SIGNATURE -->
-            <div style="padding:0 18mm 7mm;background:${C.white};display:grid;grid-template-columns:1.2fr 0.8fr;gap:8mm;align-items:end;">
-                <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:6px;padding:4mm;">
-                    <div style="font-size:0.5rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.violet};margin-bottom:6px;">Terms & Conditions</div>
-                    ${['Quoted prices are final and all-inclusive.','Validity of this quotation is 21 days.','Project kickoff only after advance payment.'].map(t =>
-                        `<div style="display:flex;gap:6px;margin-bottom:4px;">
-                            <span style="color:${C.violet};font-size:0.7rem;margin-top:1px;">·</span>
-                            <span style="font-size:0.63rem;color:${C.textMid};line-height:1.5;">${t}</span>
-                        </div>`).join('')}
+                <!-- PAYMENT DETAILS -->
+                <div style="margin-top:12mm;">
+                    <h3 style="font-size:1.1rem;font-weight:800;color:${C.navyDark};margin-bottom:15px;display:flex;align-items:center;gap:8px;">
+                        <div style="width:4px;height:18px;background:${GRADIENT};border-radius:2px;"></div>
+                        Payment Details
+                    </h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;">
+                            <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Bank Transfer</h4>
+                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;gap:6px;">
+                                <div style="display:flex;justify-content:space-between;"><span>Bank</span><span style="font-weight:600;color:${C.textDark};">HDFC Bank</span></div>
+                                <div style="display:flex;justify-content:space-between;"><span>Account</span><span style="font-weight:600;color:${C.textDark};">Softsync Solutions</span></div>
+                                <div style="display:flex;justify-content:space-between;"><span>IFSC</span><span style="font-weight:600;color:${C.textDark};">HDFC0001234</span></div>
+                                <div style="display:flex;justify-content:space-between;"><span>Account #</span><span style="font-weight:600;color:${C.textDark};">50200012345678</span></div>
+                            </div>
+                        </div>
+                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;">
+                            <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Digital Payment</h4>
+                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;gap:6px;">
+                                <div style="display:flex;justify-content:space-between;"><span>UPI ID</span><span style="font-weight:600;color:${C.textDark};">softsync@hdfcbank</span></div>
+                                <div style="display:flex;justify-content:space-between;"><span>Google Pay</span><span style="font-weight:600;color:${C.textDark};">+91 72599 56572</span></div>
+                                <div style="display:flex;justify-content:space-between;"><span>PayPal</span><span style="font-weight:600;color:${C.textDark};">payments@softsync.in</span></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                ${sig}
+
+                <div style="margin-top:10mm;padding:15px;background:${C.blueLight};border-radius:12px;border:1px solid rgba(37,99,235,0.1);">
+                    <p style="font-size:0.7rem;color:${C.blue};line-height:1.6;margin:0;">
+                        <span style="font-weight:800;">Instructions:</span> Please mention the document number in payment reference.
+                        Payment is due within 7 days. For queries, contact billing@softsyncsolutions.in
+                    </p>
+                </div>
             </div>
 
-            <div style="height:14mm;"></div>
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
-
-    /* ══════════════════════════════════════════════
-       PROJECT PROPOSAL
-    ══════════════════════════════════════════════ */
     } else if (mode === 'proposal') {
         const scope        = document.getElementById('p-scope').value;
         const deliverables = document.getElementById('p-deliverables').value;
@@ -283,123 +304,131 @@ window.renderLive = () => {
         const notes        = document.getElementById('p-notes').value;
 
         const section = (num, title, content) => `
-            <div style="margin-bottom:5mm;padding-bottom:5mm;border-bottom:1px solid ${C.border};">
-                <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:3mm;">
-                    <div style="width:20px;height:20px;background:${C.violetLight};border:1.5px solid ${C.violetMid};border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
-                        <span style="font-size:0.58rem;font-weight:800;color:${C.violet};">${num}</span>
+            <div style="margin-bottom:8mm;padding-bottom:6mm;border-bottom:1px solid ${C.border};">
+                <div style="display:flex;align-items:center;gap:12px;margin-bottom:4mm;">
+                    <div style="width:28px;height:28px;background:${GRADIENT};border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <span style="font-size:0.8rem;font-weight:800;color:white;">${num}</span>
                     </div>
-                    <div style="font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:${C.navyDark};padding-top:3px;">${title}</div>
+                    <div style="font-size:0.9rem;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;color:${C.navyDark};">${title}</div>
                 </div>
-                <div style="padding-left:30px;font-size:0.74rem;color:${C.textMid};line-height:1.7;">${content || `<span style="color:${C.textLight};font-style:italic;">Not specified</span>`}</div>
+                <div style="padding-left:40px;font-size:0.85rem;color:${C.textMid};line-height:1.8;">${content || `<span style="color:${C.textLight};font-style:italic;">Not specified</span>`}</div>
             </div>`;
 
         document.getElementById('document-preview').innerHTML = `
         <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
 
             <!-- HEADER -->
-            <div style="background:${C.white};padding:8mm 18mm 6mm;border-bottom:3px solid ${C.navyDark};display:flex;justify-content:space-between;align-items:flex-end;">
-                <img src="${LOGO}" style="height:52px;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.05) brightness(1.05);">
-                <div style="text-align:right;">
-                    <div style="font-size:0.48rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:${C.violet};margin-bottom:3px;">Project Proposal</div>
-                    <div style="font-size:0.58rem;color:${C.textLight};">${company.email} · ${company.phone}</div>
+            <div style="position:relative;background:${C.white};padding:12mm 18mm 10mm;border-bottom:1px solid ${C.border};overflow:hidden;">
+                <div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>
+                <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
+                    <div style="display:flex;align-items:center;gap:15px;">
+                        <div style="width:64px;height:64px;border-radius:14px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                            <img src="${LOGO_ICON}" style="width:42px;height:auto;filter:brightness(0) invert(1);">
+                        </div>
+                        <div>
+                            <h1 style="font-size:1.6rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</h1>
+                            <p style="font-size:0.8rem;color:${C.textMid};margin:2px 0 0;">SaaS Development Agency</p>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <p style="font-size:0.75rem;color:${C.textMid};text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px;">Proposal Date</p>
+                        <p style="font-size:1rem;font-weight:700;color:${C.textDark};">${dateStr}</p>
+                    </div>
                 </div>
-            </div>
-            <div style="height:3px;background:linear-gradient(90deg,${C.violet},rgba(107,92,231,0.1));"></div>
-
-            <!-- TITLE BAND -->
-            <div style="background:${C.navyDark};padding:6mm 18mm;">
-                <div style="font-size:1.9rem;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1.1;font-family:'Outfit',sans-serif;">${subject || 'Project Title'}</div>
+                <div style="position:relative;margin-top:12mm;">
+                    <h2 style="font-size:2.8rem;font-weight:900;color:${C.navyDark};letter-spacing:-0.03em;line-height:1;margin:0;">Project Proposal</h2>
+                    <p style="font-size:1.1rem;color:${C.textMid};margin:8px 0 0;">Professional SaaS Development Services</p>
+                </div>
             </div>
 
             <!-- META ROW -->
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;background:${C.offWhite};border-bottom:1px solid ${C.border};">
-                <div style="padding:4.5mm 18mm;">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:4px;">Prepared For</div>
-                    <div style="font-size:0.85rem;font-weight:800;color:${C.textDark};">${client}</div>
-                    ${addr ? `<div style="font-size:0.63rem;color:${C.textMid};margin-top:2px;">${addr}</div>` : ''}
+            <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;background:${C.offWhite};border-bottom:1px solid ${C.border};">
+                <div style="padding:6mm 18mm;border-right:1px solid ${C.border};">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:6px;">Prepared For</div>
+                    <div style="font-size:1rem;font-weight:800;color:${C.textDark};">${client}</div>
+                    ${addr ? `<div style="font-size:0.75rem;color:${C.textMid};margin-top:2px;">${addr}</div>` : ''}
                 </div>
-                <div style="padding:4.5mm 8mm;border-left:1px solid ${C.border};">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:4px;">Date</div>
-                    <div style="font-size:0.85rem;font-weight:700;color:${C.textDark};">${dateStr}</div>
-                    ${timeline ? `<div style="font-size:0.62rem;color:${C.textMid};margin-top:2px;">Timeline: ${timeline}</div>` : ''}
+                <div style="padding:6mm 10mm;border-right:1px solid ${C.border};">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:6px;">Timeline</div>
+                    <div style="font-size:1rem;font-weight:700;color:${C.textDark};">${timeline || 'TBD'}</div>
                 </div>
-                <div style="padding:4.5mm 8mm;border-left:1px solid ${C.border};background:${C.violetLight};">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:4px;">Project Cost</div>
-                    <div style="font-size:1.1rem;font-weight:800;color:${C.navyDark};font-family:'Outfit',sans-serif;letter-spacing:-0.02em;">₹${parseFloat(cost || 0).toLocaleString('en-IN')}</div>
+                <div style="padding:6mm 10mm;background:${C.blueLight};">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.blue};margin-bottom:6px;">Estimated Cost</div>
+                    <div style="font-size:1.4rem;font-weight:900;color:${C.blue};letter-spacing:-0.02em;">₹${parseFloat(cost || 0).toLocaleString('en-IN')}</div>
                 </div>
             </div>
 
             <!-- CONTENT -->
-            <div style="padding:6mm 18mm 0;background:${C.white};">
+            <div style="padding:10mm 18mm 0;background:${C.white};">
                 ${section('1', 'Scope of Work', scope.replace(/\n/g, '<br>'))}
                 ${section('2', 'Deliverables', deliverables.replace(/\n/g, '<br>'))}
                 ${section('3', 'Payment Terms', payment.replace(/\n/g, '<br>'))}
-                ${notes ? `<div style="background:${C.violetLight};border:1px solid ${C.violetMid};border-radius:6px;padding:4mm;margin-bottom:5mm;">
-                    <div style="font-size:0.5rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.violet};margin-bottom:4px;">Additional Notes</div>
-                    <div style="font-size:0.7rem;color:${C.textMid};line-height:1.6;">${notes}</div>
+                ${notes ? `<div style="background:${C.violetLight};border:1px solid ${C.violetMid};border-radius:12px;padding:6mm;margin-bottom:8mm;">
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.violet};margin-bottom:6px;">Additional Notes</div>
+                    <div style="font-size:0.85rem;color:${C.textMid};line-height:1.8;">${notes}</div>
                 </div>` : ''}
             </div>
 
             <!-- SIGN OFF -->
-            <div style="padding:0 18mm 7mm;background:${C.white};display:flex;justify-content:space-between;align-items:flex-end;">
-                <div style="font-size:0.63rem;color:${C.textLight};line-height:1.8;max-width:200px;">
+            <div style="padding:0 18mm 10mm;background:${C.white};display:flex;justify-content:space-between;align-items:flex-end;">
+                <div style="font-size:0.75rem;color:${C.textMid};line-height:1.8;max-width:280px;font-style:italic;">
                     This proposal is valid for 21 days from the date above.<br>
-                    Kickoff begins upon receipt of advance payment.
+                    Project kickoff begins upon receipt of advance payment.
                 </div>
                 ${sig}
             </div>
 
-            <div style="height:12mm;"></div>
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
-
-    /* ══════════════════════════════════════════════
-       LETTERHEAD
-    ══════════════════════════════════════════════ */
+    }
     } else if (mode === 'letterhead') {
         document.getElementById('document-preview').innerHTML = `
         <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
 
             <!-- HEADER -->
-            <div style="background:${C.white};padding:7mm 18mm 6mm;border-bottom:3px solid ${C.navyDark};display:flex;justify-content:space-between;align-items:center;">
-                <img src="${LOGO}" style="height:52px;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.05) brightness(1.05);">
-                <div style="text-align:right;">
-                    <div style="font-size:0.62rem;color:${C.textMid};line-height:1.8;">${company.address}</div>
-                    <div style="font-size:0.62rem;color:${C.textMid};">${company.email} &nbsp;·&nbsp; ${company.phone}</div>
+            <div style="position:relative;background:${C.white};padding:10mm 18mm 8mm;border-bottom:1px solid ${C.border};overflow:hidden;">
+                <div style="position:absolute;top:0;right:0;width:320px;height:160px;background:linear-gradient(225deg, ${C.blueLight} 0%, transparent 100%);opacity:0.5;"></div>
+                <div style="position:relative;display:flex;justify-content:space-between;align-items:center;">
+                    <div style="width:52px;height:52px;border-radius:12px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                        <img src="${LOGO_ICON}" style="width:34px;height:auto;filter:brightness(0) invert(1);">
+                    </div>
+                    <div style="text-align:right;">
+                        <p style="font-size:1.1rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</p>
+                        <p style="font-size:0.7rem;color:${C.textMid};margin:2px 0 0;">${company.email} · www.softsyncsolutions.in</p>
+                    </div>
                 </div>
             </div>
-            <div style="height:3px;background:linear-gradient(90deg,${C.violet},rgba(107,92,231,0.1));"></div>
 
             <!-- TO / DATE -->
-            <div style="background:${C.offWhite};padding:4mm 18mm;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid ${C.border};">
+            <div style="background:${C.offWhite};padding:6mm 18mm;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid ${C.border};">
                 <div>
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:4px;">To</div>
-                    <div style="font-size:0.92rem;font-weight:800;color:${C.textDark};">${client}</div>
-                    ${addr ? `<div style="font-size:0.65rem;color:${C.textMid};margin-top:2px;">${addr}</div>` : ''}
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:6px;">Recipient</div>
+                    <div style="font-size:1.1rem;font-weight:800;color:${C.textDark};">${client}</div>
+                    ${addr ? `<div style="font-size:0.8rem;color:${C.textMid};margin-top:2px;">${addr}</div>` : ''}
                 </div>
                 <div style="text-align:right;">
-                    <div style="font-size:0.52rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:4px;">Date</div>
-                    <div style="font-size:0.78rem;font-weight:700;color:${C.textDark};">${dateStr}</div>
+                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:6px;">Date</div>
+                    <div style="font-size:0.9rem;font-weight:700;color:${C.textDark};">${dateStr}</div>
                 </div>
             </div>
 
             <!-- BODY -->
-            <div style="padding:8mm 18mm;min-height:165mm;background:${C.white};">
-                ${subject ? `<div style="font-size:0.78rem;font-weight:700;color:${C.textDark};margin-bottom:7mm;padding-bottom:4mm;border-bottom:1px solid ${C.border};">
-                    <span style="color:${C.textLight};font-weight:500;">Re: </span>${subject}
+            <div style="padding:12mm 18mm;min-height:160mm;background:${C.white};">
+                ${subject ? `<div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:10mm;padding-bottom:5mm;border-bottom:2px solid ${C.offWhite};display:flex;gap:8px;">
+                    <span style="color:${C.textLight};font-weight:600;">Subject:</span> ${subject}
                 </div>` : ''}
-                <div style="font-size:0.78rem;color:${C.textLight};font-style:italic;line-height:2;">[ Letter body goes here ]</div>
+                <div style="font-size:0.95rem;color:${C.textDark};line-height:1.8;white-space:pre-wrap;">[ Your letter content here ]</div>
             </div>
 
             <!-- SIGNATURE -->
-            <div style="padding:0 18mm 7mm;display:flex;justify-content:flex-end;">
+            <div style="padding:0 18mm 12mm;display:flex;justify-content:flex-end;">
                 ${sig}
             </div>
 
-            <div style="height:12mm;"></div>
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
     }
+
 };
 
 // --- Sync & History ---
