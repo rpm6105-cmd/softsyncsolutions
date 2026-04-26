@@ -17,18 +17,35 @@ const company = {
 
 // --- Initial Setup ---
 document.addEventListener('DOMContentLoaded', async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) { window.location.href = 'admin-login.html'; return; }
+    try {
+        console.log('Admin App: Initializing...');
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError) {
+            console.error('Admin App: Session retrieval error:', sessionError);
+        }
 
-    document.getElementById('app-layout').style.display = 'flex';
-    const today = new Date();
-    document.getElementById('doc-date').valueAsDate = today;
-    updateDueDate();
-    initLineItems();
-    renderLive();
-    loadHistory();
-    renderCatalogue();
-    renderQQ();
+        console.log('Admin App: Session retrieved:', !!session);
+        if (!session) { 
+            console.log('Admin App: No session, redirecting to login');
+            window.location.href = 'admin-login.html'; 
+            return; 
+        }
+
+        document.getElementById('app-layout').style.display = 'flex';
+        console.log('Admin App: Layout displayed');
+        
+        const today = new Date();
+        document.getElementById('doc-date').valueAsDate = today;
+        updateDueDate();
+        initLineItems();
+        renderLive();
+        loadHistory();
+        renderCatalogue();
+        renderQQ();
+    } catch (err) {
+        console.error('Admin App: Critical Init Error:', err);
+    }
 });
 
 // --- Navigation ---
