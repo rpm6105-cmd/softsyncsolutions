@@ -143,6 +143,7 @@ window.updateDueDate = () => {
         document.getElementById('doc-due-date').valueAsDate = dueDate;
         // --- Rendering Engine ---
 window.renderLive = () => {
+    console.log('Admin App: renderLive() triggered');
     try {
         const mode    = document.getElementById('suite-mode').value;
         const client  = document.getElementById('doc-client').value || '---';
@@ -201,14 +202,6 @@ window.renderLive = () => {
                         </div>
                     </div>
                 </div>
-                            <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
-                                <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
-                                <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- BILLING INFO -->
             <div style="display:grid;grid-template-columns:1fr 1fr;background:${C.offWhite};">
