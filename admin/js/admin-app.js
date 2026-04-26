@@ -15,6 +15,44 @@ const company = {
     director: 'Rohith P.M.'
 };
 
+/* ── BRAND PALETTE (upgraded) ── */
+const C = {
+    navy:        '#0f172a',
+    navyDark:    '#020617',
+    violet:      '#7c3aed',
+    violetLight: '#f5f3ff',
+    violetMid:   '#c4b5fd',
+    white:       '#ffffff',
+    offWhite:    '#f8fafc',
+    textDark:    '#1e293b',
+    textMid:     '#475569',
+    textLight:   '#94a3b8',
+    border:      '#e2e8f0',
+    borderMid:   '#cbd5e1',
+    blue:        '#2563eb',
+    blueLight:   '#eff6ff'
+};
+
+const GRADIENT = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
+const LOGO = 'assets/images/company-logo-full.svg';
+const LOGO_ICON = 'assets/images/company-logo-icon.svg';
+
+/* ── SIGNATURE ── */
+const sig = `
+    <div style="text-align:right;">
+        <p style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:${C.navy};margin:0 0 2px;line-height:1.1;">Rohith P.M.</p>
+        <div style="width:120px;height:2px;background:${GRADIENT};margin:0 0 5px auto;"></div>
+        <p style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:${C.textLight};">Director, Softsync Solutions</p>
+    </div>`;
+
+/* ── FOOTER BAR ── */
+const footer = `
+    <div style="background:${C.navyDark};padding:12px 18mm;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">www.softsyncsolutions.in</span>
+        <div style="width:5px;height:5px;border-radius:50%;background:${C.violet};opacity:0.8;box-shadow:0 0 10px ${C.violet};"></div>
+        <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">Trusted Partner in Digital Transformation</span>
+    </div>`;
+
 // --- Initial Setup ---
 document.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -103,104 +141,70 @@ window.updateDueDate = () => {
         const dueDate = new Date(docDate);
         dueDate.setDate(dueDate.getDate() + 14);
         document.getElementById('doc-due-date').valueAsDate = dueDate;
-        renderLive();
-    }
-};
-
-// --- Rendering Engine ---
+        // --- Rendering Engine ---
 window.renderLive = () => {
-    const mode    = document.getElementById('suite-mode').value;
-    const client  = document.getElementById('doc-client').value || '---';
-    const subject = document.getElementById('doc-subject').value || '';
-    const addr    = document.getElementById('doc-client-address').value || '';
-    const phone   = document.getElementById('doc-client-phone').value || '';
-    const rawDate = new Date(document.getElementById('doc-date').value);
-    const rawDue  = new Date(document.getElementById('doc-due-date').value);
-    const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
-    const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+    try {
+        const mode    = document.getElementById('suite-mode').value;
+        const client  = document.getElementById('doc-client').value || '---';
+        const subject = document.getElementById('doc-subject').value || '';
+        const addr    = document.getElementById('doc-client-address').value || '';
+        const phone   = document.getElementById('doc-client-phone').value || '';
+        const rawDate = new Date(document.getElementById('doc-date').value);
+        const rawDue  = new Date(document.getElementById('doc-due-date').value);
+        const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
+        const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
 
-    /* ── BRAND PALETTE (upgraded) ── */
-    const C = {
-        navy:        '#0f172a',
-        navyDark:    '#020617',
-        violet:      '#7c3aed',
-        violetLight: '#f5f3ff',
-        violetMid:   '#c4b5fd',
-        white:       '#ffffff',
-        offWhite:    '#f8fafc',
-        textDark:    '#1e293b',
-        textMid:     '#475569',
-        textLight:   '#94a3b8',
-        border:      '#e2e8f0',
-        borderMid:   '#cbd5e1',
-        blue:        '#2563eb',
-        blueLight:   '#eff6ff'
-    };
+        /* ══════════════════════════════════════════════
+           QUOTATION & INVOICE
+        ══════════════════════════════════════════════ */
+        if (mode === 'quotation' || mode === 'invoice') {
+            const isInv       = mode === 'invoice';
+            const label       = isInv ? 'TAX INVOICE' : 'QUOTATION';
+            const accentColor = isInv ? '#2563eb' : C.violet;
+            const statusLabel = isInv ? 'PENDING'   : 'DRAFT';
+            const statusBg    = isInv ? '#eff6ff'   : C.violetLight;
+            const statusColor = isInv ? '#1e40af'   : C.violet;
 
-    const GRADIENT = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
-    const LOGO = 'assets/images/company-logo-full.svg';
-    const LOGO_ICON = 'assets/images/company-logo-icon.svg';
+            let subtotal = 0;
+            const rows = activeItems.map((item, idx) => {
+                const lt = item.qty * item.rate; subtotal += lt;
+                return `<tr style="border-bottom:1px solid ${C.border};">
+                    <td style="padding:12px 14px;font-size:0.75rem;color:${C.textMid};vertical-align:top;">${idx + 1}</td>
+                    <td style="padding:12px 8px;font-size:0.85rem;color:${C.textDark};font-weight:500;line-height:1.4;">${item.desc}</td>
+                    <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:center;">${item.qty}</td>
+                    <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
+                    <td style="padding:12px 14px;font-size:0.85rem;font-weight:700;color:${C.textDark};text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
+                </tr>`;
+            }).join('');
 
-    /* ── SIGNATURE ── */
-    const sig = `
-        <div style="text-align:right;">
-            <p style="font-family:'Great Vibes',cursive;font-size:2.2rem;color:${C.navy};margin:0 0 2px;line-height:1.1;">Rohith P.M.</p>
-            <div style="width:120px;height:2px;background:${GRADIENT};margin:0 0 5px auto;"></div>
-            <p style="font-size:0.58rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:${C.textLight};">Director, Softsync Solutions</p>
-        </div>`;
-
-    /* ── FOOTER BAR ── */
-    const footer = `
-        <div style="background:${C.navyDark};padding:12px 18mm;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">www.softsyncsolutions.in</span>
-            <div style="width:5px;height:5px;border-radius:50%;background:${C.violet};opacity:0.8;box-shadow:0 0 10px ${C.violet};"></div>
-            <span style="font-size:0.55rem;color:rgba(255,255,255,0.5);letter-spacing:0.12em;text-transform:uppercase;">Trusted Partner in Digital Transformation</span>
-        </div>`;
-
-    /* ══════════════════════════════════════════════
-       QUOTATION & INVOICE
-    ══════════════════════════════════════════════ */
-    if (mode === 'quotation' || mode === 'invoice') {
-        const isInv       = mode === 'invoice';
-        const label       = isInv ? 'TAX INVOICE' : 'QUOTATION';
-        const accentColor = isInv ? '#2563eb' : C.violet;
-        const statusLabel = isInv ? 'PENDING'   : 'DRAFT';
-        const statusBg    = isInv ? '#eff6ff'   : C.violetLight;
-        const statusColor = isInv ? '#1e40af'   : C.violet;
-
-        let subtotal = 0;
-        const rows = activeItems.map((item, idx) => {
-            const lt = item.qty * item.rate; subtotal += lt;
-            return `<tr style="border-bottom:1px solid ${C.border};">
-                <td style="padding:12px 14px;font-size:0.75rem;color:${C.textMid};vertical-align:top;">${idx + 1}</td>
-                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textDark};font-weight:500;line-height:1.4;">${item.desc}</td>
-                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:center;">${item.qty}</td>
-                <td style="padding:12px 8px;font-size:0.85rem;color:${C.textMid};text-align:right;">₹${item.rate.toLocaleString('en-IN')}</td>
-                <td style="padding:12px 14px;font-size:0.85rem;font-weight:700;color:${C.textDark};text-align:right;">₹${lt.toLocaleString('en-IN')}</td>
-            </tr>`;
-        }).join('');
-
-        document.getElementById('document-preview').innerHTML = `
-        <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
-
-            <!-- HEADER -->
-            <div style="position:relative;background:${C.white};padding:10mm 18mm 8mm;border-bottom:1px solid ${C.border};overflow:hidden;">
-                <div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>
-                <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
-                    <div style="display:flex;align-items:center;gap:15px;">
-                        <div style="width:56px;height:56px;border-radius:12px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                            <img src="${LOGO_ICON}" style="width:36px;height:auto;filter:brightness(0) invert(1);">
+            document.getElementById('document-preview').innerHTML = `
+            <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
+                <!-- HEADER -->
+                <div style="position:relative;background:${C.white};padding:10mm 18mm 8mm;border-bottom:1px solid ${C.border};overflow:hidden;">
+                    <div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>
+                    <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
+                        <div style="display:flex;align-items:center;gap:15px;">
+                            <div style="width:56px;height:56px;border-radius:12px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                                <img src="${LOGO_ICON}" style="width:36px;height:auto;filter:brightness(0) invert(1);">
+                            </div>
+                            <div>
+                                <h1 style="font-size:1.5rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</h1>
+                                <p style="font-size:0.75rem;color:${C.textMid};margin:2px 0 0;">SaaS Development Agency</p>
+                            </div>
                         </div>
-                        <div>
-                            <h1 style="font-size:1.5rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</h1>
-                            <p style="font-size:0.75rem;color:${C.textMid};margin:2px 0 0;">SaaS Development Agency</p>
+                        <div style="text-align:right;">
+                            <div style="font-size:1.8rem;font-weight:900;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em;">${label}</div>
+                            <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
+                                <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
+                                <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
+                            </div>
                         </div>
                     </div>
-                    <div style="text-align:right;">
-                        <div style="font-size:1.8rem;font-weight:900;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em;">${label}</div>
-                        <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
-                            <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
-                            <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
+                </div>
+                            <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
+                                <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
+                                <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -429,7 +433,19 @@ window.renderLive = () => {
         </div>`;
     }
 
+    } catch (err) {
+        console.error('Render Error:', err);
+        const preview = document.getElementById('document-preview');
+        if (preview) {
+            preview.innerHTML = `<div style="padding:40px;color:#ef4444;background:#fee2e2;border:1px solid #f87171;border-radius:12px;font-family:sans-serif;">
+                <h3 style="margin-top:0;">Rendering Error</h3>
+                <p style="font-size:0.9rem;">${err.message}</p>
+                <p style="font-size:0.8rem;opacity:0.8;">Check the browser console for details.</p>
+            </div>`;
+        }
+    }
 };
+
 
 // --- Sync & History ---
 window.saveDocument = async () => {
