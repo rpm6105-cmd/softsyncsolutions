@@ -141,7 +141,11 @@ window.updateDueDate = () => {
         const dueDate = new Date(docDate);
         dueDate.setDate(dueDate.getDate() + 14);
         document.getElementById('doc-due-date').valueAsDate = dueDate;
-        // --- Rendering Engine ---
+    }
+    renderLive();
+};
+
+// --- Rendering Engine ---
 window.renderLive = () => {
     console.log('Admin App: renderLive() triggered');
     try {
