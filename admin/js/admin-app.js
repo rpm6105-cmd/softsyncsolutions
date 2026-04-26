@@ -253,19 +253,29 @@ window.renderLive = () => {
                 <!-- TOTALS SECTION -->
                 <div style="display:flex;justify-content:flex-end;margin-top:10mm;margin-bottom:10mm;">
                     <div style="width:320px;background:${C.offWhite};border-radius:12px;padding:20px;border:1px solid ${C.border};">
-                        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:15px;">
                             <span style="font-size:0.85rem;color:${C.textMid};">Subtotal</span>
                             <span style="font-size:0.9rem;font-weight:700;color:${C.textDark};">₹${subtotal.toLocaleString('en-IN')}</span>
-                        </div>
-                        <div style="display:flex;justify-content:space-between;margin-bottom:15px;">
-                            <span style="font-size:0.85rem;color:${C.textMid};">Tax (GST 18%)</span>
-                            <span style="font-size:0.9rem;font-weight:700;color:${C.textDark};">₹${(subtotal * 0.18).toLocaleString('en-IN')}</span>
                         </div>
                         <div style="height:1px;background:${C.borderMid};margin-bottom:15px;"></div>
                         <div style="display:flex;justify-content:space-between;align-items:center;background:${GRADIENT};margin:-10px -10px -10px -10px;padding:15px;border-radius:0 0 12px 12px;">
                             <span style="font-size:1rem;font-weight:800;color:white;">Grand Total</span>
-                            <span style="font-size:1.3rem;font-weight:900;color:white;">₹${(subtotal * 1.18).toLocaleString('en-IN')}</span>
+                            <span style="font-size:1.3rem;font-weight:900;color:white;">₹${subtotal.toLocaleString('en-IN')}</span>
                         </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:5mm;">
+                    <div style="flex:1;">
+                        <div style="padding:15px;background:${C.blueLight};border-radius:12px;border:1px solid rgba(37,99,235,0.1);max-width:400px;">
+                            <p style="font-size:0.7rem;color:${C.blue};line-height:1.6;margin:0;">
+                                <span style="font-weight:800;">Instructions:</span> Please mention the document number in payment reference.
+                                Payment is due within 7 days.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="width:200px;">
+                        ${sig}
                     </div>
                 </div>
 
@@ -288,11 +298,6 @@ window.renderLive = () => {
                     </div>
                 </div>
 
-                <div style="margin-top:10mm;padding:15px;background:${C.blueLight};border-radius:12px;border:1px solid rgba(37,99,235,0.1);">
-                    <p style="font-size:0.7rem;color:${C.blue};line-height:1.6;margin:0;">
-                        <span style="font-weight:800;">Instructions:</span> Please mention the document number in payment reference.
-                        Payment is due within 7 days. For queries, contact billing@softsyncsolutions.in
-                    </p>
                 </div>
             </div>
 
