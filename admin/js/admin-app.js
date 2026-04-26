@@ -139,6 +139,7 @@ window.renderLive = () => {
 
     const GRADIENT = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
     const LOGO = 'assets/images/company-logo-full.svg';
+    const LOGO_ICON = 'assets/images/company-logo-icon.svg';
 
     /* ── SIGNATURE ── */
     const sig = `
