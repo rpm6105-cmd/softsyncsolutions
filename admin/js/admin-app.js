@@ -380,7 +380,6 @@ window.renderLive = () => {
 
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
-    }
     } else if (mode === 'letterhead') {
         document.getElementById('document-preview').innerHTML = `
         <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
