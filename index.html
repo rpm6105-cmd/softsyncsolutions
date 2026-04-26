@@ -24,9 +24,42 @@
     <link rel="canonical" href="https://softsyncsolutions.in/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="icon" type="image/png" href="assets/images/logo-s.png">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Critical CSS Inlined -->
+    <style>
+      :root {
+          --primary: #4f46e5; --accent: #10b981; --bg-dark: #050816; --text: #f8fafc;
+          --gradient: linear-gradient(135deg, #10b981 0%, #4f46e5 52%, #f8d36f 120%);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Inter', sans-serif; background: #050816; color: var(--text); line-height: 1.7; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+      .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+      .navbar { position: sticky; top: 0; width: 100%; padding: 0.9rem 0; z-index: 1000; backdrop-filter: blur(8px); }
+      .hero { position: relative; padding: 8rem 0 6rem; overflow: hidden; background: radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.12), transparent 26rem); }
+      h1 { font-family: 'Outfit', sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+      .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+      .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+      .btn { display: inline-flex; align-items: center; padding: 0.85rem 1.75rem; border-radius: 12px; font-weight: 700; transition: 0.3s; cursor: pointer; }
+      .btn-vibrant { background: var(--accent); color: #000; box-shadow: 0 0 24px rgba(16, 185, 129, 0.24); }
+      
+      /* Dashboard Mockup - Critical */
+      .dash-wrap { width:100%; border-radius:28px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); box-shadow:0 44px 120px rgba(0,0,0,0.62); background:#0f172a; font-family:Inter,sans-serif; font-size:11px; }
+      .dash-titlebar { background:rgba(30,41,59,0.96); padding:12px 16px; display:flex; align-items:center; gap:6px; }
+      .dash-body { display:flex; height:380px; }
+      
+      @media (max-width:768px) {
+        .container { padding: 0 1.25rem; }
+        .hero { padding: 6rem 0 4rem; text-align: center; }
+        .dash-body { flex-direction: column; height: auto; }
+      }
+    </style>
+    
+    <!-- Deferred non-critical CSS -->
+    <link rel="preload" href="assets/css/styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="assets/css/styles.css"></noscript>
+    <link rel="icon" type="image/svg+xml" href="assets/images/company-logo-icon.svg">
     <style>
       /* Dashboard Mockup */
       .dash-wrap { width:100%; border-radius:28px; overflow:hidden; border:1px solid rgba(255,255,255,0.14); box-shadow:0 44px 120px rgba(0,0,0,0.62),0 0 90px rgba(16, 185, 129, 0.12); background:linear-gradient(145deg,#0f172a,#050816); font-family:Inter,sans-serif; font-size:11px; }
@@ -140,12 +173,12 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <main>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container navbar-container">
-            <a href="#hero" class="logo" style="display:flex; align-items:center; gap:0.6rem;">
-                <img src="assets/images/logo-s.png" alt="Softsync Solutions" style="height:32px; width:auto; border-radius:8px;">
-                <span style="font-size:1.22rem; font-weight:800; letter-spacing:-0.4px;">Softsync</span>
+            <a href="#hero" class="logo">
+                <img src="assets/images/company-logo-full.svg" alt="Softsync Solutions" width="160" height="38" style="height:38px; width:auto; filter: brightness(0) invert(1); opacity: 0.9;">
             </a>
             <ul class="nav-links">
                 <li><a href="#hero" class="active">Home</a></li>
@@ -367,7 +400,7 @@
                 <!-- Case Study 1: HRMS -->
                 <div class="project-card reveal" data-category="hr">
                     <div class="project-image">
-                        <img src="assets/img/projects/showcase-hrms.svg" alt="Anonymized HRMS payroll dashboard mockup" class="screenshot-crop">
+                        <img src="assets/img/projects/showcase-hrms.svg" alt="Anonymized HRMS payroll dashboard mockup" class="screenshot-crop" width="1600" height="900">
                         <div class="project-overlay"><span class="project-category">HR &amp; Payroll</span></div>
                     </div>
                     <div class="project-info">
@@ -393,7 +426,7 @@
                 <!-- Case Study 2: Compliance -->
                 <div class="project-card reveal" data-category="compliance">
                     <div class="project-image">
-                        <img src="assets/img/projects/showcase-compliance.svg" alt="Anonymized compliance tracker dashboard mockup" class="screenshot-crop">
+                        <img src="assets/img/projects/showcase-compliance.svg" alt="Anonymized compliance tracker dashboard mockup" class="screenshot-crop" width="1600" height="900">
                         <div class="project-overlay"><span class="project-category">Legal &amp; Compliance</span></div>
                     </div>
                     <div class="project-info">
@@ -418,7 +451,7 @@
                 <!-- Case Study 3: Solar -->
                 <div class="project-card reveal" data-category="energy">
                     <div class="project-image">
-                        <img src="assets/img/projects/showcase-solar.svg" alt="Anonymized solar ROI proposal engine mockup" class="screenshot-crop">
+                        <img src="assets/img/projects/showcase-solar.svg" alt="Anonymized solar ROI proposal engine mockup" class="screenshot-crop" width="1600" height="900">
                         <div class="project-overlay"><span class="project-category">Energy &amp; Utilities</span></div>
                     </div>
                     <div class="project-info">
@@ -443,7 +476,7 @@
                 <!-- Case Study 4: Fleet Management -->
                 <div class="project-card reveal" data-category="fleet">
                     <div class="project-image">
-                        <img src="assets/img/projects/showcase-fleet.svg" alt="Anonymized fleet operations dashboard mockup" class="screenshot-crop">
+                        <img src="assets/img/projects/showcase-fleet.svg" alt="Anonymized fleet operations dashboard mockup" class="screenshot-crop" width="1600" height="900">
                         <div class="project-overlay"><span class="project-category">Logistics</span></div>
                     </div>
                     <div class="project-info">
@@ -632,16 +665,16 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" placeholder="Full Name" required>
+                                <input type="text" id="name" name="name" placeholder="Full Name" required aria-label="Your Full Name">
                             </div>
                             <div class="form-group">
                                 <label for="email">Work Email</label>
-                                <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                                <input type="email" id="email" name="email" placeholder="you@company.com" required aria-label="Work Email Address">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="company">Business Type / Industry</label>
-                            <input type="text" id="company" name="company" placeholder="e.g. Logistics, E-commerce, Healthcare" required>
+                            <input type="text" id="company" name="company" placeholder="e.g. Logistics, E-commerce, Healthcare" required aria-label="Business Type or Industry">
                         </div>
                         <button type="button" class="btn-next" id="next-btn">Next Step &rarr;</button>
                     </div>
@@ -684,6 +717,7 @@
             </div>
         </div>
     </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
