@@ -116,9 +116,11 @@ window.updateUI = () => {
     const preview = document.getElementById('document-preview');
     const itemsEditor = document.getElementById('items-editor');
     const proposalEditor = document.getElementById('proposal-editor');
+    const letterEditor = document.getElementById('letter-editor');
     itemsEditor.style.display = 'none';
     proposalEditor.style.display = 'none';
-    if (mode === 'letterhead')      { preview.className = 'a4-page theme-cyan'; }
+    letterEditor.style.display = 'none';
+    if (mode === 'letterhead')      { letterEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
     else if (mode === 'proposal')   { proposalEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
     else if (mode === 'quotation')  { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
     else if (mode === 'invoice')    { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-indigo'; }
@@ -419,7 +421,7 @@ window.renderLive = () => {
                 ${subject ? `<div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:10mm;padding-bottom:5mm;border-bottom:2px solid ${C.offWhite};display:flex;gap:8px;">
                     <span style="color:${C.textLight};font-weight:600;">Subject:</span> ${subject}
                 </div>` : ''}
-                <div style="font-size:0.95rem;color:${C.textDark};line-height:1.8;white-space:pre-wrap;">[ Your letter content here ]</div>
+                <div style="font-size:0.95rem;color:${C.textDark};line-height:1.8;white-space:pre-wrap;">${document.getElementById('letter-body').value || '[ Your letter content here ]'}</div>
             </div>
 
             <!-- SIGNATURE -->
@@ -457,6 +459,7 @@ window.saveDocument = async () => {
         Object.assign(payload,{project_title:subject,project_overview:document.getElementById('p-overview').value,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
     } else {
         payload.service=subject; payload.items=activeItems;
+        if(mode==='letterhead') payload.message_body = document.getElementById('letter-body').value;
         if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}else{payload.price=amount;}
     }
     const { error } = await supabase.from(table).insert([payload]);
@@ -537,6 +540,10 @@ window.loadDocumentFromHistory = (idx) => {
         } else if (d.service) {
             // Fallback: single item from service name + total
             activeItems.push({ desc: d.service || 'Service', qty: 1, rate: d._val || 0 });
+        }
+        if (d._type === 'letterhead') {
+            const lb = document.getElementById('letter-body');
+            if (lb) lb.value = d.message_body || '';
         }
         initLineItems();
     }

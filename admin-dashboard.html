@@ -404,6 +404,13 @@
                         <div class="form-group" style="margin-bottom:0;"><label>Notes</label><textarea id="p-notes" class="form-input" style="height:52px;" oninput="renderLive()"></textarea></div>
                     </div>
 
+                    <div class="card" id="letter-editor" style="display:none;">
+                        <h3>Letter Content</h3>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <textarea id="letter-body" class="form-input" style="height:280px;" oninput="renderLive()" placeholder="Type your letter content here..."></textarea>
+                        </div>
+                    </div>
+
                     <div class="card" id="items-editor">
                         <h3>Line Items</h3>
                         <div style="display:grid;grid-template-columns:1fr 60px 80px 32px;gap:6px;margin-bottom:6px;">
