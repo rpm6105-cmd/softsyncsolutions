@@ -34,8 +34,15 @@ const C = {
 };
 
 const GRADIENT = 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)';
-const LOGO = 'assets/images/company-logo-full.svg';
-const LOGO_ICON = 'assets/images/company-logo-icon.svg';
+const LOGO = 'assets/images/Logo.svg';
+const LOGO_ICON = 'assets/images/Logo.svg';
+
+const BANK = {
+    bank: 'ICICI Bank',
+    acc:  '142001524122',
+    ifsc: 'ICIC0001420',
+    holder: 'Softsync Solutions'
+};
 
 /* ── SIGNATURE ── */
 const sig = `
@@ -266,22 +273,14 @@ window.renderLive = () => {
                         <div style="width:4px;height:18px;background:${GRADIENT};border-radius:2px;"></div>
                         Payment Details
                     </h3>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                    <div style="display:grid;grid-template-columns:1fr;gap:20px;">
                         <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;">
                             <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Bank Transfer</h4>
-                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;gap:6px;">
-                                <div style="display:flex;justify-content:space-between;"><span>Bank</span><span style="font-weight:600;color:${C.textDark};">HDFC Bank</span></div>
-                                <div style="display:flex;justify-content:space-between;"><span>Account</span><span style="font-weight:600;color:${C.textDark};">Softsync Solutions</span></div>
-                                <div style="display:flex;justify-content:space-between;"><span>IFSC</span><span style="font-weight:600;color:${C.textDark};">HDFC0001234</span></div>
-                                <div style="display:flex;justify-content:space-between;"><span>Account #</span><span style="font-weight:600;color:${C.textDark};">50200012345678</span></div>
-                            </div>
-                        </div>
-                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;">
-                            <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Digital Payment</h4>
-                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;gap:6px;">
-                                <div style="display:flex;justify-content:space-between;"><span>UPI ID</span><span style="font-weight:600;color:${C.textDark};">softsync@hdfcbank</span></div>
-                                <div style="display:flex;justify-content:space-between;"><span>Google Pay</span><span style="font-weight:600;color:${C.textDark};">+91 72599 56572</span></div>
-                                <div style="display:flex;justify-content:space-between;"><span>PayPal</span><span style="font-weight:600;color:${C.textDark};">payments@softsync.in</span></div>
+                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+                                <div style="display:flex;justify-content:space-between;padding-right:20px;border-right:1px solid ${C.border};"><span>Bank</span><span style="font-weight:600;color:${C.textDark};">${BANK.bank}</span></div>
+                                <div style="display:flex;justify-content:space-between;padding-left:20px;"><span>Account</span><span style="font-weight:600;color:${C.textDark};">${BANK.holder}</span></div>
+                                <div style="display:flex;justify-content:space-between;padding-right:20px;border-right:1px solid ${C.border};"><span>IFSC</span><span style="font-weight:600;color:${C.textDark};">${BANK.ifsc}</span></div>
+                                <div style="display:flex;justify-content:space-between;padding-left:20px;"><span>Account #</span><span style="font-weight:600;color:${C.textDark};">${BANK.acc}</span></div>
                             </div>
                         </div>
                     </div>
@@ -298,12 +297,13 @@ window.renderLive = () => {
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
     } else if (mode === 'proposal') {
-        const scope        = document.getElementById('p-scope').value;
-        const deliverables = document.getElementById('p-deliverables').value;
-        const cost         = document.getElementById('p-cost').value;
-        const timeline     = document.getElementById('p-timeline').value;
-        const payment      = document.getElementById('p-payment').value;
-        const notes        = document.getElementById('p-notes').value;
+        const overview      = document.getElementById('p-overview').value;
+        const scope         = document.getElementById('p-scope').value;
+        const deliverables  = document.getElementById('p-deliverables').value;
+        const cost          = document.getElementById('p-cost').value;
+        const timeline      = document.getElementById('p-timeline').value;
+        const payment       = document.getElementById('p-payment').value;
+        const notes         = document.getElementById('p-notes').value;
 
         const section = (num, title, content) => `
             <div style="margin-bottom:8mm;padding-bottom:6mm;border-bottom:1px solid ${C.border};">
@@ -362,6 +362,7 @@ window.renderLive = () => {
 
             <!-- CONTENT -->
             <div style="padding:10mm 18mm 0;background:${C.white};">
+                ${overview ? `<div style="font-size:0.95rem;color:${C.textMid};line-height:1.8;margin-bottom:10mm;white-space:pre-wrap;padding:6mm;background:${C.offWhite};border-radius:12px;border-left:4px solid ${C.blue};">${overview}</div>` : ''}
                 ${section('1', 'Scope of Work', scope.replace(/\n/g, '<br>'))}
                 ${section('2', 'Deliverables', deliverables.replace(/\n/g, '<br>'))}
                 ${section('3', 'Payment Terms', payment.replace(/\n/g, '<br>'))}
@@ -453,7 +454,7 @@ window.saveDocument = async () => {
     let table = mode==='invoice' ? 'invoices' : (mode==='proposal' ? 'proposals' : 'quotes');
     const payload = { client_name: client, created_at: new Date().toISOString() };
     if (mode==='proposal') {
-        Object.assign(payload,{project_title:subject,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
+        Object.assign(payload,{project_title:subject,project_overview:document.getElementById('p-overview').value,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
     } else {
         payload.service=subject; payload.items=activeItems;
         if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}else{payload.price=amount;}
@@ -516,6 +517,7 @@ window.loadDocumentFromHistory = (idx) => {
     if (d._type === 'proposal') {
         // Fill proposal fields
         const fields = {
+            'p-overview':    d.project_overview|| '',
             'p-scope':       d.scope_of_work   || '',
             'p-deliverables':d.deliverables    || '',
             'p-cost':        d.project_cost    || '',
