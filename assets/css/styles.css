@@ -28,6 +28,10 @@
     scroll-behavior: smooth;
 }
 
+html {
+    scroll-padding-top: 96px;
+}
+
 body {
     font-family: 'Inter', sans-serif;
     background:
@@ -186,6 +190,7 @@ textarea:focus-visible {
     top: 0;
     width: 100%;
     padding: 0.9rem 0;
+    min-height: 82px;
     z-index: 1000;
     transition: 0.4s ease;
     backdrop-filter: blur(8px);
@@ -194,7 +199,7 @@ textarea:focus-visible {
 .navbar.scrolled {
     background: rgba(5, 8, 22, 0.78);
     backdrop-filter: blur(18px) saturate(160%);
-    padding: 0.65rem 0;
+    padding: 0.9rem 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
 }
@@ -398,6 +403,7 @@ textarea:focus-visible {
     position: relative;
     transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
     transform-origin: center;
+    min-width: 0;
 }
 
 .blob {
@@ -1164,7 +1170,7 @@ textarea:focus-visible {
     
     .hero {
         text-align: center;
-        padding-top: 132px;
+        padding-top: 118px;
     }
     
     .hero h1 { font-size: clamp(2.5rem, 8vw, 3.5rem); }
@@ -1202,7 +1208,7 @@ textarea:focus-visible {
     }
 
     .hero {
-        padding-top: 118px;
+        padding-top: 104px;
         padding-bottom: 2rem;
         text-align: left;
     }
@@ -1324,6 +1330,7 @@ textarea:focus-visible {
 
     .hero-image {
         margin-top: 8px;
+        transform: none;
     }
 
     .dash-wrap {
@@ -1389,20 +1396,17 @@ textarea:focus-visible {
 
     .hero-image {
         margin-top: 2px;
-        transform: none;
         max-width: 100%;
     }
 
     .dash-wrap {
         max-width: 100%;
         border-radius: 18px;
-        transform: scale(0.88);
-        transform-origin: top center;
-        margin: -20px auto 0;
+        margin: 0 auto;
     }
 
     .dash-body {
-        height: 250px;
+        height: auto;
     }
 
     .dash-main {

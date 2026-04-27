@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const formStatus = document.getElementById('form-status');
     navToggle?.setAttribute('aria-expanded', 'false');
 
+    let scrollTicking = false;
+
     const updateScrollState = () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -16,7 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('scrolled');
         }
 
-        scrollTopBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+        if (scrollTopBtn) {
+            scrollTopBtn.style.display = window.scrollY > 500 ? 'block' : 'none';
+        }
 
         let current = '';
         sections.forEach((section) => {
@@ -29,9 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
         navLinks.forEach((link) => {
             link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
         });
+
+        scrollTicking = false;
     };
 
-    window.addEventListener('scroll', updateScrollState);
+    const requestScrollState = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        window.requestAnimationFrame(updateScrollState);
+    };
+
+    window.addEventListener('scroll', requestScrollState, { passive: true });
     updateScrollState();
 
     const revealElements = document.querySelectorAll('.reveal');
@@ -50,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revealElements.forEach((el) => el.classList.add('active'));
     }
 
-    scrollTopBtn.addEventListener('click', () => {
+    scrollTopBtn?.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
