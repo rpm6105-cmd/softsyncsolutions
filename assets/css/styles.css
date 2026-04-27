@@ -90,6 +90,13 @@ img {
     padding: 5.5rem 0; /* Tightened from 7.5rem for better vertical density */
 }
 
+@supports (content-visibility: auto) {
+    .section:not(.hero) {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 900px;
+    }
+}
+
 .section-label {
     display: inline-flex;
     align-items: center;
@@ -1183,6 +1190,16 @@ textarea:focus-visible {
 }
 
 @media (max-width: 768px) {
+    .hero .fade-in {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .btn-vibrant {
+        animation: none;
+    }
+
     .nav-links {
         display: none;
         position: absolute;
