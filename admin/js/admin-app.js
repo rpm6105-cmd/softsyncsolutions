@@ -508,12 +508,18 @@ async function loadHistory() {
                 <td>₹${(d._val||0).toLocaleString('en-IN')}</td>
                 <td style="color:#94a3b8;">${new Date(d.created_at).toLocaleDateString('en-IN')}</td>
                 <td>
-                    <button class="btn btn-ghost" style="padding:4px 14px;font-size:0.75rem;"
-                        onclick="loadDocumentFromHistory(${idx})">
-                        View →
-                    </button>
-                </td>
-            </tr>`).join('');
+                        <div style="display:flex;gap:5px;">
+                            <button class="btn btn-ghost" style="padding:4px 10px;font-size:0.75rem;"
+                                onclick="loadDocumentFromHistory(${idx})">
+                                View →
+                            </button>
+                            <button class="btn btn-ghost" style="padding:4px 10px;font-size:0.75rem;color:#ef4444;"
+                                onclick="deleteDocumentFromHistory(${idx})">
+                                ✕
+                            </button>
+                        </div>
+                    </td>
+                </tr>`).join('');
     }
 }
 
@@ -577,6 +583,21 @@ window.loadDocumentFromHistory = (idx) => {
 
     renderLive();
     showCatToast(`Loaded ${d._label} for ${d.client_name || 'client'} ✓`);
+};
+
+window.deleteDocumentFromHistory = async (idx) => {
+    const d = _historyRecords[idx];
+    if (!d || !confirm(`Delete ${d._label} for ${d.client_name || 'this client'}?`)) return;
+
+    const table = d._type === 'invoice' ? 'invoices' : (d._type === 'proposal' ? 'proposals' : 'quotes');
+    const { error } = await supabase.from(table).delete().eq('id', d.id);
+
+    if (error) {
+        alert("Delete Error: " + error.message);
+    } else {
+        showCatToast(`Document deleted ✓`);
+        loadHistory();
+    }
 };
 
 // ═══════════════════════════════════════════════════════════════
