@@ -41,7 +41,7 @@ const BANK = {
     bank: 'ICICI Bank',
     acc:  '142001524122',
     ifsc: 'ICIC0001420',
-    holder: 'Softsync Solutions'
+    holder: 'Rohith P M'
 };
 
 /* ── SIGNATURE ── */
@@ -117,13 +117,27 @@ window.updateUI = () => {
     const itemsEditor = document.getElementById('items-editor');
     const proposalEditor = document.getElementById('proposal-editor');
     const letterEditor = document.getElementById('letter-editor');
+    const subjectField = document.getElementById('subject-field-group');
+
     itemsEditor.style.display = 'none';
     proposalEditor.style.display = 'none';
     letterEditor.style.display = 'none';
-    if (mode === 'letterhead')      { letterEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'proposal')   { proposalEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'quotation')  { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-cyan'; }
-    else if (mode === 'invoice')    { itemsEditor.style.display = 'block'; preview.className = 'a4-page theme-indigo'; }
+    subjectField.style.display = 'none';
+
+    if (mode === 'letterhead') {
+        letterEditor.style.display = 'block';
+        subjectField.style.display = 'block';
+        preview.className = 'a4-page theme-cyan';
+    } else if (mode === 'proposal') {
+        proposalEditor.style.display = 'block';
+        preview.className = 'a4-page theme-cyan';
+    } else if (mode === 'quotation') {
+        itemsEditor.style.display = 'block';
+        preview.className = 'a4-page theme-cyan';
+    } else if (mode === 'invoice') {
+        itemsEditor.style.display = 'block';
+        preview.className = 'a4-page theme-indigo';
+    }
     renderLive();
 };
 
@@ -174,10 +188,10 @@ window.renderLive = () => {
         if (mode === 'quotation' || mode === 'invoice') {
             const isInv       = mode === 'invoice';
             const label       = isInv ? 'TAX INVOICE' : 'QUOTATION';
-            const accentColor = isInv ? '#2563eb' : C.violet;
+            const accentColor = isInv ? '#1e40af' : '#7c3aed'; // Formal Blue vs Vibrant Violet
             const statusLabel = isInv ? 'PENDING'   : 'DRAFT';
-            const statusBg    = isInv ? '#eff6ff'   : C.violetLight;
-            const statusColor = isInv ? '#1e40af'   : C.violet;
+            const headerBg    = isInv ? '#f8fafc' : '#f5f3ff';
+            const headerBorder = isInv ? `1px solid ${C.border}` : `2px solid ${C.violetMid}`;
 
             let subtotal = 0;
             const rows = activeItems.map((item, idx) => {
@@ -194,22 +208,22 @@ window.renderLive = () => {
             document.getElementById('document-preview').innerHTML = `
             <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;">
                 <!-- HEADER -->
-                <div style="position:relative;background:${C.white};padding:10mm 18mm 8mm;border-bottom:1px solid ${C.border};overflow:hidden;">
-                    <div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>
+                <div style="position:relative;background:${headerBg};padding:12mm 18mm 10mm;border-bottom:${headerBorder};overflow:hidden;">
+                    ${!isInv ? `<div style="position:absolute;inset:0;background:linear-gradient(135deg, ${C.blueLight} 0%, ${C.violetLight} 100%);opacity:0.4;"></div>` : ''}
                     <div style="position:relative;display:flex;justify-content:space-between;align-items:flex-start;">
                         <div style="display:flex;align-items:center;gap:15px;">
-                            <div style="width:56px;height:56px;border-radius:12px;background:${GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                                <img src="${LOGO_ICON}" style="width:36px;height:auto;filter:brightness(0) invert(1);">
+                            <div style="width:60px;height:60px;border-radius:14px;background:${isInv ? C.navy : GRADIENT};display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                                <img src="${LOGO_ICON}" style="width:38px;height:auto;filter:brightness(0) invert(1);">
                             </div>
                             <div>
-                                <h1 style="font-size:1.5rem;font-weight:800;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;">${company.name}</h1>
-                                <p style="font-size:0.75rem;color:${C.textMid};margin:2px 0 0;">SaaS Development Agency</p>
+                                <h1 style="font-size:1.6rem;font-weight:800;${isInv ? `color:${C.navyDark}` : `background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent`};margin:0;">${company.name}</h1>
+                                <p style="font-size:0.8rem;color:${C.textMid};margin:2px 0 0;letter-spacing:0.02em;">Digital Transformation Experts</p>
                             </div>
                         </div>
                         <div style="text-align:right;">
-                            <div style="font-size:1.8rem;font-weight:900;background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-0.02em;">${label}</div>
-                            <div style="margin-top:8px;font-size:0.7rem;color:${C.textMid};">
-                                <div style="margin-bottom:3px;"><span style="font-weight:600;color:${C.textDark};">#INV-2026-001</span></div>
+                            <div style="font-size:2rem;font-weight:900;${isInv ? `color:${accentColor}` : `background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent`};letter-spacing:-0.02em;line-height:1;">${label}</div>
+                            <div style="margin-top:10px;font-size:0.75rem;color:${C.textMid};">
+                                <div style="margin-bottom:4px;"><span style="font-weight:700;color:${C.textDark};">#${isInv ? 'INV' : 'QT'}-2026-${Math.floor(Math.random()*900)+100}</span></div>
                                 <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
                             </div>
                         </div>
@@ -217,83 +231,81 @@ window.renderLive = () => {
                 </div>
 
             <!-- BILLING INFO -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;background:${C.offWhite};">
-                <div style="padding:8mm 18mm;border-right:1px solid ${C.border};">
-                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:8px;">From</div>
-                    <div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:4px;">${company.name}</div>
-                    <div style="font-size:0.75rem;color:${C.textMid};line-height:1.6;max-width:240px;">${company.address}</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;background:${C.offWhite};border-bottom:1px solid ${C.border};">
+                <div style="padding:10mm 18mm;border-right:1px solid ${C.border};">
+                    <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:10px;">Issued By</div>
+                    <div style="font-size:1.1rem;font-weight:800;color:${C.textDark};margin-bottom:6px;">${company.name}</div>
+                    <div style="font-size:0.8rem;color:${C.textMid};line-height:1.6;max-width:240px;">${company.address}</div>
+                    <div style="font-size:0.8rem;color:${C.textMid};margin-top:4px;">${company.email}</div>
                 </div>
-                <div style="padding:8mm 15mm;">
-                    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:8px;">Bill To</div>
-                    <div style="font-size:1rem;font-weight:800;color:${C.textDark};margin-bottom:4px;">${client}</div>
-                    <div style="font-size:0.75rem;color:${C.textMid};line-height:1.6;">${addr}</div>
-                    ${phone ? `<div style="font-size:0.75rem;color:${C.textMid};margin-top:2px;">${phone}</div>` : ''}
+                <div style="padding:10mm 18mm;">
+                    <div style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.15em;color:${C.textLight};margin-bottom:10px;">${isInv ? 'Billed To' : 'Quotation For'}</div>
+                    <div style="font-size:1.1rem;font-weight:800;color:${C.textDark};margin-bottom:6px;">${client}</div>
+                    <div style="font-size:0.8rem;color:${C.textMid};line-height:1.6;">${addr}</div>
+                    ${phone ? `<div style="font-size:0.8rem;color:${C.textMid};margin-top:4px;">${phone}</div>` : ''}
                 </div>
             </div>
 
             <!-- LINE ITEMS -->
-            <div style="padding:8mm 18mm;background:${C.white};">
-                <div style="border-radius:12px;border:1px solid ${C.border};overflow:hidden;box-shadow:0 4px 6px -1px rgba(0,0,0,0.05);">
+            <div style="padding:10mm 18mm;background:${C.white};">
+                <div style="border-radius:14px;border:1px solid ${C.border};overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.03);">
                     <table style="width:100%;border-collapse:collapse;">
                         <thead>
-                            <tr style="background:${GRADIENT};">
-                                <th style="padding:14px;font-size:0.75rem;font-weight:700;color:white;text-align:left;width:30px;">#</th>
-                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:left;">Description</th>
-                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:center;width:50px;">Qty</th>
-                                <th style="padding:14px 8px;font-size:0.75rem;font-weight:700;color:white;text-align:right;width:100px;">Rate</th>
-                                <th style="padding:14px 14px;font-size:0.75rem;font-weight:700;color:white;text-align:right;width:110px;">Amount</th>
+                            <tr style="background:${isInv ? C.navy : GRADIENT};">
+                                <th style="padding:16px;font-size:0.75rem;font-weight:800;color:white;text-align:left;width:30px;text-transform:uppercase;letter-spacing:0.05em;">#</th>
+                                <th style="padding:16px 8px;font-size:0.75rem;font-weight:800;color:white;text-align:left;text-transform:uppercase;letter-spacing:0.05em;">Description</th>
+                                <th style="padding:16px 8px;font-size:0.75rem;font-weight:800;color:white;text-align:center;width:50px;text-transform:uppercase;letter-spacing:0.05em;">Qty</th>
+                                <th style="padding:16px 8px;font-size:0.75rem;font-weight:800;color:white;text-align:right;width:100px;text-transform:uppercase;letter-spacing:0.05em;">Rate</th>
+                                <th style="padding:16px 16px;font-size:0.75rem;font-weight:800;color:white;text-align:right;width:120px;text-transform:uppercase;letter-spacing:0.05em;">Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${rows || `<tr><td colspan="5" style="padding:40px;text-align:center;color:${C.textLight};font-size:0.9rem;font-style:italic;">No items added yet</td></tr>`}
+                            ${rows || `<tr><td colspan="5" style="padding:60px;text-align:center;color:${C.textLight};font-size:0.95rem;font-style:italic;background:${C.offWhite};">No items listed. Add services to generate ${isInv ? 'invoice' : 'quote'}.</td></tr>`}
                         </tbody>
                     </table>
                 </div>
 
                 <!-- TOTALS SECTION -->
-                <div style="display:flex;justify-content:flex-end;margin-top:10mm;margin-bottom:10mm;">
-                    <div style="width:320px;background:${C.offWhite};border-radius:12px;padding:20px;border:1px solid ${C.border};">
-                        <div style="display:flex;justify-content:space-between;margin-bottom:15px;">
-                            <span style="font-size:0.85rem;color:${C.textMid};">Subtotal</span>
-                            <span style="font-size:0.9rem;font-weight:700;color:${C.textDark};">₹${subtotal.toLocaleString('en-IN')}</span>
+                <div style="display:flex;justify-content:flex-end;margin-top:12mm;">
+                    <div style="width:340px;background:${C.offWhite};border-radius:16px;padding:24px;border:1px solid ${C.border};">
+                        <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
+                            <span style="font-size:0.9rem;color:${C.textMid};">Subtotal</span>
+                            <span style="font-size:0.95rem;font-weight:700;color:${C.textDark};">₹${subtotal.toLocaleString('en-IN')}</span>
                         </div>
-                        <div style="height:1px;background:${C.borderMid};margin-bottom:15px;"></div>
-                        <div style="display:flex;justify-content:space-between;align-items:center;background:${GRADIENT};margin:-10px -10px -10px -10px;padding:15px;border-radius:0 0 12px 12px;">
-                            <span style="font-size:1rem;font-weight:800;color:white;">Grand Total</span>
-                            <span style="font-size:1.3rem;font-weight:900;color:white;">₹${subtotal.toLocaleString('en-IN')}</span>
+                        <div style="height:1px;background:${C.border};margin-bottom:12px;"></div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;background:${isInv ? C.navy : GRADIENT};margin:12px -24px -24px -24px;padding:20px 24px;border-radius:0 0 16px 16px;box-shadow:0 -4px 12px rgba(0,0,0,0.05);">
+                            <span style="font-size:1.1rem;font-weight:800;color:white;">Grand Total</span>
+                            <span style="font-size:1.5rem;font-weight:900;color:white;">₹${subtotal.toLocaleString('en-IN')}</span>
                         </div>
                     </div>
                 </div>
 
-                <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:5mm;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:8mm;">
                     <div style="flex:1;">
-                        <div style="padding:15px;background:${C.blueLight};border-radius:12px;border:1px solid rgba(37,99,235,0.1);max-width:400px;">
-                            <p style="font-size:0.7rem;color:${C.blue};line-height:1.6;margin:0;">
-                                <span style="font-weight:800;">Instructions:</span> Please mention the document number in payment reference.
-                                Payment is due within 7 days.
+                        <div style="padding:18px;background:${isInv ? '#eff6ff' : C.violetLight};border-radius:14px;border:1px solid ${isInv ? 'rgba(37,99,235,0.1)' : 'rgba(124,58,237,0.1)'};max-width:420px;">
+                            <p style="font-size:0.75rem;color:${isInv ? '#1e40af' : C.violet};line-height:1.7;margin:0;">
+                                <span style="font-weight:900;text-transform:uppercase;letter-spacing:0.05em;">Important:</span><br>
+                                ${isInv ? 'Please process the payment within 7 days of invoice issue. Mention invoice # in transfer reference.' : 'This quotation is valid for 14 days. Prices are subject to change based on final requirements.'}
                             </p>
                         </div>
                     </div>
-                    <div style="width:200px;">
+                    <div style="width:200px;text-align:right;">
                         ${sig}
                     </div>
                 </div>
 
                 <!-- PAYMENT DETAILS -->
-                <div style="margin-top:12mm;">
-                    <h3 style="font-size:1.1rem;font-weight:800;color:${C.navyDark};margin-bottom:15px;display:flex;align-items:center;gap:8px;">
-                        <div style="width:4px;height:18px;background:${GRADIENT};border-radius:2px;"></div>
-                        Payment Details
+                <div style="margin-top:14mm;padding-top:8mm;border-top:1px solid ${C.border};">
+                    <h3 style="font-size:1.1rem;font-weight:800;color:${C.navyDark};margin-bottom:15px;display:flex;align-items:center;gap:10px;">
+                        <div style="width:5px;height:22px;background:${isInv ? C.navy : GRADIENT};border-radius:3px;"></div>
+                        Bank Transfer Details
                     </h3>
-                    <div style="display:flex;gap:20px;">
-                        <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:12px;padding:18px;flex: 1; max-width: 480px;">
-                            <h4 style="font-size:0.8rem;font-weight:800;color:${C.textDark};margin:0 0 12px;text-transform:uppercase;letter-spacing:0.05em;">Bank Transfer</h4>
-                            <div style="font-size:0.75rem;color:${C.textMid};display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-                                <div style="display:flex;justify-content:space-between;padding-right:20px;border-right:1px solid ${C.border};"><span>Bank</span><span style="font-weight:600;color:${C.textDark};">${BANK.bank}</span></div>
-                                <div style="display:flex;justify-content:space-between;padding-left:20px;"><span>Account</span><span style="font-weight:600;color:${C.textDark};">${BANK.holder}</span></div>
-                                <div style="display:flex;justify-content:space-between;padding-right:20px;border-right:1px solid ${C.border};"><span>IFSC</span><span style="font-weight:600;color:${C.textDark};">${BANK.ifsc}</span></div>
-                                <div style="display:flex;justify-content:space-between;padding-left:20px;"><span>Account #</span><span style="font-weight:600;color:${C.textDark};">${BANK.acc}</span></div>
-                            </div>
+                    <div style="background:${C.offWhite};border:1px solid ${C.border};border-radius:16px;padding:20px;max-width:540px;">
+                        <div style="font-size:0.8rem;color:${C.textMid};display:grid;grid-template-columns:1fr 1.2fr;gap:10px;">
+                            <div style="display:flex;justify-content:space-between;padding-right:15px;border-right:1px solid ${C.border};"><span>Bank Name</span><span style="font-weight:700;color:${C.textDark};">${BANK.bank}</span></div>
+                            <div style="display:flex;justify-content:space-between;padding-left:15px;"><span>Account Holder</span><span style="font-weight:700;color:${C.textDark};">${BANK.holder}</span></div>
+                            <div style="display:flex;justify-content:space-between;padding-right:15px;border-right:1px solid ${C.border};"><span>IFSC Code</span><span style="font-weight:700;color:${C.textDark};">${BANK.ifsc}</span></div>
+                            <div style="display:flex;justify-content:space-between;padding-left:15px;"><span>Account Number</span><span style="font-weight:700;color:${C.textDark};">${BANK.acc}</span></div>
                         </div>
                     </div>
                 </div>
@@ -303,6 +315,7 @@ window.renderLive = () => {
 
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
+
     } else if (mode === 'proposal') {
         const overview      = document.getElementById('p-overview').value;
         const scope         = document.getElementById('p-scope').value;
