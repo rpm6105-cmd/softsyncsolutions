@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const today = new Date();
         document.getElementById('doc-date').valueAsDate = today;
-        updateDueDate();
+        updateUI();
         initLineItems();
         renderLive();
         loadHistory();
@@ -182,6 +182,14 @@ window.renderLive = () => {
         const dateStr = !isNaN(rawDate) ? rawDate.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
         const validStr= !isNaN(rawDue)  ? rawDue.toLocaleDateString ('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '—';
 
+        // Dynamic Document Numbering
+        const now   = new Date();
+        const year  = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const rand  = String(Math.floor(Math.random() * 900) + 100);
+        const invNum = `${year}-${month}-${rand}`;
+        const qtNum  = `${year}-${rand}`;
+
         /* ══════════════════════════════════════════════
            QUOTATION & INVOICE
         ══════════════════════════════════════════════ */
@@ -223,7 +231,7 @@ window.renderLive = () => {
                         <div style="text-align:right;">
                             <div style="font-size:2rem;font-weight:900;${isInv ? `color:${accentColor}` : `background:${GRADIENT};-webkit-background-clip:text;-webkit-text-fill-color:transparent`};letter-spacing:-0.02em;line-height:1;">${label}</div>
                             <div style="margin-top:10px;font-size:0.75rem;color:${C.textMid};">
-                                <div style="margin-bottom:4px;"><span style="font-weight:700;color:${C.textDark};">#${isInv ? 'INV' : 'QT'}-2026-${Math.floor(Math.random()*900)+100}</span></div>
+                                <div style="margin-bottom:4px;"><span style="font-weight:700;color:${C.textDark};">#${isInv ? invNum : qtNum}</span></div>
                                 <div>Date: <span style="font-weight:600;color:${C.textDark};">${dateStr}</span></div>
                             </div>
                         </div>
