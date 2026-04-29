@@ -117,11 +117,13 @@ window.updateUI = () => {
     const itemsEditor = document.getElementById('items-editor');
     const proposalEditor = document.getElementById('proposal-editor');
     const letterEditor = document.getElementById('letter-editor');
+    const moaEditor = document.getElementById('moa-editor');
     const subjectField = document.getElementById('subject-field-group');
 
     itemsEditor.style.display = 'none';
     proposalEditor.style.display = 'none';
     letterEditor.style.display = 'none';
+    moaEditor.style.display = 'none';
     subjectField.style.display = 'none';
 
     if (mode === 'letterhead') {
@@ -136,6 +138,9 @@ window.updateUI = () => {
         preview.className = 'a4-page theme-cyan';
     } else if (mode === 'invoice') {
         itemsEditor.style.display = 'block';
+        preview.className = 'a4-page theme-indigo';
+    } else if (mode === 'moa') {
+        moaEditor.style.display = 'block';
         preview.className = 'a4-page theme-indigo';
     }
     renderLive();
@@ -457,11 +462,98 @@ window.renderLive = () => {
 
             <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
         </div>`;
+
+    } else if (mode === 'moa') {
+        const purpose    = document.getElementById('moa-purpose').value;
+        const scope      = document.getElementById('moa-scope').value;
+        const cost       = document.getElementById('moa-cost').value;
+        const payment    = document.getElementById('moa-payment').value;
+        const timeline   = document.getElementById('moa-timeline').value;
+        const law        = document.getElementById('moa-law').value;
+
+        const section = (num, title, content) => `
+            <div style="margin-bottom:6mm;">
+                <h3 style="font-size:0.9rem;font-weight:800;color:${C.navyDark};margin-bottom:3mm;text-transform:uppercase;letter-spacing:0.05em;display:flex;gap:8px;">
+                    <span>${num}.</span> <span>${title}</span>
+                </h3>
+                <div style="font-size:0.85rem;color:${C.textDark};line-height:1.6;padding-left:8mm;white-space:pre-wrap;">${content}</div>
+            </div>`;
+
+        document.getElementById('document-preview').innerHTML = `
+        <div style="background:${C.white};min-height:297mm;position:relative;font-family:'Inter',sans-serif;padding:20mm 18mm;">
+            <!-- WATERMARK / ACCENT -->
+            <div style="position:absolute;top:0;right:0;width:100mm;height:100mm;background:radial-gradient(circle at top right, ${C.blueLight} 0%, transparent 70%);opacity:0.4;z-index:0;"></div>
+
+            <div style="position:relative;z-index:1;">
+                <!-- TITLE -->
+                <div style="text-align:center;margin-bottom:12mm;">
+                    <h1 style="font-size:1.8rem;font-weight:900;color:${C.navyDark};text-transform:uppercase;letter-spacing:0.1em;margin:0;">Memorandum of Agreement</h1>
+                    <div style="width:60mm;height:3px;background:${GRADIENT};margin:3mm auto;"></div>
+                    <p style="font-size:0.85rem;color:${C.textMid};margin-top:2px;">Dated: <span style="font-weight:700;color:${C.textDark};">${dateStr}</span></p>
+                </div>
+
+                <!-- PARTIES -->
+                <div style="font-size:0.85rem;color:${C.textDark};line-height:1.8;margin-bottom:10mm;background:${C.offWhite};padding:6mm;border-radius:12px;border:1px solid ${C.border};">
+                    This Memorandum of Agreement (“Agreement”) is entered into on **${dateStr}**, by and between:
+                    <br><br>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div>
+                            <strong style="color:${C.navy};">Service Provider:</strong><br>
+                            <span style="font-weight:700;">${company.name}</span><br>
+                            ${company.address}
+                        </div>
+                        <div>
+                            <strong style="color:${C.navy};">Client:</strong><br>
+                            <span style="font-weight:700;">${client}</span><br>
+                            ${addr || '[Client Address]'}
+                        </div>
+                    </div>
+                </div>
+
+                <div style="height:1px;background:${C.border};margin-bottom:8mm;"></div>
+
+                <!-- SECTIONS -->
+                ${section('1', 'Purpose', purpose)}
+                ${section('2', 'Scope of Work', scope)}
+                ${section('3', 'Project Cost', `Total Project Cost: **₹${parseFloat(cost).toLocaleString('en-IN')}** (as per quotation)\nTaxes (if applicable): Extra`)}
+                ${section('4', 'Payment Terms', payment)}
+                ${section('5', 'Implementation Timeline', timeline)}
+                
+                <div style="page-break-before: always; height:1px;"></div>
+
+                ${section('6', 'Client Responsibilities', `The Client agrees to:\n* Provide accurate requirements and data on time\n* Assign a point of contact for coordination\n* Review and approve deliverables promptly`)}
+                ${section('7', 'Support & Maintenance', `30 days of free post-delivery support included\nPost-support period: AMC (Annual Maintenance Contract) can be opted separately`)}
+                ${section('8', 'Data Security & Confidentiality', `Both parties agree to maintain confidentiality of all shared data and not disclose it to any third party without prior consent.`)}
+                ${section('9', 'Intellectual Property', `The final software developed for the Client will be usable by the Client. Core framework/technology remains the intellectual property of the Service Provider.`)}
+                ${section('10', 'Termination', `Either party may terminate this agreement with written notice if terms are not fulfilled or payments are delayed. Advance payments are non-refundable once work has commenced.`)}
+                ${section('11', 'Limitation of Liability', `The Service Provider shall not be liable for any indirect losses or issues arising due to incorrect data provided by the Client.`)}
+                ${section('12', 'Governing Law', `This Agreement shall be governed by the laws of India, and jurisdiction shall be ${law}.`)}
+                
+                <!-- ACCEPTANCE -->
+                <div style="margin-top:12mm;padding-top:8mm;border-top:1.5px solid ${C.navy};">
+                    <h3 style="font-size:0.9rem;font-weight:900;text-transform:uppercase;margin-bottom:8mm;color:${C.navyDark};">13. Acceptance</h3>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40mm;">
+                        <div>
+                            <div style="font-size:0.8rem;font-weight:800;margin-bottom:12mm;color:${C.textMid};">For ${company.name}</div>
+                            ${sig}
+                        </div>
+                        <div>
+                            <div style="font-size:0.8rem;font-weight:800;margin-bottom:20mm;color:${C.textMid};">For ${client}</div>
+                            <div style="border-top:1px solid ${C.textLight};padding-top:4px;">
+                                <div style="font-size:0.7rem;color:${C.textLight};text-transform:uppercase;">Authorized Signatory</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
+        </div>`;
     }
 
     } catch (err) {
         console.error('Render Error:', err);
-        const preview = document.getElementById('document-preview');
         if (preview) {
             preview.innerHTML = `<div style="padding:40px;color:#ef4444;background:#fee2e2;border:1px solid #f87171;border-radius:12px;font-family:sans-serif;">
                 <h3 style="margin-top:0;">Rendering Error</h3>
@@ -486,8 +578,21 @@ window.saveDocument = async () => {
     } else {
         payload.service=subject; payload.items=activeItems;
         if(mode==='letterhead') payload.message_body = document.getElementById('letter-body').value;
-        if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}else{payload.price=amount;}
+        if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}
+        if(mode==='moa') {
+            Object.assign(payload, {
+                purpose: document.getElementById('moa-purpose').value,
+                scope:   document.getElementById('moa-scope').value,
+                cost:    document.getElementById('moa-cost').value,
+                payment: document.getElementById('moa-payment').value,
+                timeline:document.getElementById('moa-timeline').value,
+                law:     document.getElementById('moa-law').value
+            });
+        }
+        if(mode!=='invoice' && mode!=='moa') payload.price=amount;
     }
+    const tableMap = { quotation:'quotes', invoice:'invoices', proposal:'proposals', moa:'moas', letterhead:'quotes' };
+    const table = tableMap[mode] || 'quotes';
     const { error } = await supabase.from(table).insert([payload]);
     if (error) alert("Sync Error: "+error.message);
     else { alert("Synced to Cloud!"); loadHistory(); }
@@ -500,11 +605,13 @@ async function loadHistory() {
     const {data:q}=await supabase.from('quotes').select('*').order('created_at',{ascending:false}).limit(10);
     const {data:i}=await supabase.from('invoices').select('*').order('created_at',{ascending:false}).limit(10);
     const {data:p}=await supabase.from('proposals').select('*').order('created_at',{ascending:false}).limit(10);
+    const {data:m}=await supabase.from('moas').select('*').order('created_at',{ascending:false}).limit(10);
 
     _historyRecords = [
         ...(q||[]).map(x=>({...x, _type:'quotation',  _label:'Quote',    _val:x.price})),
         ...(i||[]).map(x=>({...x, _type:'invoice',    _label:'Invoice',  _val:x.amount})),
-        ...(p||[]).map(x=>({...x, _type:'proposal',   _label:'Proposal', _val:x.project_cost}))
+        ...(p||[]).map(x=>({...x, _type:'proposal',   _label:'Proposal', _val:x.project_cost})),
+        ...(m||[]).map(x=>({...x, _type:'moa',        _label:'MOA',      _val:x.cost}))
     ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
 
     const list = document.getElementById('history-list');
@@ -550,7 +657,6 @@ window.loadDocumentFromHistory = (idx) => {
     if (subjectEl) subjectEl.value = d.service || d.project_title || '';
 
     if (d._type === 'proposal') {
-        // Fill proposal fields
         const fields = {
             'p-overview':    d.project_overview|| '',
             'p-scope':       d.scope_of_work   || '',
@@ -564,18 +670,29 @@ window.loadDocumentFromHistory = (idx) => {
             const el = document.getElementById(id);
             if (el) el.value = val;
         }
+    } else if (d._type === 'moa') {
+        const fields = {
+            'moa-purpose': d.purpose || '',
+            'moa-scope':   d.scope   || '',
+            'moa-cost':    d.cost    || 0,
+            'moa-payment': d.payment || '',
+            'moa-timeline':d.timeline|| '',
+            'moa-law':     d.law     || 'Mumbai, Maharashtra',
+        };
+        for (const [id, val] of Object.entries(fields)) {
+            const el = document.getElementById(id);
+            if (el) el.value = val;
+        }
+    } else if (d._type === 'letterhead') {
+        const lb = document.getElementById('letter-body');
+        if (lb) lb.value = d.message_body || '';
     } else {
-        // Fill line items
+        // Quotation or Invoice
         activeItems.length = 0;
-        if (Array.isArray(d.items) && d.items.length) {
+        if (Array.isArray(d.items)) {
             d.items.forEach(item => activeItems.push(item));
         } else if (d.service) {
-            // Fallback: single item from service name + total
-            activeItems.push({ desc: d.service || 'Service', qty: 1, rate: d._val || 0 });
-        }
-        if (d._type === 'letterhead') {
-            const lb = document.getElementById('letter-body');
-            if (lb) lb.value = d.message_body || '';
+            activeItems.push({ desc: d.service, qty: 1, rate: d._val || 0 });
         }
         initLineItems();
     }
@@ -583,10 +700,7 @@ window.loadDocumentFromHistory = (idx) => {
     // Set date if available
     if (d.created_at) {
         const dateEl = document.getElementById('doc-date');
-        if (dateEl) {
-            dateEl.valueAsDate = new Date(d.created_at);
-            updateDueDate();
-        }
+        if (dateEl) dateEl.valueAsDate = new Date(d.created_at);
     }
 
     renderLive();
