@@ -469,6 +469,7 @@ window.renderLive = () => {
         const cost       = document.getElementById('moa-cost').value;
         const payment    = document.getElementById('moa-payment').value;
         const timeline   = document.getElementById('moa-timeline').value;
+        const support    = document.getElementById('moa-support').value;
         const law        = document.getElementById('moa-law').value;
 
         const section = (num, title, content) => `
@@ -522,7 +523,7 @@ window.renderLive = () => {
                 <div style="page-break-before: always; height:1px;"></div>
 
                 ${section('6', 'Client Responsibilities', `The Client agrees to:\n* Provide accurate requirements and data on time\n* Assign a point of contact for coordination\n* Review and approve deliverables promptly`)}
-                ${section('7', 'Support & Maintenance', `30 days of free post-delivery support included\nPost-support period: AMC (Annual Maintenance Contract) can be opted separately`)}
+                ${section('7', 'Support & Maintenance', support)}
                 ${section('8', 'Data Security & Confidentiality', `Both parties agree to maintain confidentiality of all shared data and not disclose it to any third party without prior consent.`)}
                 ${section('9', 'Intellectual Property', `The final software developed for the Client will be usable by the Client. Core framework/technology remains the intellectual property of the Service Provider.`)}
                 ${section('10', 'Termination', `Either party may terminate this agreement with written notice if terms are not fulfilled or payments are delayed. Advance payments are non-refundable once work has commenced.`)}
@@ -585,6 +586,7 @@ window.saveDocument = async () => {
                 cost:    document.getElementById('moa-cost').value,
                 payment: document.getElementById('moa-payment').value,
                 timeline:document.getElementById('moa-timeline').value,
+                support:  document.getElementById('moa-support').value,
                 law:     document.getElementById('moa-law').value
             });
         }
@@ -676,6 +678,7 @@ window.loadDocumentFromHistory = (idx) => {
             'moa-cost':    d.cost    || 0,
             'moa-payment': d.payment || '',
             'moa-timeline':d.timeline|| '',
+            'moa-support': d.support  || '',
             'moa-law':     d.law     || 'Mumbai, Maharashtra',
         };
         for (const [id, val] of Object.entries(fields)) {
