@@ -574,7 +574,10 @@ window.saveDocument = async () => {
     if (mode==='proposal') {
         Object.assign(payload,{project_title:subject,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
     } else {
-        payload.service=subject; payload.items=activeItems;
+        if(mode !== 'moa') {
+            payload.service=subject; 
+            payload.items=activeItems;
+        }
         if(mode==='letterhead') payload.message_body = document.getElementById('letter-body').value;
         if(mode==='invoice'){payload.amount=amount;payload.status='Pending';}
         if(mode==='moa') {
