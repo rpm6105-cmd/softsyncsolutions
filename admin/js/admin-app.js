@@ -9,7 +9,7 @@ const supabase = createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey, {
 let activeItems = [];
 const company = {
     name: 'Softsync Solutions',
-    address: 'Pushpak Nagar, Karanjade, 410206',
+    address: 'Pushpak Nagar, Navi Mumbai, 410221',
     email: 'rohith@softsyncsolutions.in',
     phone: '7259956572',
     director: 'Rohith P.M.'
