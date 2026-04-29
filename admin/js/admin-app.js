@@ -330,7 +330,6 @@ window.renderLive = () => {
         </div>`;
 
     } else if (mode === 'proposal') {
-        const overview      = document.getElementById('p-overview').value;
         const scope         = document.getElementById('p-scope').value;
         const deliverables  = document.getElementById('p-deliverables').value;
         const cost          = document.getElementById('p-cost').value;
@@ -394,8 +393,7 @@ window.renderLive = () => {
             </div>
 
             <!-- CONTENT -->
-            <div style="padding:10mm 18mm 0;background:${C.white};">
-                ${overview ? `<div style="font-size:0.95rem;color:${C.textMid};line-height:1.8;margin-bottom:10mm;white-space:pre-wrap;padding:6mm;background:${C.offWhite};border-radius:12px;border-left:4px solid ${C.blue};">${overview}</div>` : ''}
+            <div style="padding:10mm 18mm 0;background:${C.white};flex:1;">
                 ${section('1', 'Scope of Work', scope.replace(/\n/g, '<br>'))}
                 ${section('2', 'Deliverables', deliverables.replace(/\n/g, '<br>'))}
                 ${section('3', 'Payment Terms', payment.replace(/\n/g, '<br>'))}
@@ -406,7 +404,7 @@ window.renderLive = () => {
             </div>
 
             <!-- SIGN OFF -->
-            <div style="padding:0 18mm 10mm;background:${C.white};display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="padding:10mm 18mm;background:${C.white};display:flex;justify-content:space-between;align-items:flex-end;">
                 <div style="font-size:0.75rem;color:${C.textMid};line-height:1.8;max-width:280px;font-style:italic;">
                     This proposal is valid for 21 days from the date above.<br>
                     Project kickoff begins upon receipt of advance payment.
@@ -414,7 +412,7 @@ window.renderLive = () => {
                 ${sig}
             </div>
 
-            <div style="position:absolute;bottom:0;left:0;width:100%;">${footer}</div>
+            <div style="margin-top:auto;width:100%;">${footer}</div>
         </div>`;
     } else if (mode === 'letterhead') {
         document.getElementById('document-preview').innerHTML = `
@@ -574,7 +572,7 @@ window.saveDocument = async () => {
     const amount = mode === 'proposal' ? parseFloat(document.getElementById('p-cost').value||0) : activeItems.reduce((acc,item)=>acc+(item.qty*item.rate),0);
     const payload = { client_name: client, created_at: new Date().toISOString() };
     if (mode==='proposal') {
-        Object.assign(payload,{project_title:subject,project_overview:document.getElementById('p-overview').value,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
+        Object.assign(payload,{project_title:subject,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
     } else {
         payload.service=subject; payload.items=activeItems;
         if(mode==='letterhead') payload.message_body = document.getElementById('letter-body').value;
@@ -659,7 +657,6 @@ window.loadDocumentFromHistory = (idx) => {
 
     if (d._type === 'proposal') {
         const fields = {
-            'p-overview':    d.project_overview|| '',
             'p-scope':       d.scope_of_work   || '',
             'p-deliverables':d.deliverables    || '',
             'p-cost':        d.project_cost    || '',

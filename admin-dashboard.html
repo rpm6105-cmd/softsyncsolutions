@@ -269,7 +269,6 @@
             transform: scale(0.63);
             transform-origin: top center;
             font-family: 'Inter', sans-serif;
-            overflow: hidden;
             position: relative;
         }
 
@@ -327,7 +326,7 @@
                 left: 0; 
                 top: 0; 
                 width: 210mm; 
-                height: 297mm; 
+                min-height: 297mm; 
                 margin: 0; 
                 transform: scale(1) !important; 
                 box-shadow: none !important; 
@@ -433,13 +432,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                     <div class="card" id="proposal-editor" style="display:none;">
                         <h3>Project Structure</h3>
-                        <div class="form-group"><label>Project Overview (Intro)</label><textarea id="p-overview" class="form-input" style="height:100px;" oninput="renderLive()" placeholder="Introduction to the proposal..."></textarea></div>
-                        <div class="form-group"><label>Scope of Work</label><textarea id="p-scope" class="form-input" style="height:80px;" oninput="renderLive()" placeholder="Project boundaries..."></textarea></div>
-                        <div class="form-group"><label>Deliverables</label><textarea id="p-deliverables" class="form-input" style="height:70px;" oninput="renderLive()" placeholder="What client will receive..."></textarea></div>
-                        <div class="form-group"><label>Project Cost (₹)</label><input type="number" id="p-cost" class="form-input" oninput="renderLive()"></div>
-                        <div class="form-group"><label>Timeline</label><input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4 Weeks"></div>
-                        <div class="form-group"><label>Payment Terms</label><textarea id="p-payment" class="form-input" style="height:52px;" oninput="renderLive()" placeholder="e.g. 50% advance..."></textarea></div>
-                        <div class="form-group" style="margin-bottom:0;"><label>Notes</label><textarea id="p-notes" class="form-input" style="height:52px;" oninput="renderLive()"></textarea></div>
+                        <div class="form-group"><label>Scope of Work</label><textarea id="p-scope" class="form-input" style="height:120px;" oninput="renderLive()" placeholder="Detailed scope of work..."></textarea></div>
+                        <div class="form-group"><label>Deliverables</label><textarea id="p-deliverables" class="form-input" style="height:100px;" oninput="renderLive()" placeholder="Key deliverables..."></textarea></div>
+                        <div class="form-group"><label>Project Cost (₹)</label><input type="number" id="p-cost" class="form-input" oninput="renderLive()" placeholder="Total cost"></div>
+                        <div class="form-group"><label>Timeline</label><input type="text" id="p-timeline" class="form-input" oninput="renderLive()" placeholder="e.g. 4-6 Weeks"></div>
+                        <div class="form-group"><label>Payment Terms</label><textarea id="p-payment" class="form-input" style="height:70px;" oninput="renderLive()" placeholder="Payment milestones..."></textarea></div>
+                        <div class="form-group" style="margin-bottom:0;"><label>Notes</label><textarea id="p-notes" class="form-input" style="height:70px;" oninput="renderLive()"></textarea></div>
                     </div>
 
                     <div class="card" id="letter-editor" style="display:none;">
