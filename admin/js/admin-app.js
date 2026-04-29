@@ -571,7 +571,6 @@ window.saveDocument = async () => {
     const client = document.getElementById('doc-client').value;
     const subject = document.getElementById('doc-subject').value;
     const amount = mode === 'proposal' ? parseFloat(document.getElementById('p-cost').value||0) : activeItems.reduce((acc,item)=>acc+(item.qty*item.rate),0);
-    let table = mode==='invoice' ? 'invoices' : (mode==='proposal' ? 'proposals' : 'quotes');
     const payload = { client_name: client, created_at: new Date().toISOString() };
     if (mode==='proposal') {
         Object.assign(payload,{project_title:subject,project_overview:document.getElementById('p-overview').value,scope_of_work:document.getElementById('p-scope').value,deliverables:document.getElementById('p-deliverables').value,project_cost:amount,timeline:document.getElementById('p-timeline').value,payment_terms:document.getElementById('p-payment').value,notes:document.getElementById('p-notes').value});
